@@ -1,0 +1,16 @@
+class Individual < Person
+  STUDENT = 3
+  EMPLOYEE = 4
+  
+  #default_scope :conditions => {:type => PHYSICAL}
+  scope :individual, -> { where(type: 'Individual') }
+  #default_scope  {where(:type => PHYSICAL)}
+  
+  attr_accessible :cpf, :rg, :gender, :email
+  
+  has_one :user, dependent: :destroy
+  
+  accepts_nested_attributes_for :user, :allow_destroy => true
+  
+  
+end
