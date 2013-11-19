@@ -7,6 +7,6 @@ class Person < ActiveRecord::Base
   
   accepts_nested_attributes_for :locality, :allow_destroy => true
   
-  attr_accessible :name, :telefone1, :telefone2, :enrollment, :locality_attributes
+  attr_accessible :name, :phone1, :phone2, :enrollment, :locality_attributes
   
 end

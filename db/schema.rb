@@ -11,12 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131118185730) do
+ActiveRecord::Schema.define(version: 20131119014531) do
 
   create_table "cities", force: true do |t|
     t.string   "name",       limit: 100
     t.boolean  "capital",                default: false, null: false
     t.integer  "state_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "class_gyms", force: true do |t|
+    t.integer  "capacity"
+    t.string   "schedule",      limit: 200
+    t.integer  "modality_id"
+    t.integer  "instructor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,6 +56,17 @@ ActiveRecord::Schema.define(version: 20131118185730) do
     t.integer  "person_id"
   end
 
+  create_table "equipment", force: true do |t|
+    t.string   "description",           limit: 200
+    t.integer  "usability"
+    t.integer  "quantity"
+    t.datetime "next_maintenance_date"
+    t.integer  "status_equipment_id"
+    t.integer  "modality_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "localities", force: true do |t|
     t.string   "address",      limit: 300
     t.string   "district",     limit: 100
@@ -61,7 +81,37 @@ ActiveRecord::Schema.define(version: 20131118185730) do
     t.datetime "updated_at"
   end
 
+  create_table "maintenance_types", force: true do |t|
+    t.string   "description", limit: 200
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "maintenances", force: true do |t|
+    t.datetime "date"
+    t.decimal  "value",               precision: 6, scale: 2
+    t.string   "technical_feedback"
+    t.integer  "equipment_id"
+    t.integer  "maintenance_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "measure_units", force: true do |t|
+    t.string   "description", limit: 200
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "modalities", force: true do |t|
+    t.string   "name",       limit: 200
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "months", force: true do |t|
+    t.string   "name",         limit: 200
+    t.string   "abbreviation", limit: 10
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -96,6 +146,44 @@ ActiveRecord::Schema.define(version: 20131118185730) do
     t.datetime "updated_at"
   end
 
+  create_table "physical_assessment_types", force: true do |t|
+    t.string   "description", limit: 200
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "physical_assessments", force: true do |t|
+    t.datetime "date"
+    t.string   "measurer_feedback"
+    t.integer  "student_id"
+    t.integer  "instructor_id"
+    t.integer  "physical_assessment_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "physical_parameter_goals", force: true do |t|
+    t.float    "value"
+    t.integer  "physical_parameter_id"
+    t.integer  "measure_unit_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "physical_parameter_measures", force: true do |t|
+    t.float    "value"
+    t.integer  "physical_parameter_id"
+    t.integer  "measure_unit_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "physical_parameters", force: true do |t|
+    t.string   "description", limit: 200
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "roles", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -107,10 +195,52 @@ ActiveRecord::Schema.define(version: 20131118185730) do
     t.integer "user_id"
   end
 
+  create_table "self_physical_assessments", force: true do |t|
+    t.datetime "assessment_date"
+    t.string   "note"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "states", force: true do |t|
     t.string   "name",       limit: 100
     t.string   "acronym",    limit: 8
     t.integer  "country_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "status_equipments", force: true do |t|
+    t.string   "description", limit: 200
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "training_goals", force: true do |t|
+    t.string   "denomination", limit: 500
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "training_workouts", force: true do |t|
+    t.integer  "series"
+    t.integer  "repetitions"
+    t.datetime "duration"
+    t.float    "load"
+    t.integer  "training_id"
+    t.integer  "workout_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "trainings", force: true do |t|
+    t.datetime "last_training_date"
+    t.datetime "expiration_date"
+    t.boolean  "active"
+    t.integer  "training_goal_id"
+    t.integer  "student_id"
+    t.integer  "instructor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -143,6 +273,8 @@ ActiveRecord::Schema.define(version: 20131118185730) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "workouts", force: true do |t|
+    t.string   "description",  limit: 500
+    t.integer  "equipment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -18,6 +18,14 @@
   <%= f.text_field :name, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "80" %>
   
   <br>
+  <%= f.label 'CPF', :class => "control-label" %>
+  <%= f.text_field :cpf, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "80" %>
+  
+  <br>
+  <%= f.label 'Telefone', :class => "control-label" %>
+  <%= f.text_field :phone1, :onkeyup => "toUppercase(this);", :maxlength => "40" %>
+  
+  <br>
   <%= f.label 'E-mail', :class => "control-label" %>
   <%= f.text_field :email, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "40" %>
   

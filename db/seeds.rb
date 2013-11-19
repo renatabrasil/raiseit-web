@@ -49,3 +49,5 @@
   periodicity3.save
   periodicity4 = Periodicity.create!(:description => 'SEMESTRAL')
   periodicity4.save
+  
+  
