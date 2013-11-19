@@ -6,6 +6,6 @@ class Employee < Individual
   belongs_to :type_employee, foreign_key: :type_employee_id
   has_one :user, as: :user_account, dependent: :destroy
   
-  attr_accessible :type_employee_id
+  attr_accessible :enrollment, :type_employee_id
   
 end

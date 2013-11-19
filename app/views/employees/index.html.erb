@@ -1,12 +1,16 @@
-<h2>Empregados cadastrados</h2>
+<h2>Funcionários cadastrados</h2>
 
 
-<%= link_to 'Novo Empregado', new_employee_path %>
+<%= link_to 'Novo Funcionário', new_employee_path %>
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th class="rotulo">Nome</th>
+      <th class="rotulo" style="text-align: left">Nome</th>
+      <th class="rotulo" style="text-align: right">Matrícula</th>
+      <th class="rotulo" style="text-align: right">CPF</th>
+      <th class="rotulo" style="text-align: center;">Telefone</th>
       <th class="rotulo" style="text-align: center; width: 20%">E-mail</th>
+      <th class="rotulo" style="text-align: center;">Sexo</th>
       <th class="rotulo"></th>
     </tr>    
   </thead>
@@ -15,7 +19,11 @@
       <% @employees.each do |employee| %>
         <tr>
           <td><%= employee.name %></td>
+          <td style="text-align: right"><%= employee.enrollment.nil? ? " - " : employee.enrollment %></td>
+          <td style="text-align: right"><%= employee.cpf.nil? ? " - " : employee.cpf %></td>
+          <td style="text-align: center;"><%= employee.phone1 %></td>
           <td style="text-align: center;"><%= employee.email %></td>
+          <td style="text-align: center;"><%= employee.gender == 'F' ? "Feminino" : "Masculino" %></td>
           <td style="text-align: center; width: 20%">
             <%= link_to(employee_path(employee), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
                Visualizar
@@ -32,7 +40,7 @@
     <% else %>
     <tr>
         <td colspan="4" style="text-align: center">
-          <font class="text-error" >Não há características cadastradas.</font>
+          <font class="text-error" >Não há funcionários cadastrados.</font>
         </td>
       </tr>
     <% end %>
