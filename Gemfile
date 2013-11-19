@@ -32,7 +32,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-
 gem 'devise', '3.0.0.rc'
 gem 'protected_attributes'
 
