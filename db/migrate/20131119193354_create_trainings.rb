@@ -7,8 +7,8 @@ class CreateTrainings < ActiveRecord::Migration
       
       # Foreign key
       t.belongs_to :training_goal
-      t.integer :student_id, :references => "students"
-      t.integer :instructor_id, :references => "instructors"
+      t.integer :student_id, :references => "people"
+      t.integer :instructor_id, :references => "people"
       
       t.timestamps
     end

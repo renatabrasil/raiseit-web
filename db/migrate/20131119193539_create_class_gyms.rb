@@ -6,7 +6,7 @@ class CreateClassGyms < ActiveRecord::Migration
       
       # Foreign key
       t.belongs_to :modality
-      t.integer :instructor_id, :references => "instructors"
+      t.integer :instructor_id, :references => "people"
 
       t.timestamps
     end

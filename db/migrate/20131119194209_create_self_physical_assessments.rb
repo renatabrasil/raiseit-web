@@ -5,7 +5,7 @@ class CreateSelfPhysicalAssessments < ActiveRecord::Migration
       t.string :note
       
       # Foreign key
-      t.integer :student_id, :references => "students"
+      t.integer :student_id, :references => "people"
 
       t.timestamps
     end

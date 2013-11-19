@@ -11,24 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119014531) do
-
-  create_table "cities", force: true do |t|
-    t.string   "name",       limit: 100
-    t.boolean  "capital",                default: false, null: false
-    t.integer  "state_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "class_gyms", force: true do |t|
-    t.integer  "capacity"
-    t.string   "schedule",      limit: 200
-    t.integer  "modality_id"
-    t.integer  "instructor_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20131119194930) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -37,70 +20,24 @@ ActiveRecord::Schema.define(version: 20131119014531) do
     t.datetime "updated_at"
   end
 
-  create_table "enrollments", force: true do |t|
-    t.datetime "start_date"
-    t.string   "note",             limit: 500
-    t.decimal  "value",                        precision: 6, scale: 2
-    t.decimal  "registration_fee",             precision: 6, scale: 2
-    t.decimal  "discount",                     precision: 6, scale: 2
-    t.integer  "modality_id"
-    t.integer  "periodicity_id"
-    t.integer  "student_id"
+  create_table "states", force: true do |t|
+    t.string   "name",       limit: 100
+    t.string   "acronym",    limit: 8
+    t.integer  "country_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["country_id"], :name => "fk__states_country_id"
+    t.foreign_key ["country_id"], "countries", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_states_country_id"
   end
 
-  create_table "entry_records", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "person_id"
-  end
-
-  create_table "equipment", force: true do |t|
-    t.string   "description",           limit: 200
-    t.integer  "usability"
-    t.integer  "quantity"
-    t.datetime "next_maintenance_date"
-    t.integer  "status_equipment_id"
-    t.integer  "modality_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "localities", force: true do |t|
-    t.string   "address",      limit: 300
-    t.string   "district",     limit: 100
-    t.float    "latitude"
-    t.float    "longitude"
-    t.string   "cep",          limit: 20
-    t.integer  "address_id"
-    t.string   "address_type"
-    t.integer  "city_id"
+  create_table "cities", force: true do |t|
+    t.string   "name",       limit: 100
+    t.boolean  "capital",                default: false, null: false
     t.integer  "state_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "maintenance_types", force: true do |t|
-    t.string   "description", limit: 200
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "maintenances", force: true do |t|
-    t.datetime "date"
-    t.decimal  "value",               precision: 6, scale: 2
-    t.string   "technical_feedback"
-    t.integer  "equipment_id"
-    t.integer  "maintenance_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "measure_units", force: true do |t|
-    t.string   "description", limit: 200
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.index ["state_id"], :name => "fk__cities_state_id"
+    t.foreign_key ["state_id"], "states", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_cities_state_id"
   end
 
   create_table "modalities", force: true do |t|
@@ -109,17 +46,10 @@ ActiveRecord::Schema.define(version: 20131119014531) do
     t.datetime "updated_at"
   end
 
-  create_table "months", force: true do |t|
-    t.string   "name",         limit: 200
-    t.string   "abbreviation", limit: 10
+  create_table "type_employees", force: true do |t|
+    t.string   "name",       limit: 60
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "payments", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "person_id"
   end
 
   create_table "people", force: true do |t|
@@ -138,12 +68,137 @@ ActiveRecord::Schema.define(version: 20131119014531) do
     t.integer  "modality_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["modality_id"], :name => "fk__people_modality_id"
+    t.index ["type_employee_id"], :name => "fk__people_type_employee_id"
+    t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_people_modality_id"
+    t.foreign_key ["type_employee_id"], "type_employees", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_people_type_employee_id"
+  end
+
+  create_table "class_gyms", force: true do |t|
+    t.integer  "capacity"
+    t.string   "schedule",      limit: 200
+    t.integer  "modality_id"
+    t.integer  "instructor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["instructor_id"], :name => "fk__class_gyms_instructor_id"
+    t.index ["modality_id"], :name => "fk__class_gyms_modality_id"
+    t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_instructor_id"
+    t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_modality_id"
   end
 
   create_table "periodicities", force: true do |t|
     t.string   "description", limit: 120
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "enrollments", force: true do |t|
+    t.string   "code",             limit: 100
+    t.datetime "start_date"
+    t.string   "note",             limit: 500
+    t.decimal  "value",                        precision: 6, scale: 2
+    t.decimal  "registration_fee",             precision: 6, scale: 2
+    t.decimal  "discount",                     precision: 6, scale: 2
+    t.integer  "modality_id"
+    t.integer  "periodicity_id"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["modality_id"], :name => "fk__enrollments_modality_id"
+    t.index ["periodicity_id"], :name => "fk__enrollments_periodicity_id"
+    t.index ["student_id"], :name => "fk__enrollments_student_id"
+    t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_enrollments_modality_id"
+    t.foreign_key ["periodicity_id"], "periodicities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_enrollments_periodicity_id"
+    t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_enrollments_student_id"
+  end
+
+  create_table "entry_records", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "person_id"
+    t.index ["person_id"], :name => "fk__entry_records_person_id"
+    t.foreign_key ["person_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_entry_records_person_id"
+  end
+
+  create_table "status_equipments", force: true do |t|
+    t.string   "description", limit: 200
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "equipment", force: true do |t|
+    t.string   "description",           limit: 200
+    t.integer  "usability"
+    t.integer  "quantity"
+    t.datetime "next_maintenance_date"
+    t.integer  "status_equipment_id"
+    t.integer  "modality_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["modality_id"], :name => "fk__equipment_modality_id"
+    t.index ["status_equipment_id"], :name => "fk__equipment_status_equipment_id"
+    t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_equipment_modality_id"
+    t.foreign_key ["status_equipment_id"], "status_equipments", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_equipment_status_equipment_id"
+  end
+
+  create_table "localities", force: true do |t|
+    t.string   "address",      limit: 300
+    t.string   "district",     limit: 100
+    t.float    "latitude"
+    t.float    "longitude"
+    t.string   "zipcode",      limit: 20
+    t.integer  "address_id"
+    t.string   "address_type"
+    t.integer  "city_id"
+    t.integer  "state_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["city_id"], :name => "fk__localities_city_id"
+    t.index ["state_id"], :name => "fk__localities_state_id"
+    t.foreign_key ["city_id"], "cities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_localities_city_id"
+    t.foreign_key ["state_id"], "states", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_localities_state_id"
+  end
+
+  create_table "maintenance_types", force: true do |t|
+    t.string   "description", limit: 200
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "maintenances", force: true do |t|
+    t.datetime "date"
+    t.decimal  "value",               precision: 6, scale: 2
+    t.string   "technical_feedback"
+    t.integer  "equipment_id"
+    t.integer  "maintenance_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["equipment_id"], :name => "fk__maintenances_equipment_id"
+    t.index ["maintenance_type_id"], :name => "fk__maintenances_maintenance_type_id"
+    t.foreign_key ["equipment_id"], "equipment", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_maintenances_equipment_id"
+    t.foreign_key ["maintenance_type_id"], "maintenance_types", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_maintenances_maintenance_type_id"
+  end
+
+  create_table "measure_units", force: true do |t|
+    t.string   "description", limit: 200
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "months", force: true do |t|
+    t.string   "name",         limit: 200
+    t.string   "abbreviation", limit: 10
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "person_id"
+    t.index ["person_id"], :name => "fk__payments_person_id"
+    t.foreign_key ["person_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_payments_person_id"
   end
 
   create_table "physical_assessment_types", force: true do |t|
@@ -160,22 +215,12 @@ ActiveRecord::Schema.define(version: 20131119014531) do
     t.integer  "physical_assessment_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "physical_parameter_goals", force: true do |t|
-    t.float    "value"
-    t.integer  "physical_parameter_id"
-    t.integer  "measure_unit_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "physical_parameter_measures", force: true do |t|
-    t.float    "value"
-    t.integer  "physical_parameter_id"
-    t.integer  "measure_unit_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.index ["instructor_id"], :name => "fk__physical_assessments_instructor_id"
+    t.index ["physical_assessment_type_id"], :name => "fk__physical_assessments_physical_assessment_type_id"
+    t.index ["student_id"], :name => "fk__physical_assessments_student_id"
+    t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_assessments_instructor_id"
+    t.foreign_key ["physical_assessment_type_id"], "physical_assessment_types", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_assessments_physical_assessment_type_id"
+    t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_assessments_student_id"
   end
 
   create_table "physical_parameters", force: true do |t|
@@ -184,69 +229,32 @@ ActiveRecord::Schema.define(version: 20131119014531) do
     t.datetime "updated_at"
   end
 
+  create_table "physical_parameter_goals", force: true do |t|
+    t.float    "value"
+    t.integer  "physical_parameter_id"
+    t.integer  "measure_unit_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["measure_unit_id"], :name => "fk__physical_parameter_goals_measure_unit_id"
+    t.index ["physical_parameter_id"], :name => "fk__physical_parameter_goals_physical_parameter_id"
+    t.foreign_key ["measure_unit_id"], "measure_units", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_parameter_goals_measure_unit_id"
+    t.foreign_key ["physical_parameter_id"], "physical_parameters", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_parameter_goals_physical_parameter_id"
+  end
+
+  create_table "physical_parameter_measures", force: true do |t|
+    t.float    "value"
+    t.integer  "physical_parameter_id"
+    t.integer  "measure_unit_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["measure_unit_id"], :name => "fk__physical_parameter_measures_measure_unit_id"
+    t.index ["physical_parameter_id"], :name => "fk__physical_parameter_measures_physical_parameter_id"
+    t.foreign_key ["measure_unit_id"], "measure_units", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_parameter_measures_measure_unit_id"
+    t.foreign_key ["physical_parameter_id"], "physical_parameters", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_parameter_measures_physical_parameter_id"
+  end
+
   create_table "roles", force: true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "roles_users", id: false, force: true do |t|
-    t.integer "role_id"
-    t.integer "user_id"
-  end
-
-  create_table "self_physical_assessments", force: true do |t|
-    t.datetime "assessment_date"
-    t.string   "note"
-    t.integer  "student_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "states", force: true do |t|
-    t.string   "name",       limit: 100
-    t.string   "acronym",    limit: 8
-    t.integer  "country_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "status_equipments", force: true do |t|
-    t.string   "description", limit: 200
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "training_goals", force: true do |t|
-    t.string   "denomination", limit: 500
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "training_workouts", force: true do |t|
-    t.integer  "series"
-    t.integer  "repetitions"
-    t.datetime "duration"
-    t.float    "load"
-    t.integer  "training_id"
-    t.integer  "workout_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "trainings", force: true do |t|
-    t.datetime "last_training_date"
-    t.datetime "expiration_date"
-    t.boolean  "active"
-    t.integer  "training_goal_id"
-    t.integer  "student_id"
-    t.integer  "instructor_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "type_employees", force: true do |t|
-    t.string   "name",       limit: 60
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -267,16 +275,74 @@ ActiveRecord::Schema.define(version: 20131119014531) do
     t.string   "username",               limit: 80
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["email"], :name => "index_users_on_email", :unique => true
+    t.index ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  create_table "roles_users", id: false, force: true do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+    t.index ["role_id"], :name => "fk__roles_users_role_id"
+    t.index ["user_id"], :name => "fk__roles_users_user_id"
+    t.foreign_key ["role_id"], "roles", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_roles_users_role_id"
+    t.foreign_key ["user_id"], "users", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_roles_users_user_id"
+  end
+
+  create_table "self_physical_assessments", force: true do |t|
+    t.datetime "assessment_date"
+    t.string   "note"
+    t.integer  "student_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["student_id"], :name => "fk__self_physical_assessments_student_id"
+    t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_self_physical_assessments_student_id"
+  end
+
+  create_table "training_goals", force: true do |t|
+    t.string   "denomination", limit: 500
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "trainings", force: true do |t|
+    t.datetime "last_training_date"
+    t.datetime "expiration_date"
+    t.boolean  "active"
+    t.integer  "training_goal_id"
+    t.integer  "student_id"
+    t.integer  "instructor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["instructor_id"], :name => "fk__trainings_instructor_id"
+    t.index ["student_id"], :name => "fk__trainings_student_id"
+    t.index ["training_goal_id"], :name => "fk__trainings_training_goal_id"
+    t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_instructor_id"
+    t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_student_id"
+    t.foreign_key ["training_goal_id"], "training_goals", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_training_goal_id"
+  end
 
   create_table "workouts", force: true do |t|
     t.string   "description",  limit: 500
     t.integer  "equipment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["equipment_id"], :name => "fk__workouts_equipment_id"
+    t.foreign_key ["equipment_id"], "equipment", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_workouts_equipment_id"
+  end
+
+  create_table "training_workouts", force: true do |t|
+    t.integer  "series"
+    t.integer  "repetitions"
+    t.datetime "duration"
+    t.float    "load"
+    t.integer  "training_id"
+    t.integer  "workout_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["training_id"], :name => "fk__training_workouts_training_id"
+    t.index ["workout_id"], :name => "fk__training_workouts_workout_id"
+    t.foreign_key ["training_id"], "trainings", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_training_workouts_training_id"
+    t.foreign_key ["workout_id"], "workouts", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_training_workouts_workout_id"
   end
 
 end

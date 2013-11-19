@@ -5,7 +5,7 @@ class CreateLocalities < ActiveRecord::Migration
       t.string :district, limit: 100
       t.float :latitude
       t.float :longitude
-      t.string :cep, limit: 20
+      t.string :zipcode, limit: 20
       
       # Polomorfismo
       t.references :address, polymorphic: true

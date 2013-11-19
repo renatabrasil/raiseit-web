@@ -5,8 +5,8 @@ class CreatePhysicalAssessments < ActiveRecord::Migration
       t.string :measurer_feedback
       
       # Foreign key
-      t.integer :student_id, :references => "students"
-      t.integer :instructor_id, :references => "instructors"
+      t.integer :student_id, :references => "people"
+      t.integer :instructor_id, :references => "people"
       t.belongs_to :physical_assessment_type
 
       t.timestamps

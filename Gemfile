@@ -32,11 +32,13 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-
 gem 'devise', '3.0.0.rc'
 gem 'protected_attributes'
 
 gem 'cancan'
+
+gem 'schema_plus', github: 'lomba/schema_plus'
+gem 'schema_associations'
 
 # gem 'devise', '1.1.rc0'
 
