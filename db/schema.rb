@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20131118185730) do
     t.string   "phone2",             limit: 20
     t.string   "enrollment",         limit: 30
     t.integer  "type_employee_id"
+    t.integer  "modality_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
