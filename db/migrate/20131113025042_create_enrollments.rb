@@ -1,7 +1,11 @@
 class CreateEnrollments < ActiveRecord::Migration
   def change
+    # create_schema 'staff'
+    
+    # create_table :enrollments, :schema => "staff" do |t|
     create_table :enrollments do |t|
       
+      t.string :code, limit: 100
       t.timestamp :start_date
       t.string :note, limit: 500
       t.column :value, :numeric, :precision => 6, :scale => 2

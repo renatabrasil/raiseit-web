@@ -1,7 +1,26 @@
 <h1>Visualização</h1>
 
-<%= @student.name %>
-
+<table>
+  <caption></caption>
+  <tbody>
+    <tr>
+      <td><strong>Nome:</strong> <%= @student.name %></td>
+    </tr>
+    <tr>
+      <td><strong>CPF:</strong> <%= @student.cpf %></td>
+    </tr>
+    <tr>
+      <td><strong>Telefone:</strong> <%= @student.phone1 %></td>
+    </tr>
+    <tr>
+      <td><strong>E-mail:</strong> <%= @student.email %></td>
+    </tr>
+    <tr>
+      <td><strong>Matrícula:</strong> <%= @student.enrollment %></td>
+    </tr>
+  </tbody>
+</table>
+<br>
 <div class="form-actions-white">
   <%= link_to "Voltar", students_path, :class => 'btn'  %>
   <%= link_to "Alterar", edit_student_path(@student), :class => 'btn btn-info' %>

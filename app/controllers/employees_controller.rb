@@ -25,7 +25,7 @@ class EmployeesController < ApplicationController
     
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to employees_path, notice: 'Empregado '+@employee.name+' foi cadastrado com sucesso.' }
+        format.html { redirect_to employees_path, notice: 'Funcionário '+@employee.name+' foi cadastrado com sucesso.' }
         format.json { render json: @employee, status: :created, location: @employee }
       else
         format.html { render action: "new" }
@@ -54,7 +54,7 @@ class EmployeesController < ApplicationController
     
     respond_to do |format|
       if @employee.update_attributes(params[:employee])
-        format.html { redirect_to employees_path, :notice => 'O corretor foi atualizado com sucesso.' }
+        format.html { redirect_to employees_path, :notice => 'O funcionário foi atualizado com sucesso.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
@@ -68,7 +68,7 @@ class EmployeesController < ApplicationController
     @employee.destroy
 
     respond_to do |format|
-      format.html { redirect_to employees_url, :notice => 'O empregado foi removido com sucesso.' }
+      format.html { redirect_to employees_url, :notice => 'O funcionário foi removido com sucesso.' }
       format.json { head :ok }
     end
   end
