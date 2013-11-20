@@ -12,5 +12,6 @@ class Individual < Person
   
   accepts_nested_attributes_for :user, :allow_destroy => true
   
-  
+  has_many :entry_records, dependent: :destroy
+
 end

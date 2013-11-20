@@ -114,11 +114,13 @@ ActiveRecord::Schema.define(version: 20131119194930) do
   end
 
   create_table "entry_records", force: true do |t|
+    t.datetime "entryTime"
+    t.datetime "exitTime"
+    t.integer  "individual_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "person_id"
-    t.index ["person_id"], :name => "fk__entry_records_person_id"
-    t.foreign_key ["person_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_entry_records_person_id"
+    t.index ["individual_id"], :name => "fk__entry_records_individual_id"
+    t.foreign_key ["individual_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_entry_records_individual_id"
   end
 
   create_table "status_equipments", force: true do |t|

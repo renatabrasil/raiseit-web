@@ -1,10 +1,10 @@
 class CreateEntryRecords < ActiveRecord::Migration
   def change
     create_table :entry_records do |t|
-      t.timestamps :entryTime
-      t.timestamps :exitTime
-      
-      t.belongs_to :person
+      t.datetime :entryTime
+      t.datetime :exitTime
+     
+      t.integer :individual_id, :references => "people"
 
       t.timestamps
     end
