@@ -1,0 +1,35 @@
+<br>
+<fiedset>
+  <% if @entry_record.errors.any? %>
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+        <ul>
+          <% @entry_record.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+    </div>
+  
+  <% end %>
+  
+<%= form_for(@entry_record, :html => { :class => :form }) do |f| -%>
+  
+  <br>
+  <%= f.label 'Matrícula', :class => "control-label" %>
+  <%= f.text_field :individual_id, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "20" %>
+  
+  <%= text_field_tag :teste, params[:teste]%>
+	<br>  
+  	<div class="form-actions-white">
+   		<!-- <%= f.submit %> -->
+    	<% if @entry_record.id.nil? %>
+    		<button class="btn btn-primary" type="submit">Cadastrar</button>
+    	<% else %>
+    		<button class="btn btn-info" type="submit">Alterar</button>
+    	<% end %>
+    	ou 
+    	<%= link_to "Cancelar", entry_records_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+  </div>
+  
+<% end %>
+</fiedset>
