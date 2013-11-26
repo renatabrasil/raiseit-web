@@ -32,6 +32,8 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'debugger'
+
 gem 'devise', '3.0.0.rc'
 gem 'protected_attributes'
 

@@ -5,7 +5,7 @@ class CreateEquipment < ActiveRecord::Migration
       t.string :description, limit: 200
       t.integer :usability
       t.integer :quantity
-      t.timestamp :next_maintenance_date
+      t.datetime :next_maintenance_date
       
       # Foreign key
       t.belongs_to :status_equipment

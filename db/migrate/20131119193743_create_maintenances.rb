@@ -1,7 +1,7 @@
 class CreateMaintenances < ActiveRecord::Migration
   def change
     create_table :maintenances do |t|
-      t.timestamp :date
+      t.datetime :date
       t.column :value, :numeric, :precision => 6, :scale => 2
       t.string :technical_feedback
       

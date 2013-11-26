@@ -1,8 +1,8 @@
 class CreateTrainings < ActiveRecord::Migration
   def change
     create_table :trainings do |t|
-      t.timestamp :last_training_date
-      t.timestamp :expiration_date
+      t.datetime :last_training_date
+      t.datetime :expiration_date
       t.boolean :active
       
       # Foreign key

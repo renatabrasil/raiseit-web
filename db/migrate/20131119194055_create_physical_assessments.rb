@@ -1,7 +1,7 @@
 class CreatePhysicalAssessments < ActiveRecord::Migration
   def change
     create_table :physical_assessments do |t|
-      t.timestamp :date
+      t.datetime :date
       t.string :measurer_feedback
       
       # Foreign key

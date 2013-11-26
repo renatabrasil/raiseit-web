@@ -6,7 +6,7 @@ class CreateEnrollments < ActiveRecord::Migration
     create_table :enrollments do |t|
       
       t.string :code, limit: 100
-      t.timestamp :start_date
+      t.datetime :start_date
       t.string :note, limit: 500
       t.column :value, :numeric, :precision => 6, :scale => 2
       t.column :registration_fee, :numeric, :precision => 6, :scale => 2

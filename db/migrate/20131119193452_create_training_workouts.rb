@@ -3,7 +3,7 @@ class CreateTrainingWorkouts < ActiveRecord::Migration
     create_table :training_workouts do |t|
       t.integer :series
       t.integer :repetitions
-      t.timestamp :duration
+      t.datetime :duration
       t.float :load
       
       # Foreign key
