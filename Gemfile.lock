@@ -67,6 +67,7 @@ GEM
     mime-types (1.25)
     minitest (4.7.5)
     multi_json (1.8.2)
+    nested_form (0.3.2)
     orm_adapter (0.4.0)
     pg (0.15.1)
     polyglot (0.3.3)
@@ -136,6 +137,7 @@ DEPENDENCIES
   devise (= 3.0.0.rc)
   jbuilder (~> 1.2)
   jquery-rails
+  nested_form
   pg
   protected_attributes
   rails (= 4.0.0)

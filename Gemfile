@@ -40,6 +40,8 @@ gem 'cancan'
 gem 'schema_plus', github: 'lomba/schema_plus'
 gem 'schema_associations'
 
+gem 'nested_form'
+
 # gem 'devise', '1.1.rc0'
 
 # Use ActiveModel has_secure_password

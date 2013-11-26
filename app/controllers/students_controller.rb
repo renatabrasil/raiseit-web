@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
   
   def new
     @student = Student.new
-    
+    @student.build_user
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @student }

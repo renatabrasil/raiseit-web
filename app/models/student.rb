@@ -5,6 +5,8 @@ class Student < Individual
   
   has_one :user, as: :user_account, dependent: :destroy
   
-  attr_accessible :enrollment  
+  attr_accessible :enrollment, :user_attributes
+
+  accepts_nested_attributes_for :user, :allow_destroy => true
   
 end

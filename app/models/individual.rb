@@ -8,9 +8,9 @@ class Individual < Person
   
   attr_accessible :cpf, :rg, :gender, :email
   
-  has_one :user, dependent: :destroy
+  #has_one :user, dependent: :destroy
   
-  accepts_nested_attributes_for :user, :allow_destroy => true
+  #accepts_nested_attributes_for :user, :allow_destroy => true
   
   has_many :entry_records, dependent: :destroy
 
