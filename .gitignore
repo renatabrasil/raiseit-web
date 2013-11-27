@@ -46,3 +46,4 @@ RCSLOG
 SCCS
 _$*
 db/schema.rb
+Gemfile.lock

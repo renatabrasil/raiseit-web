@@ -25,7 +25,13 @@ class EntryRecordsController < ApplicationController
     person_with_enrollment = Person.find_by enrollment: params[:enrollment].to_s
     
     if person_with_enrollment == nil
-        flash[:notice] = "Matricula incorreta"
+      person_with_enrollment = Person.new
+    end
+    
+    person_password = User.find_by_user_account_id(person_with_enrollment.id)
+    
+    if person_with_enrollment.new_record?  || !person_password.valid_password?(params[:password]) 
+        flash[:notice] = "Matricula ou senha Incorreta"
         redirect_to new_entry_record_url
     else
       @entry_record = EntryRecord.new(params[:entry_record])

@@ -13,7 +13,7 @@ class EmployeesController < ApplicationController
   
   def new
     @employee = Employee.new
-    
+    @employee.build_user
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @employee }
@@ -22,6 +22,9 @@ class EmployeesController < ApplicationController
   
   def create
     @employee = Employee.new(params[:employee])
+    
+    @employee.user.email = @employee.email
+    @employee.user.username = @employee.enrollment
     
     respond_to do |format|
       if @employee.save

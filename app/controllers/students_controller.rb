@@ -25,6 +25,9 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(params[:student])
     
+    @student.user.email = @student.email
+    @student.user.username = @student.enrollment
+    
     respond_to do |format|
       if @student.save
         format.html { redirect_to students_path, notice: 'Estudante '+@student.name+' foi cadastrado com sucesso.' }

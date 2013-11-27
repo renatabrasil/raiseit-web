@@ -15,10 +15,12 @@
 <%= form_for(@entry_record, :html => { :class => :form }) do |f| -%>
   
   <br>
-  <%= f.label 'Matrícula', :class => "control-label" %>
- 
-  
-  <%= text_field_tag :enrollment%>
+  	<%= f.label 'Matrícula', :class => "control-label" %>
+  	<%= text_field_tag :enrollment%>
+	
+	<br>
+	<%= f.label 'Password', :class => "control-label" %>
+	<%= password_field_tag :password%>	
 	<br>  
   	<div class="form-actions-white">
    		<!-- <%= f.submit %> -->
