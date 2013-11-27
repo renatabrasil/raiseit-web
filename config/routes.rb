@@ -1,9 +1,11 @@
 SystemGym::Application.routes.draw do
+  # get "entry_confirmation/index"
   devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, :path => "usr"#, :skip => [:registrations]
 
-  resources :employees  
-  resources :students
-  resources :entry_records
+  resources :employees, :students, :entry_records
+  
+  get 'entry_confirmation', to: 'entry_confirmation#index'
+  
 #  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

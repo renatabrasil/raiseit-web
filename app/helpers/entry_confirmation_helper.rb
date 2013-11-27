@@ -1,0 +1,2 @@
+module EntryConfirmationHelper
+end
