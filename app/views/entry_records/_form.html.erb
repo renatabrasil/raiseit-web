@@ -25,12 +25,10 @@
   	<div class="form-actions-white">
    		<!-- <%= f.submit %> -->
     	<% if @entry_record.id.nil? %>
-    		<button class="btn btn-primary" type="submit">Cadastrar</button>
+    		<button class="btn btn-primary" type="submit">Registrar</button>
     	<% else %>
     		<button class="btn btn-info" type="submit">Alterar</button>
     	<% end %>
-    	ou 
-    	<%= link_to "Cancelar", entry_records_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
   </div>
   
 <% end %>

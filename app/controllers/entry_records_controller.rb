@@ -14,17 +14,18 @@ class EntryRecordsController < ApplicationController
   
   def new
     @entry_record = EntryRecord.new
-    
+    @entry_record_now = EntryRecord.last
+       
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @entry_record }
     end
   end
   
-  def create    
+  def create 
     person_with_enrollment = Person.find_by enrollment: params[:enrollment].to_s
     
-    if person_with_enrollment == nil
+    if person_with_enrollment.nil?
       person_with_enrollment = Person.new
     end
     
@@ -41,7 +42,7 @@ class EntryRecordsController < ApplicationController
     
       respond_to do |format|
         if @entry_record.save
-          format.html { redirect_to entry_records_path, notice: 'Registrado com sucesso.' }
+          format.html { redirect_to new_entry_record_path, notice: 'Registrado com sucesso.' }
           format.json { render json: @entry_record, status: :created, location: @entry_record }
         else
           format.html { render action: "new" }

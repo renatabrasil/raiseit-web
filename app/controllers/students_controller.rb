@@ -59,7 +59,7 @@ class StudentsController < ApplicationController
     
     respond_to do |format|
       if @student.update_attributes(params[:student])
-        format.html { redirect_to students_path, :notice => 'O corretor foi atualizado com sucesso.' }
+        format.html { redirect_to students_path, :notice => 'O estudante foi atualizado com sucesso.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }
