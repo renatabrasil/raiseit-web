@@ -2,7 +2,6 @@ class Individual < Person
   STUDENT = 3
   EMPLOYEE = 4
   
-  has_one :user, dependent: :destroy
   has_many :payments
   has_many :entry_records, dependent: :destroy
   
@@ -11,6 +10,8 @@ class Individual < Person
   #default_scope  {where(:type => PHYSICAL)}
   
   attr_accessible :cpf, :rg, :gender, :email
+  
+  has_one :user, as: :user_account, dependent: :destroy
   
   accepts_nested_attributes_for :user, :allow_destroy => true
 

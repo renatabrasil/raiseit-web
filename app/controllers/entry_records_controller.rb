@@ -14,26 +14,40 @@ class EntryRecordsController < ApplicationController
   
   def new
     @entry_record = EntryRecord.new
-    
+    @entry_record_now = EntryRecord.last
+       
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @entry_record }
     end
   end
   
-  def create
-    @entry_record = EntryRecord.new(params[:entry_record])
+  def create 
+    person_with_enrollment = Person.find_by enrollment: params[:enrollment].to_s
     
-    @entry_record.individual_id = Person.find_by enrollment: params[:teste]
+    if person_with_enrollment.nil?
+      person_with_enrollment = Person.new
+    end
     
-    @entry_record.entryTime = Time.now
-    respond_to do |format|
-      if @entry_record.save
-        format.html { redirect_to entry_records_path, notice: 'Registrado com sucesso.' }
-        format.json { render json: @entry_record, status: :created, location: @entry_record }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @entry_record.errors, status: :unprocessable_entity }
+    person_password = User.find_by_user_account_id(person_with_enrollment.id)
+    
+    if person_with_enrollment.new_record?  || !person_password.valid_password?(params[:password]) 
+        flash[:notice] = "Matricula ou senha Incorreta"
+        redirect_to new_entry_record_url
+    else
+      @entry_record = EntryRecord.new(params[:entry_record])
+      
+      @entry_record.individual_id = person_with_enrollment.id
+      @entry_record.entryTime = Time.zone.now
+    
+      respond_to do |format|
+        if @entry_record.save
+          format.html { redirect_to new_entry_record_path, notice: 'Registrado com sucesso.' }
+          format.json { render json: @entry_record, status: :created, location: @entry_record }
+        else
+          format.html { render action: "new" }
+          format.json { render json: @entry_record.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

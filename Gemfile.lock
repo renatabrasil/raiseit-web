@@ -144,6 +144,7 @@ DEPENDENCIES
   devise (= 3.0.0.rc)
   jbuilder (~> 1.2)
   jquery-rails
+  nested_form
   pg
   protected_attributes
   rails (= 4.0.0)

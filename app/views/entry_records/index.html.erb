@@ -7,7 +7,8 @@
     <tr>
       <th class="rotulo">Hora de Entrada</th>
       <th class="rotulo" style="text-align: center; width: 20%">Hora de Saida</th>
-      <th class="rotulo" style="text-align: center; width: 20%">Estudante</th>
+      <th class="rotulo" style="text-align: center; width: 20%">Tipo</th>
+      <th class="rotulo" style="text-align: center; width: 20%">Funcionário</th>
       <th class="rotulo"></th>
     </tr>    
   </thead>
@@ -17,6 +18,7 @@
         <tr>
           <td><%= entry_record.entryTime %></td>
           <td style="text-align: center;"><%= entry_record.exitTime %></td>
+          <td style="text-align: center;"><%= Person.find(entry_record.individual_id).type %></td>
           <td style="text-align: center;"><%= Person.find(entry_record.individual_id).name %></td>
           <td style="text-align: center; width: 20%">
             <%= link_to(entry_record_path(entry_record), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>

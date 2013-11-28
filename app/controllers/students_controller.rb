@@ -15,7 +15,7 @@ class StudentsController < ApplicationController
   
   def new
     @student = Student.new
-    
+    @student.build_user
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @student }
@@ -24,6 +24,9 @@ class StudentsController < ApplicationController
   
   def create
     @student = Student.new(params[:student])
+    
+    @student.user.email = @student.email
+    @student.user.username = @student.enrollment
     
     respond_to do |format|
       if @student.save
@@ -56,7 +59,7 @@ class StudentsController < ApplicationController
     
     respond_to do |format|
       if @student.update_attributes(params[:student])
-        format.html { redirect_to students_path, :notice => 'O corretor foi atualizado com sucesso.' }
+        format.html { redirect_to students_path, :notice => 'O estudante foi atualizado com sucesso.' }
         format.json { head :ok }
       else
         format.html { render :action => "edit" }

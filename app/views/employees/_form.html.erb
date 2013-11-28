@@ -42,6 +42,19 @@
   <br>
   <%= select("employee", "type_employee_id", TypeEmployee.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o tipo de empregado --'}, {class: "span4", onchange: "atualizaForm()", id:"idTypeEmployee"}) %>
 
+  <br>
+	
+  <%= f.fields_for :user do |fb| %>
+
+
+  	<div><%= fb.label :password %><br />
+  	<%= fb.password_field :password %></div>
+
+  	<div><%= fb.label :password_confirmation %><br />
+  	<%= fb.password_field :password_confirmation %></div>
+  <% end %>
+  
+  
 <br>  
   <div class="form-actions-white">
     <!-- <%= f.submit %> -->

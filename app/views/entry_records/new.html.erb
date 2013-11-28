@@ -1,3 +1,21 @@
 <h2>Registrar Entrada</h2>
 
 <%= render 'form' %>
+
+<p class="notice"><%= notice %></p>
+<hr>
+<% if !@entry_record_now.nil? %>
+ 	<strong><%= Person.find(@entry_record_now.individual_id).name %></strong> &nbsp;
+ 	
+ 	- &nbsp; <strong><%= Person.find(@entry_record_now.individual_id).type %></strong>
+ 	
+ 	<br />
+ 	
+ 	Matricula: <%= Person.find(@entry_record_now.individual_id).enrollment %></strong>
+ 	
+ 	<br />	
+ 	
+ 	Hora de entrada: &nbsp; <%= @entry_record_now.entryTime.strftime("%c") %> 
+<% end %>
+<hr>
+<li><%= link_to 'Listar Registros', entry_records_path %></li>
