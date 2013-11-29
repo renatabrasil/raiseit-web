@@ -16,8 +16,8 @@
     <% if !@entry_records.empty? %>
       <% @entry_records.each do |entry_record| %>
         <tr>
-          <td><%= entry_record.entryTime %></td>
-          <td style="text-align: center;"><%= entry_record.exitTime %></td>
+          <td><%= entry_record.entry_time %></td>
+          <td style="text-align: center;"><%= entry_record.exit_time %></td>
           <td style="text-align: center;"><%= Person.find(entry_record.individual_id).type %></td>
           <td style="text-align: center;"><%= Person.find(entry_record.individual_id).name %></td>
           <td style="text-align: center; width: 20%">
