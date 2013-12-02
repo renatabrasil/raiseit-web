@@ -54,6 +54,13 @@ class ClassGymsController < ApplicationController
   end
   
   def destroy
+    @class_gym = ClassGym.find(params[:id])
     
+    @class_gym.destroy
+
+    respond_to do |format|
+        format.html { redirect_to class_gyms_url, notice: 'Turma removida com sucesso.'  }
+        format.json { head :no_content }
+    end  
   end
 end

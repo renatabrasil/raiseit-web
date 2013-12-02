@@ -6,6 +6,7 @@ SystemGym::Application.routes.draw do
   resources :students
   resources :entry_records
   resources :class_gyms
+  resources :modalities
 
   resources :enrollments, only: [:index]
   resources :payments, only: [:index]
