@@ -41,6 +41,7 @@ gem 'cancan'
 
 gem 'schema_plus', github: 'lomba/schema_plus'
 gem 'schema_associations'
+gem 'habtm_generator', :group => :development
 
 gem 'nested_form'
 

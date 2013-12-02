@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131119194930) do
+ActiveRecord::Schema.define(version: 20131129192548) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -85,6 +85,15 @@ ActiveRecord::Schema.define(version: 20131119194930) do
     t.index ["modality_id"], :name => "fk__class_gyms_modality_id"
     t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_instructor_id"
     t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_modality_id"
+  end
+
+  create_table "class_gyms_people", id: false, force: true do |t|
+    t.integer "class_gym_id"
+    t.integer "student_id"
+    t.index ["class_gym_id"], :name => "fk__class_gyms_people_class_gym_id"
+    t.index ["student_id"], :name => "fk__class_gyms_people_student_id"
+    t.foreign_key ["class_gym_id"], "class_gyms", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_people_class_gym_id"
+    t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_people_student_id"
   end
 
   create_table "periodicities", force: true do |t|

@@ -3,6 +3,8 @@ class Student < Individual
   #default_scope {where(:type => STUDENT)}
   scope :student, -> { where(type: 'Student') }
   
+  has_and_belongs_to_many :class_gyms
+  
   # has_one :user, as: :user_account, dependent: :destroy
   
   attr_accessible :enrollment, :user_attributes

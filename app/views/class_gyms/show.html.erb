@@ -1,0 +1,29 @@
+<h2 class="h2-pages">Visualização</h2>
+
+<table>
+  <caption></caption>
+  <tbody>
+    <tr>
+      <td><strong>Modalidade:</strong> <%= @class_gym.modality.name %></td>
+    </tr>
+    <tr>
+      <td><strong>Horário:</strong> <%= @class_gym.schedule %></td>
+    </tr>
+    <tr>
+      <td><strong>Professor:</strong> <%= @class_gym.instructor.blank? ? "Não atribuído" : @class_gym.instructor.name %></td>
+    </tr>
+    <tr>
+      <td><strong>Alunos matriculados:</strong> <%= @class_gym.students.size %></td>
+    </tr>
+    <tr>
+      <td><strong>Capacidade:</strong> <%= @class_gym.capacity %></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<div class="form-actions-white">
+  <%= link_to "Voltar", class_gyms_path, :class => 'btn'  %>
+  <%= link_to "Alterar", edit_class_gym_path(@class_gym), :class => 'btn btn-info' %>
+  <%= link_to "Remover", class_gym_path(@class_gym), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn' %>
+</div>

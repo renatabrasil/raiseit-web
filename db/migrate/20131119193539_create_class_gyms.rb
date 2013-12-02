@@ -2,6 +2,7 @@ class CreateClassGyms < ActiveRecord::Migration
   def change
     create_table :class_gyms do |t|
       t.integer :capacity
+      t.datetime :start_date
       t.string :schedule, limit: 200
       
       # Foreign key
