@@ -14,6 +14,13 @@ class EmployeesController < ApplicationController
   def new
     @employee = Employee.new
     @employee.build_user
+    
+    type_employee = params[:type_employee].nil? ? nil : params[:type_employee].to_i 
+    
+    if !type_employee.nil?
+      @employee.type_employee = TypeEmployee.find(type_employee)
+    end
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @employee }

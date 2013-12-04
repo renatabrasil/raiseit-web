@@ -8,6 +8,14 @@
 <br>
 
 <ul>
+  <li><%= link_to 'Professores', instructors_path %></li>
+  <li><%= link_to 'Novo Professor', new_instructor_path %></li>
+  <li><%#= link_to 'Novo Professor', login_url(TypeEmployee::TEACHER) %></li>
+</ul>
+
+<br>
+
+<ul>
   <li><%= link_to 'Alunos', students_path %></li>
   <li><%= link_to 'Novo Aluno', new_student_path %></li>
 </ul>

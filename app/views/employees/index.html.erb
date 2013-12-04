@@ -11,6 +11,7 @@
       <th class="rotulo" style="text-align: center;">Telefone</th>
       <th class="rotulo" style="text-align: center; width: 20%">E-mail</th>
       <th class="rotulo" style="text-align: center;">Sexo</th>
+      <th class="rotulo" style="text-align: left">Tipo</th>
       <th class="rotulo"></th> 
     </tr>    
   </thead>
@@ -24,6 +25,7 @@
           <td style="text-align: center;"><%= employee.phone1 %></td>
           <td style="text-align: center;"><%= employee.email %></td>
           <td style="text-align: center;"><%= employee.gender == 'F' ? "Feminino" : "Masculino" %></td>
+          <td style="text-align: right"><%= employee.type_employee.nil? ? " - " : employee.type_employee.name %></td>
           <td style="text-align: center; width: 20%">
             <%= link_to(employee_path(employee), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
                Visualizar
