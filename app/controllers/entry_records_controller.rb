@@ -14,7 +14,7 @@ class EntryRecordsController < ApplicationController
   
   def new
     @entry_record = EntryRecord.new
-    @entry_record_now = EntryRecord.last
+    @entry_record_now = EntryRecord.order("updated_at DESC").first
        
     respond_to do |format|
       format.html # new.html.erb
@@ -24,7 +24,6 @@ class EntryRecordsController < ApplicationController
   
   def create 
     person_with_enrollment = Person.find_by enrollment: params[:enrollment].to_s
-    
     if person_with_enrollment.nil?
       person_with_enrollment = Person.new
     end

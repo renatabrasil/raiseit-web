@@ -27,7 +27,7 @@
  	
  	<br />
  	<% if !@entry_record_now.exit_time.blank? %>
- 		Hora de saida: &nbsp; <%= @entry_record_now.entry_time.strftime("%c") %>
+ 		Hora de saida: &nbsp; <%= @entry_record_now.exit_time.strftime("%c") %>
  	<% end %>
 <% end %>
 <hr>
