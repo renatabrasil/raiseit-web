@@ -45,6 +45,7 @@ gem 'habtm_generator', :group => :development
 
 gem 'nested_form'
 
+gem 'irbtools', require: false
 # gem 'devise', '1.1.rc0'
 
 # Use ActiveModel has_secure_password

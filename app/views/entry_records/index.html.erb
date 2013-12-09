@@ -1,5 +1,6 @@
 <h2>Todos Registros</h2>
 
+<%= content_tag :div, "", id: "daily", data: {records: @entry_records} %>
 
 <%= link_to 'Novo Registro', new_entry_record_path %>
 <table class="table table-bordered">
