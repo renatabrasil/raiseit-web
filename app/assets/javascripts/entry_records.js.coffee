@@ -2,9 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
-  Morris.Area
+  Morris.Bar
     element: 'daily'
     data: $('#daily').data('records')
-    xkey: 'entry_time'
-    ykeys: ['id']
-    labels: ['Hora de Entrada']  
+    xkey: 'x'
+    ykeys: ['y']
+    labels: ['Quantidade']  

@@ -4,6 +4,7 @@ class EntryRecordsController < ApplicationController
   def index
     
     @entry_records = EntryRecord.all
+    @entry2 = EntryRecord.test(Date.new(2013, 12, 01), Date.new(2013, 12, 30))
     
     respond_to do |format|
       format.html # index.html.erb

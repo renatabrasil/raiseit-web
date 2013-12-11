@@ -9,19 +9,24 @@ class EntryRecord < ActiveRecord::Base
   end
   
   def self.students_between_days(initial_date, final_date)
-     return EntryRecord.joins(:individual).where('people.type' => 'Student', :entry_time => initial_date.beginning_of_day..final_date.end_of_day)
+     #return EntryRecord.joins(:individual).where('people.type' => 'Student', :entry_time => initial_date.beginning_of_day..final_date.end_of_day)
+      return EntryRecord.joins("INNER JOIN people ON people.id = entry_records.individual_id AND people.type IN ('Student')").where(:entry_time => initial_date.beginning_of_day..final_date.end_of_day)
   end
   
-  
   def self.test(d1, d2)
-    day = d1
+    entry_records = students_between_days(d1, d2)
+    today = d1
     students = Array.new
-    while day <= d2
-      students.push(students_by_day(day).size)
-      day = day.tomorrow
+    
+    while today <= d2
+      students.push(:x => today, :y => entry_records.where(:entry_time => today.beginning_of_day..today.end_of_day).count)
+      today = today.tomorrow
     end 
     
     return students
   end
   
 end
+
+#EntryRecord.joins("INNER JOIN people ON people.id = entry_records.individual_id AND people.type IN ('Student')").where(:entry_time => t1.beginning_of_day..t2.end_of_day)
+
