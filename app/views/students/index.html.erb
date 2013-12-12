@@ -17,7 +17,7 @@
         <tr>
           <td><%= student.name %></td>
           <td style="text-align: center;"><%= student.email %></td>
-          <td style="text-align: center;"><%= student.enrollment %></td>
+          <td style="text-align: center;"><%= student.registration_code.code %></td>
           <td style="text-align: center; width: 20%">
             <%= link_to(student_path(student), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
                Visualizar

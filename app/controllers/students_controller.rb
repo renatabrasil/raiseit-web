@@ -16,6 +16,7 @@ class StudentsController < ApplicationController
   def new
     @student = Student.new
     @student.build_user
+    @student.build_registration_code
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @student }
@@ -26,7 +27,7 @@ class StudentsController < ApplicationController
     @student = Student.new(params[:student])
     
     @student.user.email = @student.email
-    @student.user.username = @student.enrollment
+    @student.user.username = @student.registration_code.code
     
     respond_to do |format|
       if @student.save

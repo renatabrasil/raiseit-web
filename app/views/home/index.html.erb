@@ -8,6 +8,14 @@
 <br>
 
 <ul>
+  <li><%= link_to 'Professores', instructors_path %></li>
+  <li><%= link_to 'Novo Professor', new_instructor_path %></li>
+  <li><%#= link_to 'Novo Professor', login_url(TypeEmployee::TEACHER) %></li>
+</ul>
+
+<br>
+
+<ul>
   <li><%= link_to 'Alunos', students_path %></li>
   <li><%= link_to 'Novo Aluno', new_student_path %></li>
 </ul>
@@ -23,7 +31,15 @@
 
 <ul>
   <li><%= link_to 'Turmas', class_gyms_path %></li>
-  <li><%= link_to 'Novo Turma', new_class_gym_path %></li>
+  <li><%= link_to 'Nova Turma', new_class_gym_path %></li>
+  <li><%= link_to 'Inserir alunos', add_student_path %></li>
+</ul>
+
+<br>
+
+<ul>
+  <li><%= link_to 'Modalidades', modalities_path %></li>
+  <li><%= link_to 'Nova Modalidade', new_modality_path %></li>
 </ul>
 
 <br>

@@ -1,0 +1,13 @@
+index.html.erb
+
+<h1>Acrescentar alunos</h1>
+
+<strong>Turma:</strong> <%= @class_gym.schedule %>
+
+<%= form_tag({controller: "add_students", action: "select_class"}, :html => { :class => :form, :id => "form" }) do |f| -%>
+
+<%= select_tag 'class_gym_id', options_for_select(ClassGym.all.collect{ |u| [u.schedule, u.id] }) %>
+
+<%= submit_tag "Selecionar turma" %>
+
+<h3>Alunos matriculados</h3>

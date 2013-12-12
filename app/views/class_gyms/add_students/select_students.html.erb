@@ -1,0 +1,65 @@
+<h1>Acrescentar alunos</h1>
+
+<strong>Turma:</strong> <%= @class_gym.schedule %><br>
+<strong>Instrutor:</strong> <%= @class_gym.instructor.name %><br>
+<strong>Capacidade:</strong> <%= @class_gym.capacity %><br>
+
+<%= form_tag({controller: "add_students", action: "insert_student"}, :html => { :class => :form, :id => "form" }) do |f| -%>
+
+<br>
+
+<%= hidden_field_tag "class_gym_id", @class_gym.id %>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th style="text-align: right">Matrícula</th>
+      <th style="text-align: left">Aluno</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if !@students.empty? %>
+      <% @students.each do |student| %>
+        <tr>
+          <td>
+          <%= check_box_tag("student_ids[]", student.id, false, :onclick => "liberar_botao_excluir(botao_excluir, this);") %>
+          </td>
+          <td style="text-align: right"><%= student.registration_code.code %></td>
+          <td><%= student.name %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<button class="btn btn-danger" type="submit" name="botao_excluir">Adicionar à turma</button>
+<button class="btn btn-danger" name="botao_excluir">Fechar a turma</button>
+<%= link_to "Fechar turma", confirm_class_path(@class_gym.id) %>
+
+<% end %>
+
+<h3>Alunos adicionados</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Matrícula</th>
+      <th>Nome do Aluno</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if !@class_gym.students.empty? %>
+      <% @class_gym.students.each do |student| %>
+          <td style="text-align: right" style="text-align: right"><%= student.registration_code.code %></td>
+          <td><%= student.name %></td>
+        </tr>
+      <% end %>
+    <% else%>
+      <tr><td colspan="2">Não há alunos adicionados a esta turma.</td></tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+
+
+

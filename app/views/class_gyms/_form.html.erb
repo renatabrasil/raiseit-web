@@ -29,10 +29,15 @@
     <%= f.label 'Professor', :class => "control-label" %>
     <%= select("class_gym", "instructor_id", Instructor.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o professor --'}, {class: "span4", onchange: "atualizaForm()", id:"idInstructor"}) %>
     
+    <br />
+    
+    <% if !@class_gym.id.nil? %>
+      <h3>Alunos matriculados</h3>
+    <% end %>
+    
     <br>
     <br>
     <div class="form-actions-white">
-      <!-- <%= f.submit %> -->
       <% if @class_gym.id.nil? %>
       <button class="btn btn-primary" type="submit">Cadastrar</button>
       <% else %>
