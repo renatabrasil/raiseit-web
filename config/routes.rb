@@ -10,12 +10,17 @@ SystemGym::Application.routes.draw do
   resources :enrollments, only: [:index]
   resources :payments, only: [:index]
 
+  scope "/report" do
+     get 'monthly_students', to: 'entry_records#monthly_report_students'
+  end
+  
   #  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'home#index'
+  
 
 # Example of regular route:
 #   get 'products/:id' => 'catalog#view'
