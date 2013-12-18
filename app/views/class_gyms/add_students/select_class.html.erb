@@ -3,7 +3,7 @@ select_class.html.erb
 <h2>Inserir alunos</h2>
 
 Escolha uma turma aberta:
-<%= form_tag("/class_gyms/add_students/select_students", :html => { :class => :form, :id => "form" }) do |f| -%>
+<%= form_tag(to_select_students_path, :method => 'get', :html => { :class => :form, :id => "form" }) do |f| -%>
   <%= select_tag 'class_gym_id', options_for_select(ClassGym.all.where("class_gyms.open = true").collect{ |u| [u.schedule, u.id] }) %>
   <button class="btn btn-danger" type="submit" name="botao_excluir">Selecionar turma</button>
 <% end %>

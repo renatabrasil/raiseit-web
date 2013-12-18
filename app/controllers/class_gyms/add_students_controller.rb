@@ -16,25 +16,48 @@ class ClassGyms::AddStudentsController < ApplicationController
     @students = Student.find(params[:student_ids])
     
     @students.each do |student|
+      # @list_aux.push(student)
+      # @list_aux << student
      @class_gym.students << student
     end
     
-        @students = Student.joins("JOIN enrollments ON enrollments.student_id = "+
-      "people.id AND enrollments.modality_id = "+@class_gym.modality.id.to_s+
-      " LEFT JOIN class_gyms_people ON (class_gyms_people.student_id = people.id) ").
-        where("people.id NOT IN (SELECT class_gyms_people.student_id FROM "+
-        "class_gyms_people WHERE class_gyms_people.class_gym_id = "+@class_gym.id.to_s+")")
+    respond_to do |format|
+      if @class_gym.students.size <= @class_gym.capacity
+        puts @class_gym.students.size.to_s + " uhuuuuu"
+        format.html { redirect_to select_students_path(@class_gym.id), 
+        notice: 'Alunos inseridos com sucesso na turma.' }
+        format.js   {}
+        format.json { render json: @class_gym.students, status: :created, location: @class_gym }
+      else
+        puts @class_gym.students.size.to_s
+        format.html { render action: "select_students" }
+        format.json { render json: @students.errors, status: :unprocessable_entity }
+      end
+    end
     
-    render 'select_students'
-    # respond_to do |format|
-      # format.html { redirect_to add_student3_path, :notice => 'As mensagens foram removidas com sucesso.' }
-      # format.json { head :ok }
-    # end
   end
   
-  def validate_class
+  def delete_student
+    @class_gym = ClassGym.find(params[:class_gym_id])
     
-  end  
+    puts params[:class_gym_id]
+    
+    # @class_gym.students.each do |student|
+      # if student.id == params[:student_id].to_i
+        # puts student.id.to_s
+        # @class_gym.students.delete(student)
+      # end
+    # end
+
+    respond_to do |format|
+      format.html { redirect_to select_students_path(@class_gym.id), 
+        notice: 'Aluno removido com sucesso na turma.' }
+        format.js   {}
+        format.json { render json: @class_gym.students, status: :created, location: @class_gym }
+      # format.html { redirect_to administrativo_mensagems_url, :notice => 'As mensagens foram removidas com sucesso.' }
+      # format.json { head :ok }
+    end
+  end
   
   def confirm_class
     @class_gym = ClassGym.find(params[:class_gym_id])

@@ -4,7 +4,7 @@
 <strong>Instrutor:</strong> <%= @class_gym.instructor.name %><br>
 <strong>Capacidade:</strong> <%= @class_gym.capacity %><br>
 
-<%= form_tag({controller: "add_students", action: "insert_student"}, :html => { :class => :form, :id => "form" }) do |f| -%>
+<%= form_tag({controller: "add_students", action: "insert_student", remote:true}, :html => { :class => :form, :id => "form" }) do |f| -%>
 
 <br>
 
@@ -45,6 +45,7 @@
     <tr>
       <th style="text-align: right">Matrícula</th>
       <th>Nome do Aluno</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -52,6 +53,14 @@
       <% @class_gym.students.each do |student| %>
           <td style="text-align: right" style="text-align: right"><%= student.registration_code.code %></td>
           <td><%= student.name %></td>
+          <td>
+            <input type="hidden" name="class_gym_id" value='<%= @class_gym.id %>' />
+            <%= hidden_field_tag "class_gym_id", @class_gym.id %>
+            <%= link_to "Delete post", delete_student_path(student.id), remote: true, method: :delete %>
+            <%= link_to(delete_student_path(student.id), remote: true, :method => :delete, :class => "link-icon", :title => "Remover" ) do %>
+              Remover
+            <% end %>
+          </td>
         </tr>
       <% end %>
     <% else%>
