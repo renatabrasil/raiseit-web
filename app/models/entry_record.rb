@@ -13,7 +13,7 @@ class EntryRecord < ActiveRecord::Base
       return EntryRecord.joins("INNER JOIN people ON people.id = entry_records.individual_id AND people.type IN ('Student')").where(:entry_time => initial_date.beginning_of_day..final_date.end_of_day)
   end
   
-  def self.test(d1, d2)
+  def self.students_between_days_to_graph(d1, d2)
     entry_records = students_between_days(d1, d2)
     today = d1
     students = Array.new

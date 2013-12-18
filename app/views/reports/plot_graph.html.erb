@@ -1,0 +1,7 @@
+<h1> My Graph </h1>
+	
+<h2> <%= Date::MONTHNAMES[@month] %> </h2>
+	
+<%= content_tag :div, "", id: "daily", data: {records: @graph_data  }  %>
+
+<%= link_to "Back", reports_monthly_students_path%>
