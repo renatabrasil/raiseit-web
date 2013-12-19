@@ -1,0 +1,7 @@
+<tr>
+  <td>
+  <%= check_box_tag("student_ids[]", student.id, false, :onclick => "liberar_botao_excluir(botao_excluir, this);") %>
+  </td>
+  <td style="text-align: right"><%= student.registration_code.code %></td>
+  <td><%= student.name %></td>
+</tr>

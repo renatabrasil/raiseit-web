@@ -40,20 +40,21 @@ class ClassGyms::AddStudentsController < ApplicationController
   def delete_student
     @class_gym = ClassGym.find(params[:class_gym_id])
     
-    puts params[:class_gym_id]
+    @class_gym.students.each do |student|
+      if student.id == params[:student_id].to_i
+        puts student.id.to_s
+        @student = student
+        @class_gym.students.delete(student)
+      end
+    end
     
-    # @class_gym.students.each do |student|
-      # if student.id == params[:student_id].to_i
-        # puts student.id.to_s
-        # @class_gym.students.delete(student)
-      # end
-    # end
+    puts @student.name
 
     respond_to do |format|
       format.html { redirect_to select_students_path(@class_gym.id), 
         notice: 'Aluno removido com sucesso na turma.' }
         format.js   {}
-        format.json { render json: @class_gym.students, status: :created, location: @class_gym }
+        format.json { render json: @student, status: :created, location: @student }
       # format.html { redirect_to administrativo_mensagems_url, :notice => 'As mensagens foram removidas com sucesso.' }
       # format.json { head :ok }
     end

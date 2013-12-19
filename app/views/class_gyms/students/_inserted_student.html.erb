@@ -1,0 +1,7 @@
+<tr id="student_<%= inserted_student.id %>">
+  <td style="text-align: right" style="text-align: right"><%= inserted_student.registration_code.code %></td>
+  <td><%= inserted_student.name %></td>
+  <td>
+    <%= link_to "Remover", delete_student_path(inserted_student.id, :class_gym_id => @class_gym.id), remote: true, method: :delete %>
+  </td>
+</tr>

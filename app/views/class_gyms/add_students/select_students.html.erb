@@ -17,21 +17,14 @@
       <th style="text-align: left">Aluno</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="students">
     <% if !@students.empty? %>
       <% @students.each do |student| %>
-        <tr>
-          <td>
-          <%= check_box_tag("student_ids[]", student.id, false, :onclick => "liberar_botao_excluir(botao_excluir, this);") %>
-          </td>
-          <td style="text-align: right"><%= student.registration_code.code %></td>
-          <td><%= student.name %></td>
-        </tr>
+        <%= render student %>
       <% end %>
     <% end %>
   </tbody>
 </table>
-
 <br>
 <button class="btn btn-danger" type="submit" name="botao_excluir">Adicionar à turma</button>
 <button class="btn btn-danger" name="botao_excluir">Fechar a turma</button>
@@ -40,34 +33,32 @@
 <% end %>
 
 <h3>Alunos adicionados</h3>
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: right">Matrícula</th>
-      <th>Nome do Aluno</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% if !@class_gym.students.empty? %>
-      <% @class_gym.students.each do |student| %>
-          <td style="text-align: right" style="text-align: right"><%= student.registration_code.code %></td>
-          <td><%= student.name %></td>
-          <td>
-            <input type="hidden" name="class_gym_id" value='<%= @class_gym.id %>' />
-            <%= hidden_field_tag "class_gym_id", @class_gym.id %>
-            <%= link_to "Delete post", delete_student_path(student.id), remote: true, method: :delete %>
-            <%= link_to(delete_student_path(student.id), remote: true, :method => :delete, :class => "link-icon", :title => "Remover" ) do %>
-              Remover
-            <% end %>
-          </td>
-        </tr>
+<div class="destroy_students">
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: right">Matrícula</th>
+        <th>Nome do Aluno</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if !@class_gym.students.empty? %>
+          <% @class_gym.students.each do |student| %>
+            <tr id="student_<%= student.id %>">
+              <td style="text-align: right" style="text-align: right"><%= student.registration_code.code %></td>
+              <td><%= student.name %></td>
+              <td>
+                <%= link_to "Remover", delete_student_path(student.id, :class_gym_id => @class_gym.id), remote: true, method: :delete %>
+              </td>
+            </tr>
+          <% end %>
+      <% else%>
+        <tr><td colspan="2">Não há alunos adicionados a esta turma.</td></tr>
       <% end %>
-    <% else%>
-      <tr><td colspan="2">Não há alunos adicionados a esta turma.</td></tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 <br>
 
 
