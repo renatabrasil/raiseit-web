@@ -1,5 +1,11 @@
 class ClassGyms::AddStudentsController < ApplicationController
   
+  # before_filter :set_variables
+  
+  # def set_variables
+    # @lista_aux = Array.new
+  # end
+  
   def select_students
     @class_gym = ClassGym.find(params[:class_gym_id])
     # @enrollments = Enrollment.all.where(['modality_id = ?', @class_gym.modality.id])
@@ -15,8 +21,15 @@ class ClassGyms::AddStudentsController < ApplicationController
     @class_gym = ClassGym.find(params[:class_gym_id])
     @students = Student.find(params[:student_ids])
     
-    @students.each do |student|
-      # @list_aux.push(student)
+    # if @list_a.nil?
+      # @list_a = Array.new
+    # end
+    
+    puts "Debuggando\n\n"
+    @students.each_with_index do |student,i|
+      puts student.name
+      # @list_a << student
+      # puts @list_a[i]
       # @list_aux << student
      @class_gym.students << student
     end
