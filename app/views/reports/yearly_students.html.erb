@@ -1,0 +1,9 @@
+<h1>Yearly Report</h1>
+
+
+<%= form_tag("/reports/plot_graph_year", method: "get") do %>
+  <%= select_year Date.today %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<%= link_to "Back", reports_path%>

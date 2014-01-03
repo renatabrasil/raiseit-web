@@ -1,0 +1,9 @@
+<h1>Hourly Report</h1>
+
+
+<%= form_tag("/reports/plot_graph_hour", method: "get") do %>
+  <%= select_date Date.today %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<%= link_to "Back", reports_path%>

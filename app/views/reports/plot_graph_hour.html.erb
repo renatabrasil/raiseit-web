@@ -1,0 +1,7 @@
+<h1> My Graph </h1>
+	
+<h2> <%= @date %> </h2>
+	
+<%= content_tag :div, "", id: "hourly", data: {records: @graph_data_date  }  %>
+
+<%= link_to "Back", reports_hourly_students_path%>

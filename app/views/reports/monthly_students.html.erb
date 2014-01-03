@@ -1,7 +1,7 @@
 <h1>Monthly Report</h1>
 
 
-<%= form_tag("/reports/plot_graph", method: "get") do %>
+<%= form_tag("/reports/plot_graph_month", method: "get") do %>
   <%= select_month Date.today %>
   <%= submit_tag("Search") %>
 <% end %>

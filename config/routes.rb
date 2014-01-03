@@ -12,7 +12,13 @@ SystemGym::Application.routes.draw do
   
   get "reports" => 'reports#index'
   get "reports/monthly_students"
-  get "reports/plot_graph"
+  get "reports/plot_graph_month"
+  
+  get "reports/yearly_students"
+  get "reports/plot_graph_year"
+  
+  get "reports/hourly_students"
+  get "reports/plot_graph_hour"
   #  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
