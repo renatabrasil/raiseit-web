@@ -24,7 +24,15 @@
   <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
 <% end %>
 
-<br><br><br>
+<br><br>
+
+<% flash.each do |name, msg| %>
+  <div class="alert alert-success">
+    <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+  </div>
+<% end %>
+
+<br><br>
 
 <%= yield %>
 

@@ -30,6 +30,10 @@
   user.role_ids = 1
   user.save
   
+  # Modality
+  modality1 = Modality.create!(:name => 'Musculação')
+  modality1.save
+  
   # Type of Employees
   type_employee1 = TypeEmployee.create!(:name => 'Administração')
   type_employee1.save

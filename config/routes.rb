@@ -4,8 +4,40 @@ SystemGym::Application.routes.draw do
 
   resources :employees
   resources :students
+  resources :instructors
   resources :entry_records
-  resources :class_gyms
+  
+  # To uncomment when I have the intent to do the final version
+  # get '/class_gyms/add_students' => 'class_gyms/add_students#direct_form', as: 'add_student'
+  # get '/class_gyms/add_students/:class_gym_id' => 'class_gyms/add_students#select_class', as: 'add_student_second_step'
+  
+  # To test routes from add students
+  # get '/class_gyms/add_students' => 'class_gyms/add_students#select_class', as: 'add_student'
+  # post '/class_gyms/add_students' => 'class_gyms/add_students#insert_students', as: 'add_student2'
+  # post '/class_gyms/add_students/confirm_class' => 'class_gyms/add_students#confirm_class'
+  # get '/class_gyms/add_students/select_class', as: 'add_student'
+  
+  # get '/class_gyms/add_students' => 'class_gyms/add_students#select_class', as: 'add_student'
+  # post '/class_gyms/add_students/select_students' => 'class_gyms/add_students#select_students'
+  # post '/class_gyms/add_students/students' => 'class_gyms/add_students#insert_student'
+  # get '/class_gyms/add_students/confirm_class/:class_gym_id' => 'class_gyms/add_students#confirm_class', as: 'confirm_class'
+  
+  # Steps from add students
+  resources :class_gyms do
+    get 'include_student', on: :member
+    patch 'insert_student', on: :member
+    delete 'delete_student', on: :member
+  end
+  # resources :class_gyms do
+    # resources :student, controller: 'class_gyms/add_students'
+  # end
+  
+  # resources :class_gym_steps
+  resources :modalities
+  
+  # In routes.rb
+  get '/employee/:type_employee' => 'employees#new', as: 'login'
+  
 
   resources :enrollments, only: [:index]
   resources :payments, only: [:index]

@@ -35,20 +35,11 @@ class EntryRecordsController < ApplicationController
         flash[:notice] = "Matricula ou senha Incorreta"
         redirect_to new_entry_record_url
     else
+      @entry_record = EntryRecord.new(params[:entry_record])
       
-      if EntryRecord.find_by_individual_id(person_with_enrollment.id).nil?   
-        @entry_record = EntryRecord.new(params[:entry_record])
-        @entry_record.individual_id = person_with_enrollment.id
-        @entry_record.entry_time = Time.zone.now
-      elsif EntryRecord.find_by_individual_id(person_with_enrollment.id).exit_time.blank?
-        @entry_record = EntryRecord.find_by_individual_id(person_with_enrollment.id)
-        @entry_record.exit_time = Time.zone.now
-      else
-        @entry_record = EntryRecord.new(params[:entry_record])
-        @entry_record.individual_id = person_with_enrollment.id
-        @entry_record.entry_time = Time.zone.now
-      end
-      
+      @entry_record.individual_id = person_with_enrollment.id
+      @entry_record.entryTime = Time.zone.now
+    
       respond_to do |format|
         if @entry_record.save
           format.html { redirect_to new_entry_record_path, notice: 'Registrado com sucesso.' }

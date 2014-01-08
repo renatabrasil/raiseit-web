@@ -5,6 +5,7 @@
 <table class="table table-bordered">
   <thead>
     <tr>
+      <th style="text-align: center; width: 4%"></th>
       <th class="rotulo">Nome</th>
       <th class="rotulo" style="text-align: center; width: 20%">E-mail</th>
       <th class="rotulo" style="text-align: center; width: 20%">Matrícula</th>
@@ -13,11 +14,12 @@
   </thead>
   <tbody>
     <% if !@students.empty? %>
-      <% @students.each do |student| %>
+      <% @students.each_with_index do |student, i| %>
         <tr>
+          <td style="text-align: center; width: 4%"><%= i+1 %></td>
           <td><%= student.name %></td>
           <td style="text-align: center;"><%= student.email %></td>
-          <td style="text-align: center;"><%= student.enrollment %></td>
+          <td style="text-align: center;"><%= student.registration_code.code %></td>
           <td style="text-align: center; width: 20%">
             <%= link_to(student_path(student), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
                Visualizar

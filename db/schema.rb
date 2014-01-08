@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131129192548) do
+ActiveRecord::Schema.define(version: 20131208013157) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -63,20 +63,20 @@ ActiveRecord::Schema.define(version: 20131129192548) do
     t.string   "gender",             limit: 1
     t.string   "phone1",             limit: 20
     t.string   "phone2",             limit: 20
-    t.string   "enrollment",         limit: 30
     t.integer  "type_employee_id"
-    t.integer  "modality_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["modality_id"], :name => "fk__people_modality_id"
     t.index ["type_employee_id"], :name => "fk__people_type_employee_id"
-    t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_people_modality_id"
     t.foreign_key ["type_employee_id"], "type_employees", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_people_type_employee_id"
   end
 
   create_table "class_gyms", force: true do |t|
     t.integer  "capacity"
+    t.string   "code",          limit: 8
+    t.datetime "start_date"
     t.string   "schedule",      limit: 200
+    t.boolean  "open",                      default: true, null: false
+    t.boolean  "active"
     t.integer  "modality_id"
     t.integer  "instructor_id"
     t.datetime "created_at"
@@ -103,12 +103,12 @@ ActiveRecord::Schema.define(version: 20131129192548) do
   end
 
   create_table "enrollments", force: true do |t|
-    t.string   "code",             limit: 100
     t.datetime "start_date"
     t.string   "note",             limit: 500
     t.decimal  "value",                        precision: 6, scale: 2
     t.decimal  "registration_fee",             precision: 6, scale: 2
     t.decimal  "discount",                     precision: 6, scale: 2
+    t.boolean  "active",                                               default: true, null: false
     t.integer  "modality_id"
     t.integer  "periodicity_id"
     t.integer  "student_id"
@@ -267,6 +267,15 @@ ActiveRecord::Schema.define(version: 20131129192548) do
     t.index ["physical_parameter_id"], :name => "fk__physical_parameter_measures_physical_parameter_id"
     t.foreign_key ["measure_unit_id"], "measure_units", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_parameter_measures_measure_unit_id"
     t.foreign_key ["physical_parameter_id"], "physical_parameters", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_parameter_measures_physical_parameter_id"
+  end
+
+  create_table "registration_codes", force: true do |t|
+    t.string   "code",          limit: 100
+    t.integer  "individual_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["individual_id"], :name => "fk__registration_codes_individual_id"
+    t.foreign_key ["individual_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_registration_codes_individual_id"
   end
 
   create_table "roles", force: true do |t|

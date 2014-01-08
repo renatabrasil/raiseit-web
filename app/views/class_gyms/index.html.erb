@@ -1,12 +1,13 @@
 <h1>Turmas</h1>
-
+<br />
+<%= link_to 'Nova Turma', new_class_gym_path %>
 <table width="100%" style="border: 1px solid #000000;">
   <thead>
     <tr>
-      <th>Modalidade</th>
+      <th style="text-align: left">Modalidade</th>
       <th style="text-align: center">Data de Início</th>
       <th>Horário</th>
-      <th>Professor</th>
+      <th style="text-align: left">Professor</th>
       <th style="text-align: center">Alunos Matriculados</th>
       <th style="text-align: center">Capacidade</th>
       <th></th>
@@ -16,10 +17,10 @@
     <% if !@class_gyms.empty? %>
       <% @class_gyms.each do |class_gym| %>
         <tr>
-          <td><%= class_gym.modality.name %></td>
+          <td style="text-align: left"><%= class_gym.modality.name %></td>
           <td style="text-align: center"></td>
           <td><%= class_gym.schedule %></td>
-          <td><%= class_gym.instructor.blank? ? "Não informado" : class_gym.instructor.name %></td>
+          <td style="text-align: left"><%= class_gym.instructor.blank? ? "Não informado" : class_gym.instructor.name %></td>
           <td style="text-align: center"><%= class_gym.students.size %></td>
           <td style="text-align: center"><%= class_gym.capacity %></td>
           <td>
@@ -31,6 +32,9 @@
               <% end %> |
             <%= link_to(class_gym_path(class_gym), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
               Apagar
+            <% end %> |
+            <%= link_to(include_student_class_gym_path(class_gym), :class => "link-icon", :title => "Incluir alunos" ) do %>
+              Incluir alunos
             <% end %>
           </td>
         </tr>

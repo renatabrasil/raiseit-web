@@ -5,14 +5,6 @@
 <p class="notice"><%= notice %></p>
 <hr>
 <% if !@entry_record_now.nil? %>
-
-	<% if !@entry_record_now.exit_time.blank? %>
- 		SAIDA
- 	<% else %>
- 		ENTRADA
- 	<% end %>
- 	
- 	<br />
  	<strong><%= Person.find(@entry_record_now.individual_id).name %></strong> &nbsp;
  	
  	- &nbsp; <strong><%= Person.find(@entry_record_now.individual_id).type %></strong>
@@ -23,12 +15,7 @@
  	
  	<br />	
  	
- 	Hora de entrada: &nbsp; <%= @entry_record_now.entry_time.strftime("%c") %> 
- 	
- 	<br />
- 	<% if !@entry_record_now.exit_time.blank? %>
- 		Hora de saida: &nbsp; <%= @entry_record_now.entry_time.strftime("%c") %>
- 	<% end %>
+ 	Hora de entrada: &nbsp; <%= @entry_record_now.entryTime.strftime("%c") %> 
 <% end %>
 <hr>
 <li><%= link_to 'Listar Registros', entry_records_path %></li>
