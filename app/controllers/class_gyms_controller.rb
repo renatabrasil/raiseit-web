@@ -114,8 +114,17 @@ class ClassGymsController < ApplicationController
     end
   end
   
-  def confirm_class
-    @class_gym = ClassGym.find(params[:class_gym_id])
+  def confirm
+    @class_gym = ClassGym.find(params[:id])
+    
+    respond_to do |format|
+      format.html # confirm.html.erb
+      format.json { render json: @class_gym }
+    end
+  end
+  
+  def finish_class
+    @class_gym = ClassGym.find(params[:id])
     @class_gym.attributes = {:open => 'false'}
     
     respond_to do |format|

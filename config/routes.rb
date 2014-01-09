@@ -26,6 +26,8 @@ SystemGym::Application.routes.draw do
   resources :class_gyms do
     get 'include_student', on: :member
     patch 'insert_student', on: :member
+    get 'confirm', on: :member
+    post 'finish_class', on: :member
     delete 'delete_student', on: :member
   end
   # resources :class_gyms do

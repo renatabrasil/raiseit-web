@@ -10,6 +10,7 @@
       <th style="text-align: left">Professor</th>
       <th style="text-align: center">Alunos Matriculados</th>
       <th style="text-align: center">Capacidade</th>
+      <th style="text-align: center">Status</th>
       <th></th>
     </tr>
   </thead>
@@ -23,6 +24,7 @@
           <td style="text-align: left"><%= class_gym.instructor.blank? ? "Não informado" : class_gym.instructor.name %></td>
           <td style="text-align: center"><%= class_gym.students.size %></td>
           <td style="text-align: center"><%= class_gym.capacity %></td>
+          <td style="text-align: center"><%= class_gym.open? ? "ABERTA" : "FECHADA" %></td>
           <td>
             <%= link_to(class_gym_path(class_gym), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
                  Visualizar

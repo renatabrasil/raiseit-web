@@ -31,7 +31,7 @@ INCLUDE_STUDENT
 </table>
 <br>
 <button class="btn btn-danger" type="submit" name="botao_excluir">Adicionar à turma</button>
-<%#= link_to "Fechar turma", confirm_class_path(@class_gym.id) %>
+<%= link_to "Fechar turma", confirm_class_gym_path(@class_gym), method: :get %>
 
 <% end %>
 
