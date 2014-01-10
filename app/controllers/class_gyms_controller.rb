@@ -137,6 +137,6 @@ class ClassGymsController < ApplicationController
       end
     end
   end
-  
+
   
 end
