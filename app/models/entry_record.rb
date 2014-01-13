@@ -5,18 +5,29 @@ class EntryRecord < ActiveRecord::Base
   attr_accessible :individual_id, :entry_time, :exit_time
   
   def self.students_by_day(day_date)
-     return EntryRecord.joins("INNER JOIN people ON people.id = entry_records.individual_id AND people.type IN ('Student')").where(:entry_time => day_date.beginning_of_day..day_date.end_of_day)
+    return EntryRecord.joins(
+      "INNER JOIN people ON people.id = entry_records" \
+      ".individual_id AND people.type IN ('Student')")
+        .where(:entry_time => day_date.beginning_of_day..day_date.end_of_day)
   end
   
   def self.students_between_days(initial_date, final_date)
-     #return EntryRecord.joins(:individual).where('people.type' => 'Student', :entry_time => initial_date.beginning_of_day..final_date.end_of_day)
-      return EntryRecord.joins("INNER JOIN people ON people.id = entry_records.individual_id AND people.type IN ('Student')").where(:entry_time => initial_date.beginning_of_day..final_date.end_of_day)
+    return EntryRecord.joins(
+      "INNER JOIN people ON people.id = entry_records" \
+      ".individual_id AND people.type IN ('Student')")
+        .where(
+          :entry_time => initial_date.beginning_of_day..final_date.end_of_day
+        )
   end
   
   def self.students_by_hour(hour)
-     #return EntryRecord.joins(:individual).where('people.type' => 'Student', :entry_time => initial_date.beginning_of_day..final_date.end_of_day)
-      return EntryRecord.joins("INNER JOIN people ON people.id = entry_records.individual_id AND people.type IN ('Student')")
-        .where("(entry_records.entry_time BETWEEN  ?  AND  ?) AND (entry_records.exit_time BETWEEN ? AND ?)", hour.beginning_of_day, hour.end_of_hour, hour, hour.end_of_day)
+    return EntryRecord.joins("INNER JOIN people ON people.id = entry_records" \
+    ".individual_id AND people.type IN ('Student')")
+      .where(
+        "(entry_records.entry_time BETWEEN  ?  AND  ?) AND " \
+        "(entry_records.exit_time BETWEEN ? AND ?)", 
+        hour.beginning_of_day, hour.end_of_hour, hour, hour.end_of_day
+      )
   end
   
   def self.students_between_days_to_graph(d1, d2)
@@ -38,7 +49,10 @@ class EntryRecord < ActiveRecord::Base
       month_beginning = Date.new(year, month, 1)
       month_end = month_beginning.end_of_month
       
-      students.push(:x => Date::MONTHNAMES[month], :y => self.students_between_days(month_beginning, month_end).count)
+      students.push(
+        :x => Date::MONTHNAMES[month], 
+        :y => self.students_between_days(month_beginning, month_end).count
+      )
     end
  
     return students
@@ -50,7 +64,8 @@ class EntryRecord < ActiveRecord::Base
     hour = day.beginning_of_day
     
     for time in 0..23
-      students.push(:x => hour.strftime("%F %T"), :y => self.students_by_hour(hour).count)
+      students.push(:x => hour.strftime("%F %T"), 
+                    :y => self.students_by_hour(hour).count)
       hour = hour + 1.hour
     end
  
