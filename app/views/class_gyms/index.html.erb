@@ -34,9 +34,6 @@
               <% end %> |
             <%= link_to(class_gym_path(class_gym), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
               Apagar
-            <% end %> |
-            <%= link_to(include_student_class_gym_path(class_gym), :class => "link-icon", :title => "Incluir alunos" ) do %>
-              Incluir alunos
             <% end %>
           </td>
         </tr>

@@ -1,4 +1,5 @@
-INCLUDE_STUDENT
+Class
+<br />
 
 <h1>Acrescentar alunos</h1>
 
@@ -7,12 +8,16 @@ INCLUDE_STUDENT
 <strong>Capacidade:</strong> <%= @class_gym.capacity %><br>
 
 
-<%#= form_for(@class_gym, url: insert_student_class_gym_path, remote: true) do |f| %>
-<%= form_tag({controller: "class_gyms", action: "insert_student", remote:true}, :method => 'patch', :html => { :class => :form, :id => "form" }) do |f| -%>
+<%= form_for(@class_gym, url: wizard_path) do |f| %>
+<%#= form_tag({controller: "class_gyms", action: "insert_student", remote:true}, :method => 'patch', :html => { :class => :form, :id => "form" }) do |f| -%>
 
 <br>
 
-<%= hidden_field_tag "id", @class_gym.id %>
+<%#= f.fields_for :students do |student_fields| %>
+  Name: <%= student_fields.text_field :name %><br>
+<% end %>
+
+<%= hidden_field_tag "class_gym_id", @class_gym.id %>
 <table>
   <thead>
     <tr>
@@ -30,7 +35,7 @@ INCLUDE_STUDENT
   </tbody>
 </table>
 <br>
-<button class="btn btn-danger" type="submit" name="botao_excluir">Adicionar à turma</button>
+<button class="btn btn-danger" type="submit">Próximo passo</button>
 <%= link_to "Fechar turma", confirm_class_gym_path(@class_gym), method: :get %>
 
 <% end %>
