@@ -18,8 +18,11 @@
   <%= f.text_field :name, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "80" %>
   
   <br>
-  <%= f.label 'Matrícula', :class => "control-label" %>
-  <%= f.text_field :enrollment, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "40" %>
+  <%= f.fields_for :registration_code do |fa| %>
+    <%= fa.label 'Matrícula', :class => "control-label" %>
+    <%= fa.text_field :code, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "40" %>
+  <% end %>
+  
   
   <br>
   <%= f.label 'CPF', :class => "control-label" %>

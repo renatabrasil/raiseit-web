@@ -1,0 +1,2 @@
+module ClassGyms::AddStudentsHelper
+end

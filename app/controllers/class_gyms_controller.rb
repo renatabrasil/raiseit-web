@@ -1,15 +1,16 @@
 class ClassGymsController < ApplicationController
-  def index
-    @class_gyms = ClassGym.all
-  end
-  
+
   def show
     @class_gym = ClassGym.find(params[:id])
-    
+  
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @class_gym }
-    end
+    end  
+  end
+  
+  def index
+    @class_gyms = ClassGym.all
   end
   
   def new
@@ -54,6 +55,13 @@ class ClassGymsController < ApplicationController
   end
   
   def destroy
+    @class_gym = ClassGym.find(params[:id])
     
+    @class_gym.destroy
+
+    respond_to do |format|
+        format.html { redirect_to class_gyms_url, notice: 'Turma removida com sucesso.'  }
+        format.json { head :no_content }
+    end  
   end
 end

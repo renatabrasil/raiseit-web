@@ -4,8 +4,16 @@ SystemGym::Application.routes.draw do
 
   resources :employees
   resources :students
+  resources :instructors
   resources :entry_records
+  
   resources :class_gyms
+  
+  resources :modalities
+  
+  # In routes.rb
+  get '/employee/:type_employee' => 'employees#new', as: 'login'
+  
 
   resources :enrollments, only: [:index]
   resources :payments, only: [:index]

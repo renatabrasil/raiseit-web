@@ -1,0 +1,24 @@
+All in one
+<br />
+
+<%= form_for(@class_gym, url: insert_student_class_gym_path, remote: true) do |f| %>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th style="text-align: right">Matrícula</th>
+        <th style="text-align: left">Aluno</th>
+      </tr>
+    </thead>
+    <tbody id="students">
+      <% if !@students.empty? %>
+        <% @students.each do |student| %>
+          <%= render student %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <br>
+  <button class="btn btn-danger" type="submit" name="botao_excluir">Adicionar à turma</button>
+<%= link_to "Fechar turma", confirm_class_gym_path(@class_gym), method: :get %>
+<% end %>

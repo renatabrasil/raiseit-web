@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  
   def index
 
     sql = "SELECT COUNT(*) FROM payments p WHERE p.expiration_date <= " +

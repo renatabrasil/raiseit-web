@@ -5,6 +5,6 @@ class Employee < Individual
   
   belongs_to :type_employee, foreign_key: :type_employee_id
   
-  attr_accessible :enrollment, :type_employee_id, :user_attributes
+  attr_accessible :type_employee_id, :user_attributes
   
 end

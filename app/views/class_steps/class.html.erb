@@ -1,0 +1,70 @@
+Class
+<br />
+
+<h1>Acrescentar alunos</h1>
+
+<strong>Turma:</strong> <%= @class_gym.schedule %><br>
+<strong>Instrutor:</strong> <%= @class_gym.instructor.name %><br>
+<strong>Capacidade:</strong> <%= @class_gym.capacity %><br>
+
+
+<%= form_for(@class_gym, url: wizard_path) do |f| %>
+<%#= form_tag({controller: "class_gyms", action: "insert_student", remote:true}, :method => 'patch', :html => { :class => :form, :id => "form" }) do |f| -%>
+
+<br>
+
+<%#= f.fields_for :students do |student_fields| %>
+  Name: <%= student_fields.text_field :name %><br>
+<% end %>
+
+<%= hidden_field_tag "class_gym_id", @class_gym.id %>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th style="text-align: right">Matrícula</th>
+      <th style="text-align: left">Aluno</th>
+    </tr>
+  </thead>
+  <tbody id="students">
+    <% if !@students.empty? %>
+      <% @students.each do |student| %>
+        <%= render student %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<button class="btn btn-danger" type="submit">Próximo passo</button>
+<%= link_to "Fechar turma", confirm_class_gym_path(@class_gym), method: :get %>
+
+<% end %>
+
+<h3>Alunos adicionados</h3>
+<div class="destroy_students">
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align: right">Matrícula</th>
+        <th>Nome do Aluno</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if !@class_gym.students.empty? %>
+          <% @class_gym.students.each do |student| %>
+            <tr id="student_<%= student.id %>">
+              <td style="text-align: right" style="text-align: right"><%= student.registration_code.code %></td>
+              <td><%= student.name %></td>
+              <td>
+                <%= link_to "Remover", delete_student_class_gym_path(@class_gym, :student_id => student.id), remote: true, method: :delete %>
+              </td>
+            </tr>
+          <% end %>
+      <% else%>
+        <tr><td colspan="2">Não há alunos adicionados a esta turma.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<br>

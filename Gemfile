@@ -5,16 +5,16 @@ gem 'rails', '4.0.0'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
- 
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
-# Use Uglifier as compressor for JavaScript assets teste2
+# Use Uglifier as compressor for JavaScript assets teesste
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
-
+  
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -31,7 +31,7 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-
+ 
 gem 'debugger'
 
 gem 'devise', '3.0.0.rc'
@@ -44,6 +44,10 @@ gem 'schema_associations'
 gem 'habtm_generator', :group => :development
 
 gem 'nested_form'
+
+gem 'irbtools', require: false
+
+# gem 'wicked'
 
 # gem 'devise', '1.1.rc0'
 
@@ -58,3 +62,4 @@ gem 'nested_form'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+

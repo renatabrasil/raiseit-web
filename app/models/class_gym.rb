@@ -5,5 +5,7 @@ class ClassGym < ActiveRecord::Base
   
   has_and_belongs_to_many :students
     
-  attr_accessible :schedule, :capacity, :modality_id, :instructor_id
+  attr_accessible :schedule, :capacity, :modality_id, :instructor_id, :student_ids, :open
+  
+  accepts_nested_attributes_for :students, :allow_destroy => true
 end

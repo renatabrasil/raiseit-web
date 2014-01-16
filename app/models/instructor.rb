@@ -3,6 +3,7 @@ class Instructor < Employee
   
   scope :instructor, -> { where(type: 'Instructor') }
   
-  belongs_to :modalities, foreign_key: :modality_id
+  has_many :class_gyms
+  
   
 end
