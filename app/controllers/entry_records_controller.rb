@@ -23,7 +23,14 @@ class EntryRecordsController < ApplicationController
   end
   
   def create 
-    person_with_enrollment = Person.find_by enrollment: params[:enrollment].to_s
+    # person_with_enrollment = Person.find_by enrollment: params[:enrollment].to_s
+    
+    # Person.where(['individual_id = ? AND paid = ? AND expiration_date <= ?', self.student_id, false, Date.today])
+    
+    person_with_enrollment = Person.joins("JOIN registration_codes ON registration_codes.individual_id = "+
+      "people.id ").where(" registration_codes.code like ? ", params[:enrollment].to_s).first
+      
+    # cuidar da condição se a pessoa for nil
     
     if person_with_enrollment.nil?
       person_with_enrollment = Person.new
@@ -38,7 +45,7 @@ class EntryRecordsController < ApplicationController
       @entry_record = EntryRecord.new(params[:entry_record])
       
       @entry_record.individual_id = person_with_enrollment.id
-      @entry_record.entryTime = Time.zone.now
+      @entry_record.entry_time = Time.zone.now
     
       respond_to do |format|
         if @entry_record.save

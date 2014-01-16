@@ -11,11 +11,11 @@
  	
  	<br />
  	
- 	Matricula: <%= Person.find(@entry_record_now.individual_id).enrollment %></strong>
+ 	Matricula: <%= Person.find(@entry_record_now.individual_id).registration_code.code %></strong>
  	
  	<br />	
  	
- 	Hora de entrada: &nbsp; <%= @entry_record_now.entryTime.strftime("%c") %> 
+ 	Hora de entrada: &nbsp; <%= @entry_record_now.entry_time.strftime("%c") %> 
 <% end %>
 <hr>
 <li><%= link_to 'Listar Registros', entry_records_path %></li>
