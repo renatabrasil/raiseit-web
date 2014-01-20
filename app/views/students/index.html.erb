@@ -9,6 +9,8 @@
       <th class="rotulo">Nome</th>
       <th class="rotulo" style="text-align: center; width: 20%">E-mail</th>
       <th class="rotulo" style="text-align: center; width: 20%">Matrícula</th>
+      <th class="rotulo" style="text-align: center; width: 20%">Modalidades</th>
+      <th class="rotulo" style="text-align: center; width: 20%">Ativo</th>
       <th class="rotulo"></th>
     </tr>    
   </thead>
@@ -20,6 +22,20 @@
           <td><%= student.name %></td>
           <td style="text-align: center;"><%= student.email %></td>
           <td style="text-align: center;"><%= student.registration_code.code %></td>
+          <td> 
+            <table>
+              <% student.enrollments.each do |enrollment| %> 
+              <tr><td><%= Modality.find(enrollment.modality_id).name %> </td></tr> 
+              <% end %>  
+            </table>
+          </td>
+           <td> 
+            <table>
+              <% student.enrollments.each do |enrollment| %> 
+              <tr><td><%= enrollment.active %> </td></tr> 
+              <% end %>  
+            </table>
+          </td>
           <td style="text-align: center; width: 20%">
             <%= link_to(student_path(student), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
                Visualizar
