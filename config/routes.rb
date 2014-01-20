@@ -15,7 +15,7 @@ SystemGym::Application.routes.draw do
   get '/employee/:type_employee' => 'employees#new', as: 'login'
   
 
-  resources :enrollments, only: [:index]
+  resources :enrollments, only: [:index, :new, :create]
   resources :payments, only: [:index]
 
   #  devise_for :users
