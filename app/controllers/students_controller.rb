@@ -3,8 +3,8 @@ class StudentsController < ApplicationController
   load_and_authorize_resource
   
   def index
-    
-    @students = Student.all
+    @search = Student.search(params[:q])
+    @students = @search.result(distinct: true)
     
     respond_to do |format|
       format.html # index.html.erb

@@ -2,6 +2,17 @@
 
 
 <%= link_to 'Novo Aluno', new_student_path %>
+
+
+<%= search_form_for @search do |f| %>
+  <%= f.label :registration_code_code_cont %>
+  <%= f.text_field :registration_code_code_cont %>
+  <%= f.label :enrollments_modality_name_cont %>
+  <%= f.text_field :enrollments_modality_name_cont %>
+  <%= f.submit %>
+<% end %>
+
+
 <table class="table table-bordered">
   <thead>
     <tr>
@@ -25,7 +36,7 @@
           <td> 
             <table>
               <% student.enrollments.each do |enrollment| %> 
-              <tr><td><%= Modality.find(enrollment.modality_id).name %> </td></tr> 
+              <tr><td><%= enrollment.modality.name %> </td></tr> 
               <% end %>  
             </table>
           </td>

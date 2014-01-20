@@ -47,6 +47,8 @@ gem 'nested_form'
 
 gem 'irbtools', require: false
 
+gem 'ransack'
+
 # gem 'wicked'
 
 # gem 'devise', '1.1.rc0'
