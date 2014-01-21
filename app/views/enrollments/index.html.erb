@@ -18,8 +18,8 @@
 		<% if !@enrollments.empty? %>
 			<% @enrollments.each do |enrollment| %>
 				<tr>
-					<td style="text-align: right"><%= enrollment.code %></td>
-					<td style="text-align: center"><%= enrollment.start_date %></td>
+					<td style="text-align: right"><%= enrollment.student.registration_code.code %></td>
+					<td style="text-align: center"><%= enrollment.start_date.blank? ? "-" : l(enrollment.start_date, :format => :sample) %></td>
 					<td><%= enrollment.note %></td>
 					<td style="text-align: right"><%= enrollment.value %></td>
 					<td style="text-align: right"><%= enrollment.registration_fee.blank? ? "-" : enrollment.registration_fee %></td>

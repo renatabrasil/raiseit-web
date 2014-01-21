@@ -4,10 +4,12 @@ class Enrollment < ActiveRecord::Base
   belongs_to :periodicity
   belongs_to :modality
   # belongs_to :registration_code
+  
+  validates :student, :modality, presence: true
 
   has_many :payments, as: :account, dependent: :destroy
 
-  attr_accessible :start_date, :note, :value, :registration_fee, :discount, :student_id
+  attr_accessible :start_date, :note, :value, :registration_fee, :discount, :student_id, :modality_id, :periodicity_id
   def expired_payment
     return Payment.where(['individual_id = ? AND paid = ? AND expiration_date <= ?', self.student_id, false, Date.today])
   end

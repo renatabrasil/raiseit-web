@@ -4,7 +4,19 @@ class StudentsController < ApplicationController
   
   def index
     
-    @students = Student.all
+    # @students = Student.all
+    # I will explain this part in a moment.
+    # Autocomplete
+    if !params[:term].nil?
+      term = params[:term].to_s.upcase
+      @students = Student.find(:all, include: :registration_code, :conditions => ['UPPER(name) LIKE ?', "#{term}%"])
+      
+      puts "OLHAAA "+params[:term].to_s
+      puts "OLHAAA "+term
+      puts "NOSSA "+ @students.first.registration_code.code
+    else
+      @students = Student.all
+    end
     
     respond_to do |format|
       format.html # index.html.erb
