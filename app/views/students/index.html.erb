@@ -9,20 +9,24 @@
   <%= f.text_field :registration_code_code_cont %>
   <%= f.label :enrollments_modality_name_cont %>
   <%= f.text_field :enrollments_modality_name_cont %>
+  <%= f.label "Alunos Ativos:" %>
+  <%= f.check_box :enrollments_active_true %>
+  <%= f.label "Alunos Inativos:" %>
+  <%= f.check_box :enrollments_active_false %>
   <%= f.submit %>
 <% end %>
 
 
-<table class="table table-bordered">
+<table>
   <thead>
     <tr>
-      <th style="text-align: center; width: 4%"></th>
-      <th class="rotulo">Nome</th>
-      <th class="rotulo" style="text-align: center; width: 20%">E-mail</th>
-      <th class="rotulo" style="text-align: center; width: 20%">Matrícula</th>
-      <th class="rotulo" style="text-align: center; width: 20%">Modalidades</th>
-      <th class="rotulo" style="text-align: center; width: 20%">Ativo</th>
-      <th class="rotulo"></th>
+      <th></th>
+      <th>Nome</th>
+      <th>E-mail</th>
+      <th>Matrícula</th>
+      <th>Modalidades</th>
+      <th>Ativo</th>
+      <th></th>
     </tr>    
   </thead>
   <tbody>

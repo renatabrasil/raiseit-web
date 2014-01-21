@@ -1,8 +1,23 @@
 <h1>Matrículas</h1>
 
+
+<%= search_form_for @search do |f| %>
+  <%= f.label "Matrícula:" %>
+  <%= f.text_field :student_registration_code_code_cont %>
+  <%= f.label "Modalidade:" %>
+  <%= f.text_field :modality_name_cont %>
+  <%= f.label "Alunos Ativos:" %>
+ 
+  <%=  f.select :active_eq, options_for_select([false, true]), 
+  include_blank: true %>
+  <%= f.submit %>
+<% end %>
+
+
 <table width="100%">
 	<thead>
 		<tr>
+		  <th style="text-align: right"> Nome </th>
 			<th style="text-align: right">Matrícula</th>
 			<th style="text-align: center">Data de Início</th>
 			<th>Descrição</th>
@@ -11,6 +26,7 @@
 			<th style="text-align: right">Desconto</th>
 			<th style="text-align: center">Modalidade</th>
 			<th style="text-align: center">Periodicidade</th>
+      <th style="text-align: center">Ativo</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -18,14 +34,16 @@
 		<% if !@enrollments.empty? %>
 			<% @enrollments.each do |enrollment| %>
 				<tr>
-					<td style="text-align: right"><%= enrollment.code %></td>
+				  <td style="text-align: right"><%= enrollment.student.name %></td>
+					<td style="text-align: right"><%= enrollment.student.registration_code.code %></td>
 					<td style="text-align: center"><%= enrollment.start_date %></td>
 					<td><%= enrollment.note %></td>
 					<td style="text-align: right"><%= enrollment.value %></td>
 					<td style="text-align: right"><%= enrollment.registration_fee.blank? ? "-" : enrollment.registration_fee %></td>
 					<td style="text-align: right"><%= enrollment.discount.blank? ? "-" : enrollment.discount %></td>
 					<td style="text-align: center"><%= enrollment.modality.name %></td>
-					<td style="text-align: center"><%= enrollment.periodicity.description %></td>
+					<td style="text-align: center"><%= enrollment.periodicity.description if !enrollment.periodicity.nil? %></td>
+					<td> <%= enrollment.active %> </td>
 					<td>
 						<% if !enrollment.expired_payment.empty? %>
   						<table>
