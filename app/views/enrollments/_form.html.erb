@@ -67,6 +67,11 @@
   <%= select("enrollment", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}, {class: "span4", onchange: "atualizaForm()", id:"idModality"}) %>
   
   <br>
+  <%= f.label 'Dia de Vencimento', :class => "control-label" %>
+  <%= select_tag 'enrollment', options_for_select((1..28).to_a, disabled: "") %>
+  
+  
+  <br>
   <%= f.label 'Periodicidade', :class => "control-label" %>
   <%= select("enrollment", "periodicity_id", Periodicity.all.collect {|p| [ p.description, p.id ] }, {include_blank: '-- Selecione a periodicidade --'}, {class: "span4", disabled: "disabled", onchange: "atualizaForm()", id:"idModality"}) %>
   

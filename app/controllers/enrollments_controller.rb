@@ -19,6 +19,8 @@ class EnrollmentsController < ApplicationController
   
   def create
     @enrollment = Enrollment.new(params[:enrollment])
+    # Atualmente a periodicidade está mensal para efeitos de teste
+    @enrollment.periodicity = Periodicity.find(Periodicity::MENSAL)
     
     respond_to do |format|
       if @enrollment.save

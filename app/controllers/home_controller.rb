@@ -13,7 +13,7 @@ class HomeController < ApplicationController
       # end
     # end
 
-    @size_expired_payments = Payment.count_by_sql sql
+#    @size_expired_payments = Payment.count_by_sql sql
 
   end
 end

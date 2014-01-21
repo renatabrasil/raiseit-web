@@ -9,13 +9,14 @@ class Enrollment < ActiveRecord::Base
 
   has_many :payments, as: :account, dependent: :destroy
 
-  attr_accessible :start_date, :note, :value, :registration_fee, :discount, :student_id, :modality_id, :periodicity_id
+  attr_accessible :start_date, :note, :value, :registration_fee, :discount, :student_id, :modality_id, :periodicity_id, :expiration_day
   def expired_payment
-    return Payment.where(['individual_id = ? AND paid = ? AND expiration_date <= ?', self.student_id, false, Date.today])
+    return []
+    #return Payment.where(['individual_id = ? AND paid = ? AND expiration_date <= ?', self.student_id, false, Date.today])
   end
   
   def size_expired_payment
-    return self.expired_payment.size
+    #return self.expired_payment.size
   end
 
 end

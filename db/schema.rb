@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20131208013157) do
   create_table "enrollments", force: true do |t|
     t.datetime "start_date"
     t.string   "note",             limit: 500
+    t.integer  "expiration_day"
     t.decimal  "value",                        precision: 6, scale: 2
     t.decimal  "registration_fee",             precision: 6, scale: 2
     t.decimal  "discount",                     precision: 6, scale: 2
@@ -205,8 +206,6 @@ ActiveRecord::Schema.define(version: 20131208013157) do
   end
 
   create_table "payments", force: true do |t|
-    t.boolean  "paid"
-    t.datetime "expiration_date"
     t.datetime "payday"
     t.integer  "account_id"
     t.string   "account_type"
