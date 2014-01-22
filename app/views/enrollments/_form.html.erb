@@ -68,7 +68,7 @@
   
   <br>
   <%= f.label 'Dia de Vencimento', :class => "control-label" %>
-  <%= select_tag 'enrollment', options_for_select((1..28).to_a, disabled: "") %>
+  <%= select_tag 'enrollment[expiration_day]', options_for_select((1..28).to_a, disabled: "") %>
   
   
   <br>

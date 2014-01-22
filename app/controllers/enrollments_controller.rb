@@ -9,7 +9,6 @@ class EnrollmentsController < ApplicationController
   def new
     @enrollment = Enrollment.new
     @enrollment.periodicity = Periodicity.find(Periodicity::MENSAL)
-    @today = Date.today
     
     respond_to do |format|
       format.html # new.html.erb
