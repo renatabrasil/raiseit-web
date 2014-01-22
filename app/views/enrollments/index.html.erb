@@ -1,6 +1,5 @@
 <h1>Matrículas</h1>
 
-
 <%= search_form_for @search do |f| %>
   <%= f.label "Matrícula:" %>
   <%= f.text_field :student_registration_code_code_cont %>
@@ -14,12 +13,15 @@
 <% end %>
 
 
+<br />
+<%= link_to 'Fazer matrícula', new_enrollment_path %>
 <table width="100%">
 	<thead>
 		<tr>
 		  <th style="text-align: right"> Nome </th>
 			<th style="text-align: right">Matrícula</th>
 			<th style="text-align: center">Data de Início</th>
+			<th style="text-align: center">Dia do Vencimento</th>
 			<th>Descrição</th>
 			<th style="text-align: right">Valor</th>
 			<th style="text-align: right">Taxa de Inscrição</th>
@@ -28,6 +30,7 @@
 			<th style="text-align: center">Periodicidade</th>
       <th style="text-align: center">Ativo</th>
 			<th></th>
+			<th style="text-align: left">Situação</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -37,6 +40,9 @@
 				  <td style="text-align: right"><%= enrollment.student.name %></td>
 					<td style="text-align: right"><%= enrollment.student.registration_code.code %></td>
 					<td style="text-align: center"><%= enrollment.start_date %></td>
+					<td style="text-align: right"><%= enrollment.student.registration_code.code %></td>
+					<td style="text-align: center"><%= enrollment.start_date.blank? ? "-" : l(enrollment.start_date, :format => :sample) %></td>
+					<td style="text-align: center"><%= enrollment.expiration_day %></td>
 					<td><%= enrollment.note %></td>
 					<td style="text-align: right"><%= enrollment.value %></td>
 					<td style="text-align: right"><%= enrollment.registration_fee.blank? ? "-" : enrollment.registration_fee %></td>
@@ -45,27 +51,7 @@
 					<td style="text-align: center"><%= enrollment.periodicity.description if !enrollment.periodicity.nil? %></td>
 					<td> <%= enrollment.active %> </td>
 					<td>
-						<% if !enrollment.expired_payment.empty? %>
-  						<table>
-  						  <caption>Parcelas vencidas</caption>
-  						  <thead>
-  						    <tr>
-  						      <th style="text-align: center">Data de vencimento</th>
-  						      <th>Nome do Aluno</th>
-  						    </tr>
-  						  </thead>
-  						  <tbody>
-  						    <% enrollment.expired_payment.each do |payment| %>
-                  <tr>
-                    <td style="text-align: center"><%= payment.expiration_date %></td>
-                    <td><%= payment.individual.name %></td>
-                  </tr>
-                  <% end %>  
-  						  </tbody>
-  						</table>
-  						<% else %>
-  						Não há parcelas vencidas.
-						<% end %>
+					  <%= enrollment.expired? ? "Inadiplente" : "Ok" %>
 					</td>	
 				</tr>
 			<% end %>

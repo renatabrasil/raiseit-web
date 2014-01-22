@@ -3,8 +3,19 @@ class StudentsController < ApplicationController
   load_and_authorize_resource
   
   def index
-    @search = Student.search(params[:q])
-    @students = @search.result(distinct: true)
+    
+    # Autocomplete
+    if !params[:term].nil?
+      term = params[:term].to_s.upcase
+      @students = Student.find(:all, include: :registration_code, :conditions => ['UPPER(name) LIKE ?', "#{term}%"])
+      
+      puts "OLHAAA "+params[:term].to_s
+      puts "OLHAAA "+term
+      puts "NOSSA "+ @students.first.registration_code.code
+    else
+      @search = Student.search(params[:q])
+      @students = @search.result(distinct: true)
+    end
     
     respond_to do |format|
       format.html # index.html.erb
