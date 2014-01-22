@@ -22,17 +22,19 @@ class Enrollment < ActiveRecord::Base
     day_before = day_after << 1
     
     # Trazer todos os pagamentos que foram efetuados até a data de vencimento da matrícula corrente.
-     return !Enrollment.distinct.joins(:payments).where('payday BETWEEN ? AND ? AND active = true', 
-            day_before, day_after).exists?
+     return !Enrollment.distinct.joins(:payments).where('payday BETWEEN ? AND ? AND active = true AND payments.individual_id = ?', 
+            day_before, day_after, self.student_id).exists?
   end
   
   def expired_payment
+    
     return []
     # Payment.where(['individual_id = ? AND payday <= ?', self.student_id, Date.today])
     #return Payment.where(['individual_id = ? AND paid = ? AND expiration_date <= ?', self.student_id, false, Date.today])
   end
   
   def size_expired_payment
+    
     #return self.expired_payment.size
   end
 

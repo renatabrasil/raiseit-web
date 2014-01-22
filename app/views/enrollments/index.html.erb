@@ -1,5 +1,6 @@
 <h1>Matrículas</h1>
-
+<br />
+<%= link_to 'Fazer matrícula', new_enrollment_path %>
 <table width="100%">
 	<thead>
 		<tr>
@@ -30,27 +31,6 @@
 					<td style="text-align: center"><%= enrollment.periodicity.description %></td>
 					<td>
 					  <%= enrollment.expired? ? "Inadiplente" : "Ok" %>
-						<% if !enrollment.expired_payment.empty? %>
-  						<table>
-  						  <caption>Parcelas vencidas</caption>
-  						  <thead>
-  						    <tr>
-  						      <th style="text-align: center">Data de vencimento</th>
-  						      <th>Nome do Aluno</th>
-  						    </tr>
-  						  </thead>
-  						  <tbody>
-  						    <% enrollment.expired_payment.each do |payment| %>
-                  <tr>
-                    <td style="text-align: center"><%= payment.expiration_date %></td>
-                    <td><%= payment.individual.name %></td>
-                  </tr>
-                  <% end %>  
-  						  </tbody>
-  						</table>
-  						<% else %>
-  						
-						<% end %>
 					</td>	
 				</tr>
 			<% end %>
