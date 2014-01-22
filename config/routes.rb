@@ -16,7 +16,7 @@ SystemGym::Application.routes.draw do
   
 
   resources :enrollments#, only: [:index, :new, :create]
-  resources :payments, only: [:index]
+  resources :payments, only: [:index, :show]
 
   #  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.

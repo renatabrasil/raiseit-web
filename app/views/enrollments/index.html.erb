@@ -46,7 +46,9 @@
 					<td style="text-align: center"><%= enrollment.periodicity.description if !enrollment.periodicity.nil? %></td>
 					<td style="text-align: center"> <%= enrollment.active? ? "SIM" : "NÃO" %> </td>
 					<td>
-					  <%= enrollment.expired? ? "Inadiplente" : "Ok" %>
+					  <% payment = enrollment.expired? %>
+					  <%= link_to "Ok", payment_path(payment) if !payment.blank? %>
+            <%= "Pagamento em aberto" if payment.blank? %>
 					</td>
 						
 				</tr>
