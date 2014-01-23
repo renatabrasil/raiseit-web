@@ -48,7 +48,13 @@
 					<td>
 					  <% payment = enrollment.expired? %>
 					  <%= link_to "Ok", payment_path(payment) if !payment.blank? %>
-            <%= "Pagamento em aberto" if payment.blank? %>
+					  <% if payment.blank? %>
+					   <% if enrollment.expiration_day < Date.today.mday %>
+					     <%= "Vencida" %>
+				     <% else %>
+              <%= "Pagamento em aberto" %>
+              <% end %>
+            <% end %>
 					</td>
 						
 				</tr>
