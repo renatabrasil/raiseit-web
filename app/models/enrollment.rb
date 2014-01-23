@@ -22,8 +22,8 @@ class Enrollment < ActiveRecord::Base
             
     # Trazer todos os pagamentos que foram efetuados até a data de vencimento da matrícula corrente.
     return Payment.distinct.joins("INNER JOIN enrollments ON payments.account_id = enrollments.id AND 
-      payments.account_type = \'Enrollment\' ").where('payday BETWEEN ? AND ? AND active = true AND payments.individual_id = ?', 
-        day_before, day_after, self.student_id).first
+      payments.account_type = \'Enrollment\' ").where('payday BETWEEN ? AND ? AND active = true AND payments.account_id = ?', 
+        day_before, day_after, self.id).first
   end
   
 end
