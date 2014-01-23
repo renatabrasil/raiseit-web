@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123173555) do
+ActiveRecord::Schema.define(version: 20140123185358) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -351,12 +351,15 @@ ActiveRecord::Schema.define(version: 20140123173555) do
   end
 
   create_table "workouts", force: true do |t|
-    t.string   "description",  limit: 500
+    t.string   "description",          limit: 500
     t.integer  "equipment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "physical_category_id"
     t.index ["equipment_id"], :name => "fk__workouts_equipment_id"
+    t.index ["physical_category_id"], :name => "fk__workouts_physical_category_id"
     t.foreign_key ["equipment_id"], "equipment", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_workouts_equipment_id"
+    t.foreign_key ["physical_category_id"], "physical_categories", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_workouts_physical_category_id"
   end
 
   create_table "training_workouts", force: true do |t|

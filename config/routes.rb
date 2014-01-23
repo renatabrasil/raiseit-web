@@ -1,4 +1,5 @@
 SystemGym::Application.routes.draw do
+  
   resources :physical_categories
 
   devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, 
@@ -10,6 +11,8 @@ SystemGym::Application.routes.draw do
   resources :entry_records
   
   resources :equipments
+  
+  resources :workouts
   
   resources :class_gyms
   

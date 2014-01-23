@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <strong>Name:</strong>
+  <%= @workout.description %>
+</p>
+
+<p>
+  <strong>Categoria:</strong>
+  <%= @workout.physical_category.name %>
+</p>
+
+<p>
+  <strong>Maquina:</strong>
+  <%= @workout.equipment.description if !@workout.equipment.nil? %>
+</p>
+
+<%= link_to 'Edit', edit_workout_path(@workout) %> |
+<%= link_to 'Back', workouts_path %>
