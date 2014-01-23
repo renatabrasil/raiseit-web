@@ -64,7 +64,9 @@ class EnrollmentsController < ApplicationController
   
   def confirm_registration
     @enrollment = Enrollment.find(params[:id])
-    @class_gyms = ClassGym.all.where("class_gyms.open = true AND class_gyms.modality_id = "+params[:modality_id].to_s)
+    # @class_gyms = ClassGym.distinct.joins(:students).where("class_gyms_people.student_id <> ? AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id] )
+    @class_gyms = ClassGym.distinct.joins("LEFT JOIN class_gyms_people ON class_gyms.id = class_gyms_people.class_gym_id").where("(class_gyms_people.student_id <> ? OR class_gyms_people.student_id IS NULL ) AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id])
+    
   end
   
   def add_student
@@ -73,6 +75,21 @@ class EnrollmentsController < ApplicationController
     @enrollment.student.class_gyms << @class_gym
     
     redirect_to enrollments_path
+  end
+  
+  def destroy
+    @enrollment = Enrollment.find(params[:id])
+    
+    # @testes = ClassGym.joins(:students).joins("LEFT JOIN enrollments ON enrollments.student_id = class_gyms_people.student_id").where("
+      # enrolments.id = ?", @enrollment.id)
+    
+    @enrollment.student.class_gyms.delete(:all)
+    @enrollment.destroy
+
+    respond_to do |format|
+        format.html { redirect_to enrollments_url, notice: 'Matrícula removida com sucesso.'  }
+        format.json { head :no_content }
+    end  
   end
   
 end

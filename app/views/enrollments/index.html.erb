@@ -29,6 +29,7 @@
 			<th style="text-align: center">Periodicidade</th>
       <th style="text-align: center">Ativo</th>
 			<th style="text-align: left">Situação</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -52,11 +53,15 @@
 					   <% if enrollment.expiration_day < Date.today.mday %>
 					     <%= "Vencida" %>
 				     <% else %>
-              <%= "Pagamento em aberto" %>
+              <%= "Aguardando pagamento" %>
               <% end %>
             <% end %>
 					</td>
-						
+					<td>
+					  <%= link_to(enrollment_path(enrollment), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
+              Apagar
+            <% end %>
+					</td>	
 				</tr>
 				<tr><td colspan="9"><strong>Observação: </strong><%= enrollment.note.blank? ? "Não informado." : enrollment.note %></td></tr>
 			<% end %>
