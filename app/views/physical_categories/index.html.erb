@@ -1,0 +1,27 @@
+<h1>Categorias Fisicas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @physical_categories.each do |physical_category| %>
+      <tr>
+        <td><%= physical_category.name %></td>
+        <td><%= link_to 'Show', physical_category %></td>
+        <td><%= link_to 'Edit', edit_physical_category_path(physical_category) %></td>
+        <td><%= link_to 'Destroy', physical_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Physical category', new_physical_category_path %>

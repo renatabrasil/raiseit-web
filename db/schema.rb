@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131208013157) do
+ActiveRecord::Schema.define(version: 20140123173555) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -139,10 +139,8 @@ ActiveRecord::Schema.define(version: 20131208013157) do
   end
 
   create_table "equipment", force: true do |t|
-    t.string   "description",           limit: 200
-    t.integer  "usability"
+    t.string   "description",         limit: 200
     t.integer  "quantity"
-    t.datetime "next_maintenance_date"
     t.integer  "status_equipment_id"
     t.integer  "modality_id"
     t.datetime "created_at"
@@ -237,6 +235,12 @@ ActiveRecord::Schema.define(version: 20131208013157) do
     t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_assessments_instructor_id"
     t.foreign_key ["physical_assessment_type_id"], "physical_assessment_types", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_assessments_physical_assessment_type_id"
     t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_assessments_student_id"
+  end
+
+  create_table "physical_categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "physical_parameters", force: true do |t|
