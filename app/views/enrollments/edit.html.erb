@@ -1,0 +1,6 @@
+<h1>Editar Matrícula</h1>
+
+<%= form_for [@enrollment], :url => enrollment_path(@enrollment), :html => { :class => :form, :id => "edit_class_gym" } do |f| -%>
+  <input name="_method" type="hidden" value="put" />
+  <%= render :partial => "form", :locals => {:f => f} %>
+<% end -%>

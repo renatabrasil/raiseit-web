@@ -1,0 +1,36 @@
+<h1>Escolher turma</h1>
+
+<%= form_tag(add_student_enrollment_path, :method => 'patch', :html => { :class => :form, :id => "form" }) do |f| -%>
+  <% if @class_gyms.empty? %>
+    <%= link_to 'Cadastrar Turma', new_class_gym_path %><br />
+    <%= link_to 'Matrículas', enrollments_path %>
+  <% else %>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th style="text-align: left">Turma</th>
+          <th style="text-align: left">Professor</th>
+          <th style="text-align: center">Alunos matriculados</th>
+          <th style="text-align: center">Capacidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @class_gyms.each do |class_gym| %>
+          <tr>
+            <td>
+            <%= radio_button_tag "class_gym_id", class_gym.id %>
+            <%#= check_box_tag("[class_gym_ids]", class_gym.id, false) %>
+            </td>
+            <td style="text-align: left"><%= class_gym.schedule %></td>
+            <td><%= class_gym.instructor.name %></td>
+            <td style="text-align: center"><%= class_gym.students.size %></td>
+            <td style="text-align: center"><%= class_gym.capacity %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+    <button class="btn btn-danger" type="submit" name="botao_excluir">Selecionar turma</button>  
+  <% end %>
+<% end %>

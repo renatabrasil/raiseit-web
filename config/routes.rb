@@ -7,7 +7,11 @@ SystemGym::Application.routes.draw do
   resources :instructors
   resources :entry_records
   
-  resources :class_gyms
+  resources :class_gyms do
+    member do
+      
+    end
+  end
   
   resources :modalities
   
@@ -15,7 +19,14 @@ SystemGym::Application.routes.draw do
   get '/employee/:type_employee' => 'employees#new', as: 'login'
   
 
-  resources :enrollments#, only: [:index, :new, :create]
+  # resources :enrollments#, only: [:index, :new, :create]
+  
+  resources :enrollments do
+    member do
+      get 'confirm_registration'
+      patch 'add_student'
+    end
+  end
   resources :payments, only: [:index, :show]
 
   #  devise_for :users
