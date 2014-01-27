@@ -50,10 +50,12 @@
 					  <% payment = enrollment.expired? %>
 					  <%= link_to "Ok", payment_path(payment) if !payment.blank? %>
 					  <% if payment.blank? %>
-					   <% if enrollment.expiration_day < Date.today.mday %>
-					     <%= "Vencida" %>
-				     <% else %>
-              <%= "Aguardando pagamento" %>
+					   <% if enrollment.start_date.month == Date.today.month %>
+					     <%= "Aguardando pagamento" %> 
+				     <% elsif enrollment.expiration_day < Date.today.mday %>
+				      <%= "Vencida" %>
+				      <% else %>
+				        <%= "Aguardando pagamento" %>
               <% end %>
             <% end %>
 					</td>
