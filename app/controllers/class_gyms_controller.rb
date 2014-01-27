@@ -65,4 +65,8 @@ class ClassGymsController < ApplicationController
     end  
   end
   
+  def student_attendance
+    @class_gym = ClassGym.find(params[:id])
+  end
+  
 end

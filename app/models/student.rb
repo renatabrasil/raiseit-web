@@ -10,4 +10,10 @@ class Student < Individual
 
   #accepts_nested_attributes_for :user, :allow_destroy => true
   
+  def attendance(class_gym_id)
+    return EntryRecord.distinct.joins("INNER JOIN class_gyms_people ON class_gyms_people.student_id = entry_records.individual_id
+            INNER JOIN class_gyms ON class_gyms_people.class_gym_id = class_gyms.id").where(
+            "entry_records.individual_id = ? AND class_gyms.id = ?", self.id, class_gym_id).count
+  end
+  
 end

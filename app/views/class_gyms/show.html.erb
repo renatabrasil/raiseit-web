@@ -22,6 +22,23 @@
 </table>
 <br>
 
+<br>
+<table width="140px">
+  <caption>Alunos - Opções</caption>
+  <tr>
+    <td>
+      <strong>
+        - <%= link_to "Frequência", student_attendance_class_gym_path if !@class_gym.students.empty? %> <%= @class_gym.students.empty? ? "Frequência" : "" %> 
+      </strong>
+    </td>
+  </tr>
+  <tr>
+    <td><strong>- Outra</strong></td>
+  </tr>
+</table>
+
+<br>
+<br>
 <div class="form-actions-white">
   <%= link_to "Voltar", class_gyms_path, :class => 'btn'  %>
   <%= link_to "Alterar", edit_class_gym_path(@class_gym), :class => 'btn btn-info' %>

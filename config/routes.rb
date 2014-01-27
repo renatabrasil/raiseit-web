@@ -9,7 +9,7 @@ SystemGym::Application.routes.draw do
   
   resources :class_gyms do
     member do
-      
+      get 'student_attendance'
     end
   end
   

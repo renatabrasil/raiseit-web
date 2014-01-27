@@ -18,6 +18,10 @@
     <%= select("class_gym", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}, {class: "span4", onchange: "atualizaForm()", id:"idModality"}) %>
     
     <br>
+    <%= f.label :start_date, t("activerecord.attributes.class_gym.start_date", :default => "Data de Início"), :class => 'control-label' %>
+    <%= f.text_field :start_date, :class => 'text_field', :onkeyup => "maskIt(this,event,'##/##/####')", :value => l(Date.today, :format => :sample), :maxlength => "10" %>
+    
+    <br>
     <%= f.label 'Horário', :class => "control-label" %>
     <%= f.text_field :schedule, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "100" %>
     

@@ -1,0 +1,29 @@
+<h1>Frequência</h1>
+<div>
+  Dias corridos desde o início das aulas: <strong><%= @class_gym.calendar_days %></strong>
+</div>
+
+<br>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Matrícula</th>
+      <th>Aluno</th>
+      <th style="text-align: center;">Presenças</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @class_gym.students.each_with_index do |student, i| %>
+      <tr>
+        <td><%= i+1 %></td>
+        <td><%= student.registration_code.code %></td>
+        <td><%= student.name %></td>
+        <td style="text-align: center;"><%= student.attendance(@class_gym.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="form-actions-white">
+  <%= link_to "Voltar", class_gym_path(@class_gym), :class => 'btn'  %>
+</div>

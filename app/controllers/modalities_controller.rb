@@ -24,7 +24,7 @@ class ModalitiesController < ApplicationController
   def create
     @modality = Modality.new(params[:modality])
     
-    @modality.name = @modality.name.upcase
+    @modality.name = (@modality.name.downcase).camelcase
     
     respond_to do |format|
       if @modality.save
