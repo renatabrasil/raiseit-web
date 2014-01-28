@@ -1,0 +1,55 @@
+<h1>Matrícula</h1>
+
+
+
+<br />
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Aluno:</strong> <%= @enrollment.student.registration_code.code + " - " + @enrollment.student.name %></td>
+    </tr>
+    <tr>
+      <td><strong>Data de início:</strong> <%= l(@enrollment.start_date, :format => :sample) %></td>
+    </tr>
+    <tr>
+      <td><strong>Dia do vencimento:</strong> <%= @enrollment.expiration_day %></td>
+    </tr>
+    <tr>
+      <td><strong>Modalidade:</strong> <%= @enrollment.modality.name %></td>
+    </tr>
+    <tr>
+      <td><strong>Valor:</strong> <%= @enrollment.value.blank? ? " - " : "R$ " + @enrollment.value.to_s %></td>
+    </tr>
+    <tr>
+      <td><strong>Taxa de inscrição:</strong> <%= @enrollment.registration_fee.blank? ? " - " : "R$ " + @enrollment.registration_fee.to_s %></td>
+    </tr>
+    <tr>
+      <td><strong>Desconto:</strong> <%= @enrollment.discount.blank? ? " - " : "R$ " + @enrollment.discount.to_s %></td>
+    </tr>
+    <tr>
+      <td><strong>Observação:</strong> <%= @enrollment.note %></td>
+    </tr>
+    <tr>
+      <td>
+        <% if !@enrollment.student.class_gyms.empty? %>
+        <table>
+          <tr><td><strong>Turmas:</strong></td></tr>
+          <% @enrollment.student.class_gyms.each do |class_gym| %>
+            <tr>
+              <td>- <%= class_gym.schedule %></td>
+            </tr>
+          <% end %>          
+        </table>
+        <% else %>
+          <strong>Turmas: </strong>Não está matriculado em nenhuma turma. Escolha uma clicando em 'Alterar'.
+        <% end %>
+    </tr>
+  </tbody>
+</table>
+<br />
+
+<div class="form-actions-white">
+  <%= link_to "Voltar", enrollments_path, :class => 'btn'  %>
+  <%= link_to "Alterar", edit_enrollment_path(@enrollment), :class => 'btn btn-info' %>
+  <%= link_to "Remover", enrollment_path(@enrollment), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn' %>
+</div>

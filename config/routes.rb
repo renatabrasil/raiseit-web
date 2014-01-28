@@ -25,8 +25,15 @@ SystemGym::Application.routes.draw do
   get '/employee/:type_employee' => 'employees#new', as: 'login'
   
 
-  resources :enrollments, only: [:index, :new, :create]
-  resources :payments, only: [:index]
+  # resources :enrollments#, only: [:index, :new, :create]
+  
+  resources :enrollments do
+    member do
+      get 'confirm_registration'
+      patch 'add_student'
+    end
+  end
+  resources :payments, only: [:index, :show]
 
   #  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.

@@ -6,7 +6,7 @@ class CreateClassGyms < ActiveRecord::Migration
       t.datetime :start_date
       t.string :schedule, limit: 200
       t.boolean :open, :null => false, :default => true
-      t.boolean :active
+      t.boolean :active, :null => false, :default => true
       
       # Foreign key
       t.belongs_to :modality

@@ -5,6 +5,6 @@ class Payment < ActiveRecord::Base
   
   belongs_to :account, polymorphic: true
 
-  attr_accessible :paid, :expiration_date, :payday, :individual_id
+  attr_accessible :payday, :individual_id
 
 end

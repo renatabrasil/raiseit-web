@@ -7,6 +7,7 @@ class CreateEnrollments < ActiveRecord::Migration
       
       t.datetime :start_date
       t.string :note, limit: 500
+      t.integer :expiration_day, :null => false
       t.column :value, :numeric, :precision => 6, :scale => 2
       t.column :registration_fee, :numeric, :precision => 6, :scale => 2
       t.column :discount, :numeric, :precision => 6, :scale => 2
