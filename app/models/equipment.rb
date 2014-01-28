@@ -3,5 +3,9 @@ class Equipment < ActiveRecord::Base
   
   has_many :workouts, dependent: :destroy
   
-  attr_accessible :description, :quantity, :status_equipment_id, :modality_id
+  validates :description, presence: true, uniqueness: true
+  validates :modality, presence: true
+  
+  
+  attr_accessible :description, :status_equipment_id, :modality_id
 end
