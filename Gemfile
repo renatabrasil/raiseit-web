@@ -31,6 +31,11 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
+# gem para o bootstrap
+gem "therubyracer", :require => 'v8'
+gem 'less-rails'
+gem 'jasny_bootstrap_extension_rails'
  
 gem 'debugger'
 
