@@ -1,5 +1,7 @@
 SystemGym::Application.routes.draw do
   
+  resources :model_workout_sheets
+
   resources :physical_categories
 
   devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, 

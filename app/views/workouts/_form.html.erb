@@ -17,16 +17,6 @@
     <%= f.text_field :description %>
   </div>
   
-  <div class="field">
-    <%= f.label "Categoria:" %><br>
-    <%= f.select(:physical_category_id, PhysicalCategory.all.collect {|p| [ p.name, p.id ] }, {include_blank: 'None'}) %>
-  </div>
-  
-  <div class="field">
-    <%= f.label "Máquina" %><br>
-    <%= f.select(:equipment_id, Equipment.all.collect {|e| [ e.description, e.id ] }, {include_blank: 'None'}) %>
-  </div>
-  
   <div class="actions">
     <%= f.submit %>
   </div>

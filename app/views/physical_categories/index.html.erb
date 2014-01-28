@@ -1,27 +1,37 @@
 <h1>Categorias Fisicas</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<ul>
+<% @physical_categories.each do |physical_category| %>
+   <li> 
+      <%= physical_category.name %> 
+      <%= link_to 'Show', physical_category %>
+      <%= link_to 'Edit', edit_physical_category_path(physical_category) %>
+      <%= link_to 'Destroy', physical_category, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% physical_category.workouts.each do |workout| %>
+        <p>- <%= workout.description %></p>
+      <% end %> 
+    </li>
 
-  <tbody>
-    <% @physical_categories.each do |physical_category| %>
-      <tr>
-        <td><%= physical_category.name %></td>
-        <td><%= link_to 'Show', physical_category %></td>
-        <td><%= link_to 'Edit', edit_physical_category_path(physical_category) %></td>
-        <td><%= link_to 'Destroy', physical_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% end %>
+</ul>
 
 <br>
+
+<p><b> Nova Categoria </b></p>
+
+<%= nested_form_for @physical_category do |f| %>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  
+  <%= f.fields_for :workouts do |workout_form| %>
+    <%= workout_form.text_field :description %>
+    <%= workout_form.link_to_remove "Remove this workout" %>
+  <% end %>
+  <p><%= f.link_to_add "Add a workout", :workouts %></p>
+  
+  <div> <%= f.submit %> </div>
+<% end %>
 
 <%= link_to 'New Physical category', new_physical_category_path %>

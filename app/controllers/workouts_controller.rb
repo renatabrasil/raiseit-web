@@ -42,7 +42,7 @@ class WorkoutsController < ApplicationController
   def update
     respond_to do |format|
       if @workout.update(workout_params)
-        format.html { redirect_to @workout, notice: 'Workout was successfully updated.' }
+        format.html { redirect_to model_workout_sheet_path(@workout.physical_category.model_workout_sheet), notice: 'Workout was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

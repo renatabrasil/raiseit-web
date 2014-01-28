@@ -10,5 +10,4 @@ class Workout < ActiveRecord::Base
   attr_accessible :description, :physical_category_id
   
   validates :description, presence: true
-  validates :physical_category_id, presence: true
 end

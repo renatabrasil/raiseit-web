@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+
+<h2> Modelo de Ficha: <%= @model_workout_sheet.name %> </h2> 
+
+<ul>
+  <% @model_workout_sheet.physical_categories.each do |physical_category| %>
+    <li> 
+      <%= physical_category.name %> 
+      <%= link_to 'Editar', edit_physical_category_path(physical_category) %>
+    </li>
+    <ol>
+       <% physical_category.workouts.each do |workout| %>
+        <li> 
+          <%= workout.description %> 
+          <%= link_to 'Editar', edit_workout_path(workout) %>
+        </li>
+        <% end %>
+    </ol>
+    
+  <% end%>
+  
+</ul>
+
+
+<%= link_to 'Edit', edit_model_workout_sheet_path(@model_workout_sheet) %> |
+<%= link_to 'Back', model_workout_sheets_path %>

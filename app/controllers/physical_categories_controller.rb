@@ -5,6 +5,8 @@ class PhysicalCategoriesController < ApplicationController
   # GET /physical_categories.json
   def index
     @physical_categories = PhysicalCategory.all
+    
+    @physical_category = PhysicalCategory.new
   end
 
   # GET /physical_categories/1
@@ -28,7 +30,7 @@ class PhysicalCategoriesController < ApplicationController
 
     respond_to do |format|
       if @physical_category.save
-        format.html { redirect_to @physical_category, notice: 'Physical category was successfully created.' }
+        format.html { redirect_to physical_categories_path, notice: 'Physical category was successfully created.' }
         format.json { render action: 'show', status: :created, location: @physical_category }
       else
         format.html { render action: 'new' }
@@ -42,7 +44,7 @@ class PhysicalCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @physical_category.update(physical_category_params)
-        format.html { redirect_to @physical_category, notice: 'Physical category was successfully updated.' }
+        format.html { redirect_to model_workout_sheet_path(@physical_category.model_workout_sheet), notice: 'Physical category was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -69,6 +71,6 @@ class PhysicalCategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def physical_category_params
-      params.require(:physical_category).permit(:name)
+      params.require(:physical_category).permit(:name, workouts_attributes: [:id, :description, :_destroy])
     end
 end

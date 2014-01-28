@@ -5,13 +5,13 @@
 <p class="notice"><%= notice %></p>
 <hr>
 <% if !@entry_record_now.nil? %>
- 	<strong><%= Person.find(@entry_record_now.individual_id).name %></strong> &nbsp;
+ 	<strong><%= @entry_record_now.individual.name %></strong> &nbsp;
  	
- 	- &nbsp; <strong><%= Person.find(@entry_record_now.individual_id).type %></strong>
+ 	- &nbsp; <strong><%= @entry_record_now.individual.type %></strong>
  	
  	<br />
  	
- 	Matricula: <%= Person.find(@entry_record_now.individual_id).registration_code.code %></strong>
+ 	Matricula: <%= @entry_record_now.individual.registration_code.code %></strong>
  	
  	<br />	
  	
