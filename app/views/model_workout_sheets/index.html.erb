@@ -1,0 +1,27 @@
+<h1>Listing model_workout_sheets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @model_workout_sheets.each do |model_workout_sheet| %>
+      <tr>
+        <td><%= model_workout_sheet.name %></td>
+        <td><%= link_to 'Show', model_workout_sheet %></td>
+        <td><%= link_to 'Edit', edit_model_workout_sheet_path(model_workout_sheet) %></td>
+        <td><%= link_to 'Destroy', model_workout_sheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Model workout sheet', new_model_workout_sheet_path %>

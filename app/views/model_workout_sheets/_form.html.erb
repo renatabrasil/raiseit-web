@@ -1,0 +1,28 @@
+<%= nested_form_for(@model_workout_sheet) do |f| %>
+  <% if @model_workout_sheet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@model_workout_sheet.errors.count, "error") %> prohibited this model_workout_sheet from being saved:</h2>
+
+      <ul>
+      <% @model_workout_sheet.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+  <h3>  <%= f.label "Nome do Modelo" %> </h3>
+    <%= f.text_field :name %>
+  </div>
+  
+  <%= f.fields_for :physical_categories do |builder| %>
+    <%= render 'physical_category_fields', f: builder %>  
+  <% end %>
+  
+  <p><%= f.link_to_add "Add a category", :physical_categories %></p>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+<fieldset> 
+ <h3> <%= f.label "Nome da categoria"%> </h3>
+ <%= f.text_field :name %>
+ <%= f.link_to_remove "Remove this Category" %>
+ 
+  <%= f.fields_for :workouts do |builder| %>
+          <%= render 'workout_fields', f: builder %>
+  <% end %>
+  
+  <p><%= f.link_to_add "Add a workout", :workouts %></p>
+</fieldset>    

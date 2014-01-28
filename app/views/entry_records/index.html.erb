@@ -18,8 +18,8 @@
         <tr>
           <td><%= entry_record.entry_time %></td>
           <td style="text-align: center;"><%= entry_record.exit_time %></td>
-          <td style="text-align: center;"><%= Person.find(entry_record.individual_id).type %></td>
-          <td style="text-align: center;"><%= Person.find(entry_record.individual_id).name %></td>
+          <td style="text-align: center;"><%= entry_record.individual.type %></td>
+          <td style="text-align: center;"><%= entry_record.individual.name %></td>
           <td style="text-align: center; width: 20%">
             <%= link_to(entry_record_path(entry_record), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
                Visualizar

@@ -1,4 +1,9 @@
 SystemGym::Application.routes.draw do
+  
+  resources :model_workout_sheets
+
+  resources :physical_categories
+
   devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, 
   :path => "usr"#, :skip => [:registrations]
 
@@ -12,8 +17,13 @@ SystemGym::Application.routes.draw do
       get 'student_attendance'
     end
   end
+
+  resources :equipments
+  
+  resources :workouts
   
   resources :modalities
+  
   
   # In routes.rb
   get '/employee/:type_employee' => 'employees#new', as: 'login'

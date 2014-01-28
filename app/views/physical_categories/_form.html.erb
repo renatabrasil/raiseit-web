@@ -1,0 +1,30 @@
+<%= nested_form_for @physical_category do |f| %>
+  <% if @physical_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@physical_category.errors.count, "error") %> prohibited this physical_category from being saved:</h2>
+
+      <ul>
+      <% @physical_category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <b><%= f.label "Nome da Categoria Fisica"%> </b><br>
+    <%= f.text_field :name %>
+  </div>
+  
+  <p><b> Exercícios </b></p>
+  
+    <%= f.fields_for :workouts do |workout_form| %>
+    <%= workout_form.text_field :description %>
+    <%= workout_form.link_to_remove "Remove this workout" %>
+  <% end %>
+  <p><%= f.link_to_add "Add a workout", :workouts %></p>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

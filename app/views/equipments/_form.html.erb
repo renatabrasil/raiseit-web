@@ -1,0 +1,38 @@
+<br>
+<fiedset>
+  <% if @equipment.errors.any? %>
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+        <ul>
+          <% @equipment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+    </div>
+  <% end %>
+  
+<%= form_for(@equipment, url: equipments_path)  do |f| %>
+  
+  
+  <%= f.label 'Nome', :class => "control-label" %>
+  <%= f.text_field :description, :class => "input-xlarge", :onkeyup => "toUppercase(this);" %>
+  
+  
+  <div><%= f.label(:modality_id, "Modalidade") %> <br />
+  <% modalities_array = Modality.all.map { |modality| [modality.name, modality.id] } %>
+  <%= f.select(:modality_id, options_for_select(modalities_array))  %> </div>
+  
+
+<br>  
+  <div class="form-actions-white">
+    <!-- <%= f.submit %> -->
+    <% if @equipment.id.nil? %>
+    <button class="btn btn-primary" type="submit">Cadastrar</button>
+    <% else %>
+    <button class="btn btn-info" type="submit">Alterar</button>
+    <% end %>
+    ou 
+    <%= link_to "Cancelar", equipments_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+  </div>
+<% end %>
+</fiedset>
