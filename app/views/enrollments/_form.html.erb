@@ -9,7 +9,7 @@
             source: '<%= students_path(:json) %>',
   // This updates the textfield when you move the updown the suggestions list, with your keyboard. 
   // In our case it will reflect the same value that you see in the suggestions which is the person.given_name.
-            focus: function(event, ui) {
+            select: function(event, ui) {
                 $('#select_student').val(ui.item.name);
                 return false;
             },
@@ -73,7 +73,7 @@
   
   <br>
   <%= f.label 'Periodicidade', :class => "control-label" %>
-  <%= select("enrollment", "periodicity_id", Periodicity.all.collect {|p| [ p.description, p.id ] }, {include_blank: '-- Selecione a periodicidade --'}, {class: "span4", disabled: "disabled", onchange: "atualizaForm()", id:"idModality"}) %>
+  <%= select("enrollment", "periodicity_id", Periodicity.all.collect {|p| [ p.description, p.id ] }, {class: "span4", onchange: "atualizaForm()", id:"idModality"}) %>
   
   <br>
   <%= f.label :start_date, t("activerecord.attributes.enrollment.start_date", :default => "Data de Início"), :class => 'control-label' %>

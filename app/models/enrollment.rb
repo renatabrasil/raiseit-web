@@ -5,11 +5,18 @@ class Enrollment < ActiveRecord::Base
   belongs_to :modality
   # belongs_to :registration_code
   
-  validates :student, :modality, presence: true
+  validates :student, :modality, :start_date, :registration_fee, :periodicity, 
+            :value,  presence: true
+  
+  validates :note, :length => {:maximum => 500, 
+                               :message => 'too big, must be lower' }
+                               
 
   has_many :payments, as: :account, dependent: :destroy
 
-  attr_accessible :start_date, :note, :value, :registration_fee, :discount, :student_id, :modality_id, :periodicity_id, :expiration_day, :active
+  attr_accessible :start_date, :note, :value, :registration_fee, :discount, 
+                  :student_id, :modality_id, :periodicity_id, :expiration_day, 
+                  :active
   
   def expired?
     today = Date.today
