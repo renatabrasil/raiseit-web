@@ -22,6 +22,8 @@ SystemGym::Application.routes.draw do
   
   resources :workouts
   
+  resources :trainings
+  
   resources :modalities
   
   

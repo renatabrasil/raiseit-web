@@ -1,0 +1,47 @@
+<h1>Ficha de Treino</h1>
+
+
+
+<br />
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Aluno:</strong> <%= @training.student.registration_code.code + " - " + @training.student.name %></td>
+    </tr>
+    <tr>
+      <td><strong>Data de vencimento:</strong> <%= @training.expiration_date.blank? ? "" : l(@training.expiration_date, :format => :sample) %></td>
+    </tr>
+    <tr>
+      <td><strong>Instrutor:</strong> <%= @training.instructor.name %></td>
+    </tr>
+    <tr>
+      <td>
+        <% if !@training.workouts.empty? %>
+        <table>
+          <caption>Ficha</caption>
+          <% @training.group_by_physical.each_key do |physical_category| %>
+            <tr>
+              <td><strong><%= physical_category.name %></strong></td>
+            </tr>
+            <% @training.group_by_physical[physical_category].each do |workout| %>
+            <tr>
+              <td>
+                - <%= workout.description %>
+              </td>
+            </tr>
+            <% end %>
+          <% end %>
+        </table>
+        <% else %>
+          Não cadastrou exercícios para esta ficha.
+        <% end %>
+    </tr>
+  </tbody>
+</table>
+<br />
+
+<div class="form-actions-white">
+  <%= link_to "Voltar", trainings_path, :class => 'btn'  %>
+  <%= link_to "Alterar", edit_training_path(@training), :class => 'btn btn-info' %>
+  <%= link_to "Remover", training_path(@training), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn' %>
+</div>
