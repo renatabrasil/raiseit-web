@@ -23,7 +23,7 @@
             <%#= check_box_tag("[class_gym_ids]", class_gym.id, false) %>
             </td>
             <td style="text-align: left"><%= class_gym.schedule %></td>
-            <td><%= class_gym.instructor.name %></td>
+            <td><%= class_gym.instructor.name unless class_gym.instructor.nil? %></td>
             <td style="text-align: center"><%= class_gym.students.size %></td>
             <td style="text-align: center"><%= class_gym.capacity %></td>
           </tr>

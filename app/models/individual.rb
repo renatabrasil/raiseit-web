@@ -1,7 +1,7 @@
 class Individual < Person
 
-  has_one :registration_code
-  has_many :payments
+  has_one :registration_code, dependent: :destroy
+  has_many :payments, dependent: :destroy
   has_many :entry_records, dependent: :destroy
   
   scope :individual, -> { where(type: 'Individual') }
