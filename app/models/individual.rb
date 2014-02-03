@@ -2,7 +2,7 @@ class Individual < Person
 
   has_one :registration_code, dependent: :destroy
   has_many :payments
-  has_many :entry_records, dependent: :destroy
+ 
   
   scope :individual, -> { where(type: 'Individual') }
   

@@ -1,5 +1,7 @@
 class Person < ActiveRecord::Base
   
+  has_many :entry_records, :class_name => EntryRecord, :foreign_key => :individual_id, dependent: :destroy
+  
   has_one :locality, as: :address, dependent: :destroy
   
   accepts_nested_attributes_for :locality, :allow_destroy => true

@@ -2,9 +2,8 @@
 
 <%= render 'form' %>
 
-<p class="notice"><%= notice %></p>
-<hr>
 <% if !@entry_record_now.nil? %>
+<hr>
  	<strong><%= @entry_record_now.individual.name %></strong> &nbsp;
  	
  	- &nbsp; <strong><%= @entry_record_now.individual.type %></strong>
@@ -15,7 +14,29 @@
  	
  	<br />	
  	
- 	Hora de entrada: &nbsp; <%= @entry_record_now.entry_time.strftime("%c") %> 
-<% end %>
+  <p>	Hora de entrada: &nbsp; <%= @entry_record_now.entry_time.strftime("%c") %> </p> 
+ 	<% if !@entry_record_now.exit_time.blank? %>
+ 	  <p> Hora de Saída: &nbsp; <%= @entry_record_now.exit_time.strftime("%c") %> </p>
+  <% end %>
+  
+  <% @entry_record_now.individual.enrollments.each do |enrollment| %>
+   <p>  <%= enrollment.modality.name %> -
+   <!-- Muita Coisa apenas para dizer se é vencida, passar isso para um método -->
+   Pagamento dia <b> <%= enrollment.expiration_day %> </b> -
+   <% payment = enrollment.expired? %>
+   <%= link_to "Ok", payment_path(payment) if !payment.blank? %>
+   <% if payment.blank? %>
+    <% if enrollment.start_date.month == Date.today.month %>
+      <b style="color: yellow"> Aguardando pagamento </b>
+    <% elsif enrollment.expiration_day < Date.today.mday %>
+      <b style="color: red"> Vencida </b>
+    <% else %>
+      <b style="color: yellow"> Aguardando pagamento </b>
+    <% end %>
+   <% end %>
+  <% end %>
+  </p> 
 <hr>
+<% end %>
+
 <li><%= link_to 'Listar Registros', entry_records_path %></li>
