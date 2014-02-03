@@ -62,5 +62,11 @@ class TrainingsController < ApplicationController
     end
   end
   
+  def specify_exercises
+    @training = Training.find(params[:id])
+    
+    @training.training_workouts.build    
+  end
+  
     
 end

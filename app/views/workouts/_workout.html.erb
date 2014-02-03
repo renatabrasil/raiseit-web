@@ -1,7 +1,7 @@
 <!-- Tabela com duas colunas -->
 <tr>
   <td>
-    <%= check_box_tag("workout_ids[]", workout.id, false, :onclick => "liberar_botao_excluir(botao_excluir, this);") %>
+    <%= check_box_tag("workout_ids[]", workout.id, false) %>
   </td>
   <td><%= workout.description %></td>
 </tr>

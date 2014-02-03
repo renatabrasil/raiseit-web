@@ -1,0 +1,16 @@
+<h1>Editar os exercícios da ficha</h1>
+
+<%= form_for @training, url: edit_training_path do |f| %>
+
+  <%= f.fields_for :training_workouts do |fb| %>
+    <%= fb.object.workout.nil? ? "" : fb.object.workout.description %>
+    <%= fb.label "Séries:", t("activerecord.attributes.training_workout.series", :default => "Séries"), :class => 'control-label obrigatorio' %>
+    <%= fb.text_field :series, :class => 'text_field input-xxlarge'%>
+    
+    <%= fb.label "Repetições:", t("activerecord.attributes.training_workout.repetitions", :default => "Repetições"), :class => 'control-label obrigatorio' %>
+    <%= fb.text_field :series, :class => 'text_field input-xxlarge'%>
+    <br>
+    
+  <% end %>
+
+<% end %>
