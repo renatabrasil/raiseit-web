@@ -1,16 +1,24 @@
 <h1>Editar os exercícios da ficha</h1>
 
-<%= form_for @training, url: edit_training_path do |f| %>
+<%= form_for @training, url: training_path, method: "patch" do |f| %>
 
   <%= f.fields_for :training_workouts do |fb| %>
-    <%= fb.object.workout.nil? ? "" : fb.object.workout.description %>
-    <%= fb.label "Séries:", t("activerecord.attributes.training_workout.series", :default => "Séries"), :class => 'control-label obrigatorio' %>
-    <%= fb.text_field :series, :class => 'text_field input-xxlarge'%>
+    <strong><%= fb.object.workout.description %> (<%= fb.object.workout.physical_category.name %>)</strong><br>
     
-    <%= fb.label "Repetições:", t("activerecord.attributes.training_workout.repetitions", :default => "Repetições"), :class => 'control-label obrigatorio' %>
-    <%= fb.text_field :series, :class => 'text_field input-xxlarge'%>
+    <%= fb.label "Séries:", t("activerecord.attributes.training_workout.series", :default => "Séries:") %>
+    <%= fb.text_field :series, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
+    
+    <%= fb.label "Repetições:", t("activerecord.attributes.training_workout.repetitions", :default => "Repetições:") %>
+    <%= fb.text_field :repetitions, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
+    
+    <%= fb.label "Duração:", t("activerecord.attributes.training_workout.duration", :default => "Duração:") %>
+    <%= fb.text_field :duration, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
+    
+    <%= fb.label "Carga:", t("activerecord.attributes.training_workout.load", :default => "Carga:") %>
+    <%= fb.text_field :duration, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
     <br>
     
   <% end %>
-
+  <br>
+  <%= f.submit 'Confirmar'%>
 <% end %>

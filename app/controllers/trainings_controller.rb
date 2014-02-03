@@ -26,7 +26,7 @@ class TrainingsController < ApplicationController
     
     respond_to do |format|
       if @training.save
-        format.html { redirect_to training_path(@training), notice: 'A ficha de treino foi cadastrada com sucesso.' }
+        format.html { redirect_to specify_exercises_training_path(@training), notice: 'A ficha de treino foi cadastrada com sucesso.' }
         format.json { render json: @training, status: :created, location: @training }
       else
         format.html { render action: "new" }
@@ -50,6 +50,7 @@ class TrainingsController < ApplicationController
   
   def update
     @training = Training.find(params[:id])
+    # @training.training_workouts.new(params[:training][:training_workout])
     
     respond_to do |format|
       if @training.update_attributes(params[:training])
@@ -65,7 +66,9 @@ class TrainingsController < ApplicationController
   def specify_exercises
     @training = Training.find(params[:id])
     
-    @training.training_workouts.build    
+    # @training.training_workouts.build
+    
+    
   end
   
     

@@ -17,17 +17,25 @@
     <tr>
       <td>
         <% if !@training.workouts.empty? %>
-        <table>
+        <table width="100%">
           <caption>Ficha</caption>
           <% @training.group_by_physical.each_key do |physical_category| %>
             <tr>
               <td><strong><%= physical_category.name %></strong></td>
+              <th style="text-align: center">Séries</th>
+              <th style="text-align: center">Repetições</th>
+              <th style="text-align: center">Duração</th>
+              <th style="text-align: center">Carga</th>
             </tr>
             <% @training.group_by_physical[physical_category].each do |workout| %>
             <tr>
               <td>
                 - <%= workout.description %>
               </td>
+              <td style="text-align: center"><%= @training.get_training_workout_by_workout_id(workout.id).series %></td>
+              <td style="text-align: center"><%= @training.get_training_workout_by_workout_id(workout.id).repetitions %></td>
+              <td style="text-align: center"><%= @training.get_training_workout_by_workout_id(workout.id).duration %></td>
+              <td style="text-align: center"><%= @training.get_training_workout_by_workout_id(workout.id).load %></td>
             </tr>
             <% end %>
           <% end %>

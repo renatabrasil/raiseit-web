@@ -11,7 +11,11 @@ class Training < ActiveRecord::Base
   belongs_to :model_workout_sheet
   
   attr_accessible :active, :last_training_date, :expiration_date, :training_goal_id,
-  :instructor_id, :student_id
+  :instructor_id, :student_id, :training_workouts_attributes
+  
+  def get_training_workout_by_workout_id(workout_id)
+    return self.training_workouts.where(workout_id: workout_id).first
+  end
   
   # Return all the physical categories associated to this training
   def physical_categories
