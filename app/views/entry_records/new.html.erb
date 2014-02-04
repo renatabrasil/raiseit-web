@@ -2,20 +2,16 @@
 
 <%= render 'form' %>
 
-<p class="notice"><%= notice %></p>
 <hr>
+<strong>Último registro de entrada</strong><br/>
 <% if !@entry_record_now.nil? %>
- 	<strong><%= Person.find(@entry_record_now.individual_id).name %></strong> &nbsp;
+ 	<%= Person.find(@entry_record_now.individual_id).name %> &nbsp;-&nbsp; <%= t("Person.find(@entry_record_now.individual_id).type" )%>
  	
- 	- &nbsp; <strong><%= Person.find(@entry_record_now.individual_id).type %></strong>
- 	
- 	<br />
+ 	<br/>
  	
  	Matricula: <%= Person.find(@entry_record_now.individual_id).registration_code.code %></strong>
  	
- 	<br />	
+ 	<br/>
  	
  	Hora de entrada: &nbsp; <%= @entry_record_now.entry_time.strftime("%c") %> 
 <% end %>
-<hr>
-<li><%= link_to 'Listar Registros', entry_records_path %></li>
