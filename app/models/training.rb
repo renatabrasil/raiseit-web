@@ -19,25 +19,12 @@ class Training < ActiveRecord::Base
   
   # Return all the physical categories associated to this training
   def physical_categories
-    #return PhysicalCategory.joins("INNER JOIN model_workout_sheets ON 
-     # physical_categories.model_workout_sheet_id = model_workout_sheets.id
-      #INNER JOIN trainings ON trainings.model_workout_sheet_id = 
-      #model_workout_sheets.id").where("trainings.id = ?", self.id)
-      
       return PhysicalCategory.find_by_sql ["SELECT * FROM physical_categories 
       WHERE physical_categories.id IN ( SELECT DISTINCT a.physical_category_id 
         FROM ( SELECT workouts.* FROM trainings INNER JOIN training_workouts 
         ON training_workouts.training_id = trainings.id 
         INNER JOIN workouts ON workouts.id = training_workouts.workout_id
         WHERE trainings.id = ?) AS a)", self.id]
-      
-      #return PhysicalCategory.find_by_sql [
-       # "SELECT DISTINCT a.physical_category_id FROM (
-  #SELECT workouts.* FROM trainings
-   # INNER JOIN training_workouts ON training_workouts.training_id = trainings.id
-    #INNER JOIN workouts ON workouts.id = training_workouts.workout_id
-
-    #WHERE trainings.id = ?) AS a", self.id]
   end
   
   # Return a hashmap where the key is a physical category and its value is
@@ -50,8 +37,6 @@ class Training < ActiveRecord::Base
     if !all_workouts.empty?
       physical_category_id = 0
       all_workouts.each_with_index do |workout, i|
-        puts "\n[COMECO]Iteracao "+i.to_s+":\nphysical_category_id = "+ 
-        physical_category_id.to_s+ " e workout.physical_category_id = "+ workout.physical_category_id.to_s + "\n"
         
         # Regards to the first value
         if physical_category_id != 0
@@ -68,8 +53,6 @@ class Training < ActiveRecord::Base
         
         # refresh the physical category id
         physical_category_id = workout.physical_category_id
-        puts "\n[FIM]Iteracao "+i.to_s+":\nphysical_category_id = "+ 
-        physical_category_id.to_s+ " e workout.physical_category_id = "+ workout.physical_category_id.to_s + "\n" 
       end
       # Adds the last value in the hashmap
       physical_category = PhysicalCategory.find(physical_category_id)

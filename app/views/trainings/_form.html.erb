@@ -48,6 +48,10 @@
     <%= select("training", "instructor_id", (@instructors.nil? ? Instructor.all : @instructors).collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o instrutor --'}, {class: "span4", onchange: "atualizaForm()", id:"idModality"}) %>
     
     <br>
+    <%= f.label 'Objetivo', :class => "control-label" %>
+    <%= select("training", "training_goal_id", TrainingGoal.all.collect {|t| [ t.denomination, t.id ] }, {include_blank: '-- Selecione o objetivo --'}, {class: "span4", onchange: "atualizaForm()", id:"idModality"}) %>
+    
+    <br>
     <!-- Por enquanto -->
     <table>
       <tr>

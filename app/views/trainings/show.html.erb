@@ -15,6 +15,9 @@
       <td><strong>Instrutor:</strong> <%= @training.instructor.name %></td>
     </tr>
     <tr>
+      <td><strong>Objetivo:</strong> <%= @training.training_goal.blank? ? "Não especificado" : @training.training_goal.denomination %></td>
+    </tr>
+    <tr>
       <td>
         <% if !@training.workouts.empty? %>
         <table width="100%">
