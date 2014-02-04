@@ -8,6 +8,11 @@ class TrainingsController < ApplicationController
     @training.training_workouts.build
     @training.workouts.build
     
+    if !params[:student_id].nil?
+      @training.student = Student.find(params[:student_id])
+      @disabled = "true"
+    end 
+    
     # Depois mudar
     @training.model_workout_sheet = ModelWorkoutSheet.find(ModelWorkoutSheet::DEFAULT)
     @instructors = Instructor.distinct.joins(:class_gyms).joins("INNER JOIN modalities ON 
@@ -46,6 +51,9 @@ class TrainingsController < ApplicationController
   
   def edit
     @training = Training.find(params[:id])
+    # To load instructor relates to bodybuilding
+    @instructors = Instructor.distinct.joins(:class_gyms).joins("INNER JOIN modalities ON 
+      modalities.id = class_gyms.modality_id").where("modalities.id = ?", Modality::WORK_OUT)
   end
   
   def update

@@ -16,4 +16,13 @@ class Student < Individual
             "entry_records.individual_id = ? AND class_gyms.id = ?", self.id, class_gym_id).count
   end
   
+  def enrollment_in_bodybuilding?
+    self.enrollments.each do |enrollment|
+      if enrollment.modality.id == Modality::WORK_OUT
+        return true
+      end
+    end
+    return false
+  end
+  
 end
