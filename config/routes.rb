@@ -22,6 +22,12 @@ SystemGym::Application.routes.draw do
   
   resources :workouts
   
+  resources :trainings do
+    member do
+      get 'specify_exercises'
+    end
+  end
+  
   resources :modalities
   
   

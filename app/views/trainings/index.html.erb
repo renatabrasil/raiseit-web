@@ -1,0 +1,39 @@
+<h1>Fichas de treino</h1>
+<br />
+<%= link_to 'Elaborar nova Ficha de treino', new_training_path %>
+<table width="100%">
+  <thead>
+    <tr>
+      <th style="text-align: left">Instrutor</th>
+      <th style="text-align: left">Student</th>
+      <th style="text-align: center">Data de vencimento</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if !@trainings.empty? %>
+      <% @trainings.each do |training| %>
+        <tr>
+          <td style="text-align: left"><%= training.instructor.name %></td>
+          <td style="text-align: left"><%= training.student.blank? ? "Não informado" : training.student.name %></td>
+          <td style="text-align: center"><%= training.expiration_date.blank? ? "Não informado" : l(training.expiration_date, :format => :sample) %></td>
+          <td><%= link_to 'Especificar exercício', specify_exercises_training_path(training) %></td>
+          <td>
+            <%= link_to(training_path(training), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+                 Visualizar
+            <% end %> |
+            <%= link_to(edit_training_path(training), :class => "link-icon", :title => "Alterar") do %>
+               Alterar
+              <% end %> |
+            <%= link_to(training_path(training), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
+              Apagar
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>Não há turmas cadastradas até esta data.</tr>
+    <% end %>   
+  </tbody>
+</table>

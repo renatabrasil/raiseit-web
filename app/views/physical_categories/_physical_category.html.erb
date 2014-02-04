@@ -1,0 +1,11 @@
+<!-- Tabela com duas colunas -->
+<tr>
+  <table>
+    <tr>
+      <td colspan="2"><strong><%= physical_category.name %></strong></td>
+    </tr>
+    <% physical_category.workouts.each do |workout| %>
+      <%= render workout %>
+    <% end %>
+  </table>
+</tr>

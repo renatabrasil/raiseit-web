@@ -1,8 +1,8 @@
 # encoding: utf-8
 class Workout < ActiveRecord::Base
   #self.table_name 'bodybuilder.workout'
-  has_many :training_workout
-  has_many :training, through: :training_workout
+  has_many :training_workouts
+  has_many :trainings, through: :training_workout
   
   belongs_to :equipment
   belongs_to :physical_category

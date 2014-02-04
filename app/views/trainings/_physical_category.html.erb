@@ -1,0 +1,21 @@
+<!-- Tabela com duas colunas -->
+<tr>
+  <table>
+    <tr>
+      <td colspan="2"><strong><%= physical_category.name %></strong></td>
+    </tr>
+    <% if physical_category_counter%3 == 0 %>
+        <% if physical_category_counter != 0 %> 
+          </tr>
+        <% end %>
+        
+      <tr>
+        <td>1</td>
+      <% else %>
+      <td>2</td>
+      <% end %>
+    <% physical_category.workouts.each do |workout| %>
+      <%= render workout %>
+    <% end %>
+  </table>
+</tr>
