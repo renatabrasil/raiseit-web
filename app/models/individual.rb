@@ -1,6 +1,7 @@
 class Individual < Person
 
   has_one :registration_code, dependent: :destroy
+
   has_many :payments, dependent: :destroy
   has_many :entry_records, dependent: :destroy
   
