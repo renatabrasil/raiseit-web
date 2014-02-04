@@ -54,8 +54,15 @@ class TrainingsController < ApplicationController
     
     respond_to do |format|
       if @training.update_attributes(params[:training])
-        format.html { redirect_to trainings_path, :notice => 'A turma foi atualizada com sucesso.' }
-        format.json { head :ok }
+        # The update flow isn't over yet
+        if !params[:action_button].nil?
+          @training.workouts = Workout.find(params[:workout_ids])
+          format.html { redirect_to specify_exercises_training_path(@training) }
+          format.json { head :ok }
+        else
+          format.html { redirect_to trainings_path, :notice => 'A turma foi atualizada com sucesso.' }
+          format.json { head :ok }
+        end
       else
         format.html { render :action => "edit" }
         format.json { render :json => @training.errors, :status => :unprocessable_entity }
@@ -65,10 +72,18 @@ class TrainingsController < ApplicationController
   
   def specify_exercises
     @training = Training.find(params[:id])
-    
     # @training.training_workouts.build
+  end
+  
+  def destroy
+    @training = Training.find(params[:id])
     
-    
+    @training.destroy
+
+    respond_to do |format|
+        format.html { redirect_to trainings_url, notice: 'Ficha de treino removida com sucesso.'  }
+        format.json { head :no_content }
+    end  
   end
   
     

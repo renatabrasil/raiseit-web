@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Training < ActiveRecord::Base
-  has_many :training_workouts
+  has_many :training_workouts, dependent: :destroy
   has_many :workouts, through: :training_workouts
   accepts_nested_attributes_for :training_workouts, :allow_destroy => true
   accepts_nested_attributes_for :workouts, :allow_destroy => true

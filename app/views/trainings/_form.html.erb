@@ -65,9 +65,9 @@
     <br>
     <div class="form-actions-white">
       <% if @training.id.nil? %>
-      <button class="btn btn-primary" type="submit">Próximo >></button>
+      <%= f.submit 'Alterar', :name => 'action_button', :value => "Próximo >>"%>
       <% else %>
-      <button class="btn btn-info" type="submit">Alterar</button>
+      <%= f.submit 'Alterar', :name => 'action_button', :value => "Alterar"%>
       <% end %>
       ou 
       <%= link_to "Cancelar", trainings_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>

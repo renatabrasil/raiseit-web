@@ -30,12 +30,13 @@
             <% @training.group_by_physical[physical_category].each do |workout| %>
             <tr>
               <td>
-                - <%= workout.description %>
+                <%= workout.description %>
               </td>
-              <td style="text-align: center"><%= @training.get_training_workout_by_workout_id(workout.id).series %></td>
-              <td style="text-align: center"><%= @training.get_training_workout_by_workout_id(workout.id).repetitions %></td>
-              <td style="text-align: center"><%= @training.get_training_workout_by_workout_id(workout.id).duration %></td>
-              <td style="text-align: center"><%= @training.get_training_workout_by_workout_id(workout.id).load %></td>
+              <% @training_workout = @training.get_training_workout_by_workout_id(workout.id) %>
+              <td style="text-align: center"><%= @training_workout.series.blank? ? "-" : @training_workout.series %></td>
+              <td style="text-align: center"><%= @training_workout.repetitions.blank? ? "-" : @training_workout.repetitions %></td>
+              <td style="text-align: center"><%= @training_workout.duration.blank? ? "-" : @training_workout.duration %></td>
+              <td style="text-align: center"><%= @training_workout.load.blank? ? "-" : @training_workout.load %></td>
             </tr>
             <% end %>
           <% end %>
