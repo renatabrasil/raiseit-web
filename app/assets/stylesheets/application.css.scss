@@ -11,3 +11,11 @@
  *= require_self
  *= require_tree .
  */
+
+.active > a > .fa.arrowMenu:before {
+    content: "\f13a";
+}
+
+#page-wrapper {
+	background-color: #FDFDFD !important;
+}

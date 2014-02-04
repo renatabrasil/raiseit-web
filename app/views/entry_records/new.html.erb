@@ -2,6 +2,8 @@
 
 <%= render 'form' %>
 
+<hr>
+<strong>Último registro de entrada</strong><br/>
 <% if !@entry_record_now.nil? %>
 <hr>
  	<strong><%= @entry_record_now.individual.name %></strong> &nbsp;
@@ -12,8 +14,9 @@
  	
  	Matricula: <%= @entry_record_now.individual.registration_code.code %></strong>
  	
- 	<br />	
+ 	<br/>
  	
+<<<<<<< HEAD
   <p>	Hora de entrada: &nbsp; <%= @entry_record_now.entry_time.strftime("%c") %> </p> 
  	<% if !@entry_record_now.exit_time.blank? %>
  	  <p> Hora de Saída: &nbsp; <%= @entry_record_now.exit_time.strftime("%c") %> </p>
