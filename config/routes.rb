@@ -19,9 +19,8 @@ SystemGym::Application.routes.draw do
   end
 
   resources :equipments
-  
   resources :workouts
-  
+  resources :training_goals
   resources :trainings do
     member do
       get 'specify_exercises'
