@@ -20,8 +20,15 @@ class EntryRecord < ActiveRecord::Base
         entry_record.individual = person
         entry_record.entry_time = Time.zone.now
       elsif person.entry_records.last.exit_time.blank?
-        entry_record = person.entry_records.last
-        entry_record.exit_time = Time.zone.now
+        entry_record_temp = person.entry_records.last
+        # Safety, just make an exit_time if it's in the same day of entry_time
+        if entry_record_temp.entry_time.to_date != Date.today
+          entry_record.individual = person
+          entry_record.entry_time = Time.zone.now  
+        else
+          entry_record = entry_record_temp
+          entry_record.exit_time = Time.zone.now
+        end
       else
         entry_record.individual = person
         entry_record.entry_time = Time.zone.now
