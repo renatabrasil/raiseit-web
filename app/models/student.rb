@@ -2,7 +2,7 @@ class Student < Individual
   scope :student, -> { where(type: 'Student') }
   
   has_and_belongs_to_many :class_gyms
-  has_many :enrollments
+  has_many :enrollments, dependent: :destroy
   
   # has_one :user, as: :user_account, dependent: :destroy
   
