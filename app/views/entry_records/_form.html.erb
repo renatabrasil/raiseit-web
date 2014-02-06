@@ -1,16 +1,6 @@
 <br>
 <fiedset>
-  <% if @entry_record.errors.any? %>
-    <div class="alert alert-error">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-        <ul>
-          <% @entry_record.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-    </div>
-  
-  <% end %>
+
   
 <%= form_for(@entry_record, :html => { :class => :form }) do |f| -%>
   

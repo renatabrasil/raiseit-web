@@ -7,7 +7,7 @@ class CreateEquipment < ActiveRecord::Migration
       t.integer :quantity
       
       # Não disponível para a primeira release
-      # t.integer :usability
+      t.integer :usability
       
       # Foreign key
       t.belongs_to :status_equipment

@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20140124172406) do
     t.datetime "start_date"
     t.string   "schedule",      limit: 200
     t.boolean  "open",                      default: true, null: false
-    t.boolean  "active"
+    t.boolean  "active",                    default: true, null: false
     t.integer  "modality_id"
     t.integer  "instructor_id"
     t.datetime "created_at"
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 20140124172406) do
   create_table "enrollments", force: true do |t|
     t.datetime "start_date"
     t.string   "note",             limit: 500
-    t.integer  "expiration_day"
+    t.integer  "expiration_day",                                                      null: false
     t.decimal  "value",                        precision: 6, scale: 2
     t.decimal  "registration_fee",             precision: 6, scale: 2
     t.decimal  "discount",                     precision: 6, scale: 2

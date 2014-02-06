@@ -19,7 +19,7 @@
       <% @class_gyms.each do |class_gym| %>
         <tr>
           <td style="text-align: left"><%= class_gym.modality.name %></td>
-          <td style="text-align: center"><%= class_gym.start_date.blank? ? "-" : l(class_gym.start_date, :format => :sample) %></td>
+          <td style="text-align: center"><%= class_gym.start_date.blank? ? "-" : l(class_gym.start_date, :format => :date) %></td>
           <td><%= class_gym.schedule %></td>
           <td style="text-align: left"><%= class_gym.instructor.blank? ? "Não informado" : class_gym.instructor.name %></td>
           <td style="text-align: center"><%= class_gym.students.size %></td>

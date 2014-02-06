@@ -1,44 +1,50 @@
+<% if @entry_record.errors.any? %>
+    <div class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+          <% @entry_record.errors.full_messages.each do |msg| %>
+            <%= msg %>
+          <% end %>
+    </div>					  
+<% end %>
+
 <h2>Registrar Entrada</h2>
 
 <%= render 'form' %>
 
 <hr>
-<strong>Último registro de entrada</strong><br/>
+<h4>Último registro de entrada</h4>
 <% if !@entry_record_now.nil? %>
-<hr>
- 	<strong><%= @entry_record_now.individual.name %></strong> &nbsp;
- 	
- 	- &nbsp; <strong><%= @entry_record_now.individual.type %></strong>
+ 	<strong><%= @entry_record_now.individual.name %></strong>&nbsp;-&nbsp;<%= @entry_record_now.individual.type %>
  	
  	<br />
  	
- 	Matricula: <%= @entry_record_now.individual.registration_code.code %></strong>
+ 	Matricula: <%= @entry_record_now.individual.registration_code.code %>
  	
  	<br/>
  	
-<<<<<<< HEAD
-  <p>	Hora de entrada: &nbsp; <%= @entry_record_now.entry_time.strftime("%c") %> </p> 
+  Hora de entrada: &nbsp; <%= l(@entry_record_now.entry_time, :format => :full) %>
  	<% if !@entry_record_now.exit_time.blank? %>
- 	  <p> Hora de Saída: &nbsp; <%= @entry_record_now.exit_time.strftime("%c") %> </p>
+ 	<br/>
+  Hora de Saída: &nbsp; <%= l(@entry_record_now.exit_time, :format => :full) %>
   <% end %>
+  <br />
   
   <% @entry_record_now.individual.enrollments.each do |enrollment| %>
-   <p>  <%= enrollment.modality.name %> -
+   <%= enrollment.modality.name %> -
    <!-- Muita Coisa apenas para dizer se é vencida, passar isso para um método -->
-   Pagamento dia <b> <%= enrollment.expiration_day %> </b> -
+   Vencimento dia <b> <%= enrollment.expiration_day %> </b> -
    <% payment = enrollment.expired? %>
    <%= link_to "Ok", payment_path(payment) if !payment.blank? %>
    <% if payment.blank? %>
     <% if enrollment.start_date.month == Date.today.month %>
-      <b style="color: yellow"> Aguardando pagamento </b>
+      <b> Aguardando pagamento </b>
     <% elsif enrollment.expiration_day < Date.today.mday %>
       <b style="color: red"> Vencida </b>
     <% else %>
-      <b style="color: yellow"> Aguardando pagamento </b>
+      <b> Aguardando pagamento </b>
     <% end %>
-   <% end %>
-  <% end %>
-  </p> 
+   <% end %><br/>
+  <% end %> 
 <hr>
 <% end %>
 

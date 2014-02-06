@@ -9,7 +9,7 @@
       <td><strong>Aluno:</strong> <%= @enrollment.student.registration_code.code + " - " + @enrollment.student.name %></td>
     </tr>
     <tr>
-      <td><strong>Data de início:</strong> <%= l(@enrollment.start_date, :format => :sample) %></td>
+      <td><strong>Data de início:</strong> <%= l(@enrollment.start_date, :format => :date) %></td>
     </tr>
     <tr>
       <td><strong>Dia do vencimento:</strong> <%= @enrollment.expiration_day %></td>
