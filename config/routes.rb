@@ -1,6 +1,11 @@
 SystemGym::Application.routes.draw do
   
-  resources :model_workout_sheets
+  resources :model_workout_sheets do
+    collection do
+      match 'new_copy', to: 'model_workout_sheets#new_copy', via: [:get, :post]
+    end
+  end
+  
 
   resources :physical_categories
 

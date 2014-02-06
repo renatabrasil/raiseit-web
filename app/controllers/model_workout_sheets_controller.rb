@@ -17,6 +17,11 @@ class ModelWorkoutSheetsController < ApplicationController
     @model_workout_sheet = ModelWorkoutSheet.new
   end
 
+  # GET /model_workout_sheets/new_copy
+  def new_copy
+    @model_workout_sheet = ModelWorkoutSheet.new_copy(params[:id])
+  end
+  
   # GET /model_workout_sheets/1/edit
   def edit
   end
