@@ -1,5 +1,12 @@
 <h1>New model_workout_sheet</h1>
 
+<%= form_tag(new_copy_model_workout_sheets_path) do %>
+  <%= label_tag :id, "Criar a partir do modelo:" %>
+  <%= select "", "id", ModelWorkoutSheet.all.collect {|p| [ p.name, p.id ] } %>
+  <%= submit_tag "Copiar" %>
+<% end %>
+
+
 <%= render 'form' %>
 
 <%= link_to 'Back', model_workout_sheets_path %>
