@@ -13,7 +13,7 @@ class EntryRecordsController < ApplicationController
 
   def new
     @entry_record = EntryRecord.new
-    @entry_record_now = EntryRecord.last
+    @entry_record_now = EntryRecord.order(:updated_at).last
     
 
     respond_to do |format|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124172406) do
+ActiveRecord::Schema.define(version: 20140130180910) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -350,10 +350,13 @@ ActiveRecord::Schema.define(version: 20140124172406) do
     t.integer  "instructor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "model_workout_sheet_id"
     t.index ["instructor_id"], :name => "fk__trainings_instructor_id"
+    t.index ["model_workout_sheet_id"], :name => "fk__trainings_model_workout_sheet_id"
     t.index ["student_id"], :name => "fk__trainings_student_id"
     t.index ["training_goal_id"], :name => "fk__trainings_training_goal_id"
     t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_instructor_id"
+    t.foreign_key ["model_workout_sheet_id"], "model_workout_sheets", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_model_workout_sheet_id"
     t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_student_id"
     t.foreign_key ["training_goal_id"], "training_goals", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_training_goal_id"
   end

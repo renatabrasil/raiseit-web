@@ -26,6 +26,7 @@
       <th>Matrícula</th>
       <th>Modalidades</th>
       <th>Ativo</th>
+      <th>c</th>
       <th></th>
     </tr>    
   </thead>
@@ -50,6 +51,9 @@
               <tr><td><%= enrollment.active %> </td></tr> 
               <% end %>  
             </table>
+          </td>
+          <td style="text-align: center">
+            <%= link_to 'Cadastrar Ficha de Treino', new_training_path(:student_id => student.id) if student.enrollment_in_bodybuilding? %>
           </td>
           <td style="text-align: center; width: 20%">
             <%= link_to(student_path(student), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>

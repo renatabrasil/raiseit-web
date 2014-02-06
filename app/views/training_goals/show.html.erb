@@ -1,0 +1,16 @@
+<h1>Visualização</h1>
+
+<table>
+  <caption></caption>
+  <tbody>
+    <tr>
+      <td><strong>Nome:</strong> <%= @training_goal.denomination %></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<div class="form-actions-white">
+  <%= link_to "Voltar", training_goals_path, :class => 'btn'  %>
+  <%= link_to "Alterar", edit_training_goal_path(@training_goal), :class => 'btn btn-info' %>
+  <%= link_to "Remover", training_goal_path(@training_goal), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse objetivo ?")}", :class => 'btn' %>
+</div>

@@ -1,0 +1,33 @@
+<br>
+
+<fieldset>
+  <% if @training_goal.errors.any? %>
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+        <ul>
+          <% @training_goal.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+    </div>
+  <% end %>
+  
+  <%= form_for([@training_goal], :html => { :class => :form }) do |f| -%>
+    
+    <%= f.label :denomination, t("activerecord.attributes.training_goal.denomination", :default => "Denominação:"), :class => 'control-label' %>
+    <%= f.text_field :denomination, :class => 'text_field', :onkeyup => "toUppercase(this);" %>
+    
+    <br>
+    <br>
+    <div class="form-actions-white">
+      <% if @training_goal.id.nil? %>
+      <button class="btn btn-primary" type="submit">Cadastrar</button>
+      <% else %>
+      <button class="btn btn-info" type="submit">Alterar</button>
+      <% end %>
+      ou 
+      <%= link_to "Cancelar", training_goals_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+    </div>
+    
+  <% end %>
+</fieldset>
