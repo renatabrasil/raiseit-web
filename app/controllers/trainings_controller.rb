@@ -28,6 +28,7 @@ class TrainingsController < ApplicationController
     @training = Training.new(params[:training])
     @training.workouts = Workout.find(params[:workout_ids])
     @training.model_workout_sheet = ModelWorkoutSheet.find(ModelWorkoutSheet::DEFAULT)
+    @training.workout_sheet = WorkoutSheet.find(params[:workout_sheet_id])
     
     respond_to do |format|
       if @training.save
@@ -54,11 +55,12 @@ class TrainingsController < ApplicationController
     # To load instructor relates to bodybuilding
     @instructors = Instructor.distinct.joins(:class_gyms).joins("INNER JOIN modalities ON 
       modalities.id = class_gyms.modality_id").where("modalities.id = ?", Modality::WORK_OUT)
+    
+    
   end
   
   def update
     @training = Training.find(params[:id])
-    # @training.training_workouts.new(params[:training][:training_workout])
     
     respond_to do |format|
       if @training.update_attributes(params[:training])
@@ -68,7 +70,7 @@ class TrainingsController < ApplicationController
           format.html { redirect_to specify_exercises_training_path(@training) }
           format.json { head :ok }
         else
-          format.html { redirect_to trainings_path, :notice => 'A turma foi atualizada com sucesso.' }
+          format.html { redirect_to workout_sheet_path(@training.workout_sheet), :notice => 'A turma foi atualizada com sucesso.' }
           format.json { head :ok }
         end
       else
@@ -85,11 +87,12 @@ class TrainingsController < ApplicationController
   
   def destroy
     @training = Training.find(params[:id])
+    @workout_sheet = @training.workout_sheet
     
     @training.destroy
 
     respond_to do |format|
-        format.html { redirect_to trainings_url, notice: 'Ficha de treino removida com sucesso.'  }
+        format.html { redirect_to workout_sheet_path(@workout_sheet), notice: 'Ficha de treino removida com sucesso.'  }
         format.json { head :no_content }
     end  
   end

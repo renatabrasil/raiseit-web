@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140130180910) do
+ActiveRecord::Schema.define(version: 20140206184054) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -341,24 +341,36 @@ ActiveRecord::Schema.define(version: 20140130180910) do
     t.datetime "updated_at"
   end
 
-  create_table "trainings", force: true do |t|
-    t.datetime "last_training_date"
+  create_table "workout_sheets", force: true do |t|
     t.datetime "expiration_date"
-    t.boolean  "active"
+    t.boolean  "active",                 default: true, null: false
+    t.integer  "model_workout_sheet_id"
     t.integer  "training_goal_id"
     t.integer  "student_id"
     t.integer  "instructor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["instructor_id"], :name => "fk__workout_sheets_instructor_id"
+    t.index ["model_workout_sheet_id"], :name => "fk__workout_sheets_model_workout_sheet_id"
+    t.index ["student_id"], :name => "fk__workout_sheets_student_id"
+    t.index ["training_goal_id"], :name => "fk__workout_sheets_training_goal_id"
+    t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_workout_sheets_instructor_id"
+    t.foreign_key ["model_workout_sheet_id"], "model_workout_sheets", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_workout_sheets_model_workout_sheet_id"
+    t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_workout_sheets_student_id"
+    t.foreign_key ["training_goal_id"], "training_goals", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_workout_sheets_training_goal_id"
+  end
+
+  create_table "trainings", force: true do |t|
+    t.datetime "last_training_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "model_workout_sheet_id"
-    t.index ["instructor_id"], :name => "fk__trainings_instructor_id"
+    t.string   "training_type",          limit: 1, null: false
+    t.integer  "workout_sheet_id"
     t.index ["model_workout_sheet_id"], :name => "fk__trainings_model_workout_sheet_id"
-    t.index ["student_id"], :name => "fk__trainings_student_id"
-    t.index ["training_goal_id"], :name => "fk__trainings_training_goal_id"
-    t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_instructor_id"
+    t.index ["workout_sheet_id"], :name => "fk__trainings_workout_sheet_id"
     t.foreign_key ["model_workout_sheet_id"], "model_workout_sheets", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_model_workout_sheet_id"
-    t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_student_id"
-    t.foreign_key ["training_goal_id"], "training_goals", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_training_goal_id"
+    t.foreign_key ["workout_sheet_id"], "workout_sheets", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_workout_sheet_id"
   end
 
   create_table "workouts", force: true do |t|

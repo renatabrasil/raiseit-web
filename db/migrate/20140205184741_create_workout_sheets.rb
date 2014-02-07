@@ -3,7 +3,7 @@ class CreateWorkoutSheets < ActiveRecord::Migration
     create_table :workout_sheets do |t|
       
       t.datetime :expiration_date
-      t.boolean :active
+      t.boolean :active, :null => false, :default => true
       
       # Foreign key
       t.belongs_to :model_workout_sheet

@@ -20,6 +20,6 @@
     
   <% end %>
   <br>
-  <%= link_to "<< Voltar", edit_training_path %>
+  <%= link_to "<< Voltar", workout_sheet_path(@training.workout_sheet) %>
   <%= f.submit 'Confirmar'%>
 <% end %>
