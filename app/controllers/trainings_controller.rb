@@ -1,29 +1,4 @@
 class TrainingsController < ApplicationController
-  def index
-    @trainings = Training.all
-  end
-  
-  def new
-    @training = Training.new
-    @training.training_workouts.build
-    @training.workouts.build
-    
-    if !params[:student_id].nil?
-      @training.student = Student.find(params[:student_id])
-      @disabled = "true"
-    end 
-    
-    # Depois mudar
-    @training.model_workout_sheet = ModelWorkoutSheet.find(ModelWorkoutSheet::DEFAULT)
-    @instructors = Instructor.distinct.joins(:class_gyms).joins("INNER JOIN modalities ON 
-      modalities.id = class_gyms.modality_id").where("modalities.id = ?", Modality::WORK_OUT)
-      
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @training }
-    end
-  end
-  
   def create
     @training = Training.new(params[:training])
     @training.workouts = Workout.find(params[:workout_ids])
@@ -55,8 +30,6 @@ class TrainingsController < ApplicationController
     # To load instructor relates to bodybuilding
     @instructors = Instructor.distinct.joins(:class_gyms).joins("INNER JOIN modalities ON 
       modalities.id = class_gyms.modality_id").where("modalities.id = ?", Modality::WORK_OUT)
-    
-    
   end
   
   def update
@@ -82,7 +55,6 @@ class TrainingsController < ApplicationController
   
   def specify_exercises
     @training = Training.find(params[:id])
-    # @training.training_workouts.build
   end
   
   def destroy
@@ -96,6 +68,4 @@ class TrainingsController < ApplicationController
         format.json { head :no_content }
     end  
   end
-  
-    
 end
