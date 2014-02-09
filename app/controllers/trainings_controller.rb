@@ -70,7 +70,7 @@ class TrainingsController < ApplicationController
           format.html { redirect_to specify_exercises_training_path(@training) }
           format.json { head :ok }
         else
-          format.html { redirect_to workout_sheet_path(@training.workout_sheet), :notice => 'A turma foi atualizada com sucesso.' }
+          format.html { redirect_to workout_sheet_path(@training.workout_sheet), :notice => 'O treino foi atualizado com sucesso.' }
           format.json { head :ok }
         end
       else
@@ -92,7 +92,7 @@ class TrainingsController < ApplicationController
     @training.destroy
 
     respond_to do |format|
-        format.html { redirect_to workout_sheet_path(@workout_sheet), notice: 'Ficha de treino removida com sucesso.'  }
+        format.html { redirect_to workout_sheet_path(@workout_sheet), notice: 'Treino removida com sucesso.'  }
         format.json { head :no_content }
     end  
   end

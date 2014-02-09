@@ -52,6 +52,8 @@ class WorkoutSheetsController < ApplicationController
     # Test with new and assign and after test with build property
     # For each training associated to this work_sheet, call the same method
     @training = Training.new
+    @training.training_workouts.build
+    @training.workouts.build
     @training.workout_sheet = @workout_sheet
     
   end

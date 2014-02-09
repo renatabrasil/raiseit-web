@@ -37,7 +37,7 @@
       <%= f.submit 'Alterar', :name => 'action_button', :value => "Alterar"%>
       <% end %>
       ou 
-      <%= link_to "Cancelar", trainings_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+      <%= link_to "Cancelar", workout_sheet_path(@training.workout_sheet), :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
     </div>
     
   <% end %>

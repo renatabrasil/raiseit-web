@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140206184054) do
+ActiveRecord::Schema.define(version: 20140209025442) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -388,12 +388,12 @@ ActiveRecord::Schema.define(version: 20140206184054) do
   create_table "training_workouts", force: true do |t|
     t.integer  "series"
     t.integer  "repetitions"
-    t.datetime "duration"
     t.float    "load"
     t.integer  "training_id"
     t.integer  "workout_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "duration"
     t.index ["training_id"], :name => "fk__training_workouts_training_id"
     t.index ["workout_id"], :name => "fk__training_workouts_workout_id"
     t.foreign_key ["training_id"], "trainings", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_training_workouts_training_id"
