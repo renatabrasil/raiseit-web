@@ -3,4 +3,4 @@
 <%= render 'form' %>
 
 <%= link_to 'Show', @workout %> |
-<%= link_to 'Back', workouts_path %>
+<%= link_to 'Back', model_workout_sheet_path(id: @workout.physical_category.model_workout_sheet ) %>
