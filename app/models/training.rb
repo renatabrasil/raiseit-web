@@ -2,16 +2,47 @@
 class Training < ActiveRecord::Base
   has_many :training_workouts, dependent: :destroy
   has_many :workouts, through: :training_workouts
+  
+  belongs_to :workout_sheet
+  
   accepts_nested_attributes_for :training_workouts, :allow_destroy => true
   accepts_nested_attributes_for :workouts, :allow_destroy => true
   
-  belongs_to :student, :class_name => 'Student', :foreign_key => 'student_id'
-  belongs_to :instructor, :class_name => 'Instructor', :foreign_key => 'instructor_id'
-  belongs_to :training_goal
-  belongs_to :model_workout_sheet
+  validates :training_type, presence: true
   
-  attr_accessible :active, :last_training_date, :expiration_date, :training_goal_id,
-  :instructor_id, :student_id, :training_workouts_attributes
+  # Consertar com passos
+  # validate :uniqueness_training_type
+  
+  attr_accessible :training_type, :last_training_date, :training_workouts_attributes
+  
+  def uniqueness_training_type
+    if Training.where(workout_sheet_id: self.workout_sheet_id).exists?
+      errors.add(:training_type, "já existe um treino com este tipo.")
+    end
+  end
+  
+  # Return next value of training type
+  def next_training_type
+    @training_type = Training.joins(:workout_sheet).where(workout_sheet_id: self.workout_sheet.id).
+    order(training_type: :desc).limit(1).pluck(:training_type)[0]
+    
+    if @training_type.nil?
+      self.training_type = 'A'
+    else
+      case @training_type.to_s
+      when 'A'
+        self.training_type = 'B'
+      when 'B'
+        self.training_type = 'C'
+      when 'C'
+        self.training_type = 'D'
+      when 'D'
+        self.training_type = 'E'
+      else
+        self.training_type = ''
+      end
+    end
+  end
   
   def get_training_workout_by_workout_id(workout_id)
     return self.training_workouts.where(workout_id: workout_id).first

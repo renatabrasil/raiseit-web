@@ -1,17 +1,6 @@
 <br>
 
 <fieldset>
-  <% if @class_gym.errors.any? %>
-    <div class="alert alert-error">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-        <ul>
-          <% @class_gym.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-    </div>
-  <% end %>
-  
   <%= form_for([@class_gym], :html => { :class => :form }) do |f| -%>
     
     <%= f.label 'Modalidade', :class => "control-label" %>

@@ -15,11 +15,11 @@
     <%= fb.text_field :duration, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
     
     <%= fb.label "Carga:", t("activerecord.attributes.training_workout.load", :default => "Carga:") %>
-    <%= fb.text_field :duration, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
+    <%= fb.text_field :load, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
     <br>
     
   <% end %>
   <br>
-  <%= link_to "<< Voltar", edit_training_path %>
+  <%= link_to "<< Voltar", workout_sheet_path(@training.workout_sheet) %>
   <%= f.submit 'Confirmar'%>
 <% end %>

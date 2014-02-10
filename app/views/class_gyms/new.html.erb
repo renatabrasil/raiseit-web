@@ -1,3 +1,14 @@
+<% if @class_gym.errors.any? %>
+	<div class="alert alert-danger">
+		<button type="button" class="close" data-dismiss="alert">
+			×
+		</button>
+		<% @class_gym.errors.full_messages.each do |msg| %>
+		<%= msg %>
+		<% end %>
+	</div>
+<% end %>
+
 <h2>Cadastrar Turma</h2>
 
 <%= render 'form' %>

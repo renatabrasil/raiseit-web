@@ -1,25 +1,23 @@
 <br>
 <fiedset>
-
-  
-<%= form_for(@entry_record, :html => { :class => :form }) do |f| -%>
-  
-  <br>
-  	<%= f.label 'Matrícula', :class => "control-label" %>
-  	<%= text_field_tag :code%>
-	
-	<br>
-	<%= f.label 'Password', :class => "control-label" %>
-	<%= password_field_tag :password%>	
-	<br>  
-  	<div class="form-actions-white">
-   		<!-- <%= f.submit %> -->
-    	<% if @entry_record.id.nil? %>
-    		<button class="btn btn-primary" type="submit">Registrar</button>
-    	<% else %>
-    		<button class="btn btn-info" type="submit">Alterar</button>
-    	<% end %>
-  </div>
-  
-<% end %>
+	<%= form_for(@entry_record, :html => { :class => :form }) do |f| -%>
+	  
+	  <br>
+	  	<%= f.label 'Matrícula', :class => "control-label" %>
+	  	<%= text_field_tag :code%>
+		
+		<br>
+		<%= f.label 'Password', :class => "control-label" %>
+		<%= password_field_tag :password%>	
+		<br>  
+	  	<div class="form-actions-white">
+	   		<!-- <%= f.submit %> -->
+	    	<% if @entry_record.id.nil? %>
+	    		<button class="btn btn-primary" type="submit">Registrar</button>
+	    	<% else %>
+	    		<button class="btn btn-info" type="submit">Alterar</button>
+	    	<% end %>
+	  </div>
+	  
+	<% end %>
 </fiedset>

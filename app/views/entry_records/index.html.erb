@@ -5,10 +5,10 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th class="rotulo">Hora de Entrada</th>
-      <th class="rotulo" style="text-align: center; width: 20%">Hora de Saida</th>
-      <th class="rotulo" style="text-align: center; width: 20%">Tipo</th>
-      <th class="rotulo" style="text-align: center; width: 20%">Funcionário</th>
+      <th class="rotulo text-center">Hora de Entrada</th>
+      <th class="rotulo text-center">Hora de Saida</th>
+      <th class="rotulo text-center">Nome</th>
+      <th class="rotulo text-center">Tipo</th>
       <th class="rotulo"></th>
     </tr>    
   </thead>
@@ -16,12 +16,11 @@
     <% if !@entry_records.empty? %>
       <% @entry_records.each do |entry_record| %>
         <tr>
-          <td><%= l(entry_record.entry_time, :format => :full) %></td>
-          
-          <td style="text-align: center;"><%= l(entry_record.exit_time, :format => :full) if !entry_record.exit_time.blank? %></td>          
-          <td style="text-align: center;"><%= entry_record.individual.type%></td>
-          <td style="text-align: center;"><%= entry_record.individual.name %></td>
-          <td style="text-align: center; width: 20%">
+          <td class="text-center"><%= l(entry_record.entry_time, :format => :full) %></td>
+          <td class="text-center"><%= l(entry_record.exit_time, :format => :full) if !entry_record.exit_time.blank? %></td>
+          <td class="text-center"><%= entry_record.individual.name %></td>          
+          <td class="text-center"><%= entry_record.individual.type%></td>
+          <td class="text-center">
             <%= link_to(entry_record_path(entry_record), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
                Visualizar
               <% end %> |
@@ -36,7 +35,7 @@
       <% end %>
     <% else %>
     <tr>
-        <td colspan="4" style="text-align: center">
+        <td colspan="4" class="text-center">
           <font class="text-error" >Não há Registro cadastrado.</font>
         </td>
       </tr>

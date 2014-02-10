@@ -1,29 +1,4 @@
-<script type="text/javascript">
-    $(function() {
-    $('#select_student').autocomplete({
-            minLength: 3,
-            source: '<%= students_path(:json) %>',
-            focus: function(event, ui) {
-                $('#select_student').val(ui.item.name);
-                return false;
-            },
-            select: function(event, ui) {
-                $('#select_student').val(ui.item.name);
-        $('#training_student_id').val(ui.item.id);
-                return false;
-            }
-        })
-        .data( "uiAutocomplete" )._renderItem = function( ul, item ) {
-            return $( "<li></li>" )
-                .data( "item.autocomplete", item )
-                .append( "<a>" + item.name + "</a>" )
-                .appendTo( ul );
-        };
-    });
-</script>
-
 <br>
-
 <fieldset>
   <% if @training.errors.any? %>
     <div class="alert alert-error">
@@ -36,21 +11,8 @@
     </div>
   <% end %>
   
-  <%= nested_form_for([@training], :html => { :class => :form }) do |f| -%>
-  
-    <br>
-    <%= f.label 'Estudante', :class => "control-label" %>
-    <%= f.text_field :student_id, :value => (@training.student.blank? ? "" : @training.student.name ), :id => "select_student", :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "40", :disabled => @disabled.nil? ? false : true %>
-    <%= hidden_field(:training, :student_id) %>
-    
-    <br>
-    <%= f.label 'Professor', :class => "control-label" %>
-    <%= select("training", "instructor_id", (@instructors.nil? ? Instructor.all : @instructors).collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o instrutor --'}, {class: "span4", onchange: "atualizaForm()", id:"idModality"}) %>
-    
-    <br>
-    <%= f.label 'Objetivo', :class => "control-label" %>
-    <%= select("training", "training_goal_id", TrainingGoal.all.collect {|t| [ t.denomination, t.id ] }, {include_blank: '-- Selecione o objetivo --'}, {class: "span4", onchange: "atualizaForm()", id:"idModality"}) %>
-    
+  <%= nested_form_for(@training, url: training_path(@training), :html => { :class => :form }) do |f| -%>
+  sas
     <br>
     <!-- Por enquanto -->
     <table>
@@ -74,7 +36,7 @@
       <%= f.submit 'Alterar', :name => 'action_button', :value => "Alterar"%>
       <% end %>
       ou 
-      <%= link_to "Cancelar", trainings_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+      <%= link_to "Cancelar", workout_sheet_path(@training.workout_sheet), :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
     </div>
     
   <% end %>
