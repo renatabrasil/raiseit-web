@@ -1,10 +1,12 @@
 <% if @entry_record.errors.any? %>
-    <div class="alert alert-danger">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-          <% @entry_record.errors.full_messages.each do |msg| %>
-            <%= msg %>
-          <% end %>
-    </div>					  
+<div class="alert alert-danger">
+	<button type="button" class="close" data-dismiss="alert">
+		×
+	</button>
+	<% @entry_record.errors.full_messages.each do |msg| %>
+	<%= msg %>
+	<% end %>
+</div>
 <% end %>
 
 <h2>Registrar Entrada</h2>
@@ -12,40 +14,58 @@
 <%= render 'form' %>
 
 <hr>
-<h4>Último registro de entrada</h4>
-<% if !@entry_record_now.nil? %>
- 	<strong><%= @entry_record_now.individual.name %></strong>&nbsp;-&nbsp;<%= @entry_record_now.individual.type %>
- 	
- 	<br />
- 	
- 	Matricula: <%= @entry_record_now.individual.registration_code.code %>
- 	
- 	<br/>
- 	
-  Hora de entrada: &nbsp; <%= l(@entry_record_now.entry_time, :format => :full) %>
- 	<% if !@entry_record_now.exit_time.blank? %>
- 	<br/>
-  Hora de Saída: &nbsp; <%= l(@entry_record_now.exit_time, :format => :full) %>
-  <% end %>
-  <br />
-  
-  <% @entry_record_now.individual.enrollments.each do |enrollment| %>
-   <%= enrollment.modality.name %> -
-   <!-- Muita Coisa apenas para dizer se é vencida, passar isso para um método -->
-   Vencimento dia <b> <%= enrollment.expiration_day %> </b> -
-   <% payment = enrollment.expired? %>
-   <%= link_to "Ok", payment_path(payment) if !payment.blank? %>
-   <% if payment.blank? %>
-    <% if enrollment.start_date.month == Date.today.month %>
-      <b> Aguardando pagamento </b>
-    <% elsif enrollment.expiration_day < Date.today.mday %>
-      <b style="color: red"> Vencida </b>
-    <% else %>
-      <b> Aguardando pagamento </b>
-    <% end %>
-   <% end %><br/>
-  <% end %> 
-<hr>
-<% end %>
+<h4>Confirmação de dados</h4>
 
-<li><%= link_to 'Listar Registros', entry_records_path %></li>
+<% if !@entry_record_now.nil? %>
+	<table class="table table-bordered">
+	  <thead>
+	    <tr>
+	      <th class="rotulo text-center">Nome</th>
+	      <th class="rotulo text-center">Tipo</th>
+	      <th class="rotulo text-center">Matrícula</th>
+	      <th class="rotulo text-center">Hora de Entrada</th>
+	      <th class="rotulo text-center">Hora de Saída</th>
+	  </thead>
+	  <tbody>
+        <tr>
+          <td class="text-center"><strong><%= @entry_record_now.individual.name %></strong></td>     
+          <td class="text-center"><%= @entry_record_now.individual.type %></td>     
+          <td class="text-center"><%= @entry_record_now.individual.registration_code.code %></td>
+          <td class="text-center"><%= l(@entry_record_now.entry_time, :format => :full) %></td>
+          <td class="text-center"><%= l(@entry_record_now.exit_time, :format => :full) if !@entry_record_now.exit_time.blank? %></td>
+        </tr>
+	  </tbody>
+	</table>
+	
+	<table class="table table-bordered">
+	  <thead>
+	    <tr>
+	      <th class="rotulo text-center">Modalidade</th>
+	      <th class="rotulo text-center">Dia de Vencimento</th>
+	      <th class="rotulo text-center">Situação</th>
+	  </thead>
+	  <tbody>
+	  	<% @entry_record_now.individual.enrollments.each do |enrollment| %>
+		  	<tr>
+	          <td class="text-center"><%= enrollment.modality.name %></td>     
+	          <td class="text-center"><%= enrollment.expiration_day %></td>    
+	          <td class="text-center">
+	          <% payment = enrollment.expired? %>
+	          <%= link_to "Ok", payment_path(payment) if !payment.blank? %>
+				<% if payment.blank? %>
+					<% if enrollment.start_date.month == Date.today.month %>
+						<b style="color: green"> Aguardando pagamento </b>
+					<% elsif enrollment.expiration_day < Date.today.mday %>
+						<b style="color: red"> Vencida </b>
+					<% else %>
+						<b> Aguardando pagamento </b>
+					<% end %>
+				<% end %>
+	          </td>
+	        </tr>
+        <%end%>
+	  </tbody>
+	</table>
+<% end %>
+<hr>
+<%= link_to 'Listar Registros', entry_records_path %>
