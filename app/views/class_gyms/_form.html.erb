@@ -15,7 +15,7 @@
   <%= form_for([@class_gym], :html => { :class => :form }) do |f| -%>
     
     <%= f.label 'Modalidade', :class => "control-label" %>
-    <%= select("class_gym", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}, {class: "span4", onchange: "atualizaForm()", id:"idModality"}) %>
+    <%= select("class_gym", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}) %>
     
     <br>
     <%= f.label 'Data de Início', :class => 'control-label' %>
