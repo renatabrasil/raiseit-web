@@ -9,6 +9,8 @@ class WorkoutSheet < ActiveRecord::Base
   
   accepts_nested_attributes_for :trainings, :allow_destroy => true
   
+  validates :training_goal, :instructor, :student, presence: true
+  
   attr_accessible :active, :expiration_date, :training_goal_id, :instructor_id, 
     :student_id, :trainings_attributes
   

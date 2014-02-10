@@ -1,5 +1,4 @@
 <br>
-
 <fieldset>
   <% if @training.errors.any? %>
     <div class="alert alert-error">
@@ -12,8 +11,8 @@
     </div>
   <% end %>
   
-  <%= nested_form_for([@training], :html => { :class => :form }) do |f| -%>
-  
+  <%= nested_form_for(@training, url: training_path(@training), :html => { :class => :form }) do |f| -%>
+  sas
     <br>
     <!-- Por enquanto -->
     <table>

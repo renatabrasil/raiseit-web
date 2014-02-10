@@ -1,12 +1,42 @@
+# encoding: utf-8
 class TrainingsController < ApplicationController
+  def new
+    @training = Training.new
+    @training.training_workouts.build
+    @training.workouts.build
+    
+    if !params[:student_id].nil?
+      @training.student = Student.find(params[:student_id])
+      @disabled = "true"
+    end 
+    
+    # Depois mudar
+    @training.model_workout_sheet = ModelWorkoutSheet.find(ModelWorkoutSheet::DEFAULT)
+    @instructors = Instructor.distinct.joins(:class_gyms).joins("INNER JOIN modalities ON 
+      modalities.id = class_gyms.modality_id").where("modalities.id = ?", Modality::WORK_OUT)
+      
+    respond_to do |format|
+      format.html { render "/workout_sheets/create_training" } # new.html.erb
+      format.json { render json: @training } 
+    end
+  end
+  
   def create
     @training = Training.new(params[:training])
-    @training.workouts = Workout.find(params[:workout_ids])
     @training.model_workout_sheet = ModelWorkoutSheet.find(ModelWorkoutSheet::DEFAULT)
     @training.workout_sheet = WorkoutSheet.find(params[:workout_sheet_id])
+    @training.next_training_type
+    
+    error = false
+    if !params[:workout_ids].to_a.empty?
+      @training.workouts = Workout.find(params[:workout_ids])
+    else
+      flash[:notice] = "Informe pelo menos um exercicio."
+      error = true
+    end
     
     respond_to do |format|
-      if @training.save
+      if @training.save && !error
         format.html { redirect_to specify_exercises_training_path(@training), notice: 'A ficha de treino foi cadastrada com sucesso.' }
         format.json { render json: @training, status: :created, location: @training }
       else

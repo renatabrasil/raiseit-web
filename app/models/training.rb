@@ -8,7 +8,41 @@ class Training < ActiveRecord::Base
   accepts_nested_attributes_for :training_workouts, :allow_destroy => true
   accepts_nested_attributes_for :workouts, :allow_destroy => true
   
+  validates :training_type, presence: true
+  
+  # Consertar com passos
+  # validate :uniqueness_training_type
+  
   attr_accessible :training_type, :last_training_date, :training_workouts_attributes
+  
+  def uniqueness_training_type
+    if Training.where(workout_sheet_id: self.workout_sheet_id).exists?
+      errors.add(:training_type, "já existe um treino com este tipo.")
+    end
+  end
+  
+  # Return next value of training type
+  def next_training_type
+    @training_type = Training.joins(:workout_sheet).where(workout_sheet_id: self.workout_sheet.id).
+    order(training_type: :desc).limit(1).pluck(:training_type)[0]
+    
+    if @training_type.nil?
+      self.training_type = 'A'
+    else
+      case @training_type.to_s
+      when 'A'
+        self.training_type = 'B'
+      when 'B'
+        self.training_type = 'C'
+      when 'C'
+        self.training_type = 'D'
+      when 'D'
+        self.training_type = 'E'
+      else
+        self.training_type = ''
+      end
+    end
+  end
   
   def get_training_workout_by_workout_id(workout_id)
     return self.training_workouts.where(workout_id: workout_id).first

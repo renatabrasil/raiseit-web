@@ -16,7 +16,7 @@
 <%= form_for @training, url: trainings_path, method: "post" do |f| %>
   <%= hidden_field_tag 'workout_sheet_id', @training.workout_sheet.id %>
   <%= f.label 'Tipo:' %>
-  <%= f.text_field :training_type, :maxlength => "2", :value => 'B' %>
+  <%= f.text_field :training_type, :maxlength => "2", :value => @training.next_training_type, :disabled => @training.next_training_type.nil? ? false : true  %>
   
   <br>
     <!-- Por enquanto -->
