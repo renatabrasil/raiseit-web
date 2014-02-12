@@ -27,7 +27,7 @@ class TrainingsController < ApplicationController
     if !params[:workout_ids].to_a.empty?
       @training.workouts = Workout.find(params[:workout_ids])
     else
-      flash[:notice] = "Informe pelo menos um exercicio."
+      flash[:notice] = "Informe pelo menos um exercício."
       error = true
     end
     

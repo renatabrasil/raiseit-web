@@ -1,3 +1,4 @@
+# encoding: utf-8
 class WorkoutSheetsController < ApplicationController
   def show
     @workout_sheet = WorkoutSheet.find(params[:id])
