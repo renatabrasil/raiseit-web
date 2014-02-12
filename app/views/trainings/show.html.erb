@@ -54,6 +54,6 @@
 
 <div class="form-actions-white">
   <%= link_to "Voltar", workout_sheet_path(@training.workout_sheet), :class => 'btn'  %>
-  <%= link_to "Alterar", edit_training_path(@training), :class => 'btn btn-info' %>
-  <%= link_to "Remover", training_path(@training), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn' %>
+  <%= link_to "Alterar", edit_workout_sheet_training_path(@training.workout_sheet, @training), :class => 'btn btn-info' %>
+  <%= link_to "Remover", workout_sheet_training_path(@training.workout_sheet,@training), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn' %>
 </div>

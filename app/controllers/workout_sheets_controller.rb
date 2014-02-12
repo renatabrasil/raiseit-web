@@ -56,6 +56,8 @@ class WorkoutSheetsController < ApplicationController
     @training.workouts.build
     @training.workout_sheet = @workout_sheet
     
+    redirect_to new_workout_sheet_training_path(@workout_sheet)
+    
   end
   
   def edit_training

@@ -1,3 +1,5 @@
+
+<br>
 <br>
 <fieldset>
   <% if @training.errors.any? %>
@@ -11,33 +13,33 @@
     </div>
   <% end %>
   
-  <%= nested_form_for(@training, url: training_path(@training), :html => { :class => :form }) do |f| -%>
-  sas
-    <br>
+<%= form_for @training, url: workout_sheet_training_path(@training.workout_sheet, @training), method: "post" do |f| %>
+  <%= hidden_field_tag 'workout_sheet_id', @training.workout_sheet.id %>
+  <%= f.label 'Tipo:' %>
+  <%= f.text_field :training_type, :maxlength => "2", :value => @training.next_training_type, :disabled => @training.next_training_type.nil? ? false : true  %>
+  
+  <br>
     <!-- Por enquanto -->
     <table>
       <tr>
-        <td><h2>Modelo de ficha: <%= @training.model_workout_sheet.name %></h2></td>
+        <td><h2>Modelo de ficha: <%= @workout_sheet.model_workout_sheet.name %></h2></td>
       </tr>
-      <% @training.model_workout_sheet.physical_categories.each_with_index do |physical_category, i| %>
+      <% @workout_sheet.model_workout_sheet.physical_categories.each_with_index do |physical_category, i| %>
         <%#= render partial: "physical_category", collection: @model_workout_sheet.physical_categories %>
         <%= render physical_category %>
       <% end %>
     </table>
     
-    
-    
-    <br>
-    <br>
     <div class="form-actions-white">
       <% if @training.id.nil? %>
-      <%= f.submit 'Alterar', :name => 'action_button', :value => "Próximo >>"%>
+      <%= submit_tag "Criar treino", :name => 'action_button', remote: true %>
       <% else %>
-      <%= f.submit 'Alterar', :name => 'action_button', :value => "Alterar"%>
+      <%= submit_tag "Alterar treino", :name => 'action_button' %>
       <% end %>
       ou 
-      <%= link_to "Cancelar", workout_sheet_path(@training.workout_sheet), :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+      <%= link_to "Cancelar", workout_sheet_path(@workout_sheet), :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
     </div>
-    
-  <% end %>
+      
+<% end %>
+
 </fieldset>

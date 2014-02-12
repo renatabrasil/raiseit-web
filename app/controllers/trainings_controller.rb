@@ -1,29 +1,25 @@
 # encoding: utf-8
 class TrainingsController < ApplicationController
   def new
+    @workout_sheet = WorkoutSheet.find(params[:workout_sheet_id])
     @training = Training.new
     @training.training_workouts.build
     @training.workouts.build
+    @training.workout_sheet = @workout_sheet
     
     if !params[:student_id].nil?
       @training.student = Student.find(params[:student_id])
       @disabled = "true"
     end 
-    
-    # Depois mudar
-    @training.model_workout_sheet = ModelWorkoutSheet.find(ModelWorkoutSheet::DEFAULT)
-    @instructors = Instructor.distinct.joins(:class_gyms).joins("INNER JOIN modalities ON 
-      modalities.id = class_gyms.modality_id").where("modalities.id = ?", Modality::WORK_OUT)
       
     respond_to do |format|
-      format.html { render "/workout_sheets/create_training" } # new.html.erb
+      format.html # new.html.erb
       format.json { render json: @training } 
     end
   end
   
   def create
     @training = Training.new(params[:training])
-    @training.model_workout_sheet = ModelWorkoutSheet.find(ModelWorkoutSheet::DEFAULT)
     @training.workout_sheet = WorkoutSheet.find(params[:workout_sheet_id])
     @training.next_training_type
     
@@ -37,7 +33,7 @@ class TrainingsController < ApplicationController
     
     respond_to do |format|
       if @training.save && !error
-        format.html { redirect_to specify_exercises_training_path(@training), notice: 'A ficha de treino foi cadastrada com sucesso.' }
+        format.html { redirect_to specify_exercises_workout_sheet_training_path(@training.workout_sheet, @training), notice: 'A ficha de treino foi cadastrada com sucesso.' }
         format.json { render json: @training, status: :created, location: @training }
       else
         format.html { render action: "new" }
@@ -57,9 +53,7 @@ class TrainingsController < ApplicationController
   
   def edit
     @training = Training.find(params[:id])
-    # To load instructor relates to bodybuilding
-    @instructors = Instructor.distinct.joins(:class_gyms).joins("INNER JOIN modalities ON 
-      modalities.id = class_gyms.modality_id").where("modalities.id = ?", Modality::WORK_OUT)
+    @workout_sheet = @training.workout_sheet
   end
   
   def update
@@ -70,7 +64,7 @@ class TrainingsController < ApplicationController
         # The update flow isn't over yet
         if !params[:action_button].nil?
           @training.workouts = Workout.find(params[:workout_ids])
-          format.html { redirect_to specify_exercises_training_path(@training) }
+          format.html { redirect_to specify_exercises_workout_sheet_training_path(@training.workout_sheet, @training) }
           format.json { head :ok }
         else
           format.html { redirect_to workout_sheet_path(@training.workout_sheet), :notice => 'O treino foi atualizado com sucesso.' }

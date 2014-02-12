@@ -32,13 +32,19 @@ SystemGym::Application.routes.draw do
       get 'create_training'
       get 'edit_training'
     end
-  end
-  
-  resources :trainings, except: [:index, :new] do
-    member do
-      get 'specify_exercises'
+    
+    resources :trainings, except: [:index] do
+      member do
+        get 'specify_exercises'
+      end
     end
   end
+  
+  # resources :trainings, except: [:index, :new] do
+    # member do
+      # get 'specify_exercises'
+    # end
+  # end
   
   resources :modalities
   
