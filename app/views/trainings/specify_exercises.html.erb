@@ -1,6 +1,6 @@
 <h1>Editar os exercícios da ficha</h1>
 
-<%= form_for @training, url: training_path, method: "patch" do |f| %>
+<%= form_for [@training], url: workout_sheet_training_path, method: "patch" do |f| %>
 
   <%= f.fields_for :training_workouts do |fb| %>
     <strong><%= fb.object.workout.description %> (<%= fb.object.workout.physical_category.name %>)</strong><br>
