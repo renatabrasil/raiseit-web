@@ -22,9 +22,9 @@
     <!-- Por enquanto -->
     <table>
       <tr>
-        <td><h2>Modelo de ficha: <%= @workout_sheet.model_workout_sheet.name %></h2></td>
+        <td><h2>Modelo de ficha: <%= @training.workout_sheet.model_workout_sheet.name %></h2></td>
       </tr>
-      <% @workout_sheet.model_workout_sheet.physical_categories.each_with_index do |physical_category, i| %>
+      <% @training.workout_sheet.model_workout_sheet.physical_categories.each_with_index do |physical_category, i| %>
         <%#= render partial: "physical_category", collection: @model_workout_sheet.physical_categories %>
         <%= render physical_category %>
       <% end %>

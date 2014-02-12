@@ -14,7 +14,7 @@ class TrainingsController < ApplicationController
       
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @training } 
+      format.json { render json: [@training, @workout_sheet] } 
     end
   end
   
@@ -32,12 +32,12 @@ class TrainingsController < ApplicationController
     end
     
     respond_to do |format|
-      if @training.save && !error
+      if !error && @training.save
         format.html { redirect_to specify_exercises_workout_sheet_training_path(@training.workout_sheet, @training), notice: 'A ficha de treino foi cadastrada com sucesso.' }
         format.json { render json: @training, status: :created, location: @training }
       else
         format.html { render action: "new" }
-        format.json { render json: @training.errors, status: :unprocessable_entity }
+        format.json { render json: [@training.errors, @workout_sheet.errors], status: :unprocessable_entity }
       end
     end
   end

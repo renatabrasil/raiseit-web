@@ -28,11 +28,6 @@ SystemGym::Application.routes.draw do
   resources :training_goals
   
   resources :workout_sheets do
-    member do
-      get 'create_training'
-      get 'edit_training'
-    end
-    
     resources :trainings, except: [:index] do
       member do
         get 'specify_exercises'
