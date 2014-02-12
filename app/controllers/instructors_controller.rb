@@ -27,6 +27,7 @@ class InstructorsController < ApplicationController
     
     @instructor.user.email = @instructor.email
     @instructor.user.username = @instructor.registration_code.code
+    @instructor.user.roles = Role.find(Role::PROFESSOR)
     
     respond_to do |format|
       if @instructor.save
