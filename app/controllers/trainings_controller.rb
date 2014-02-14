@@ -6,6 +6,10 @@ class TrainingsController < ApplicationController
     @training.training_workouts.build
     @training.workouts.build
     @training.workout_sheet = @workout_sheet
+    @disabled = true
+    if @training.next_training_type.blank?
+      @disabled = false
+    end
     
     if !params[:student_id].nil?
       @training.student = Student.find(params[:student_id])
@@ -21,7 +25,7 @@ class TrainingsController < ApplicationController
   def create
     @training = Training.new(params[:training])
     @training.workout_sheet = WorkoutSheet.find(params[:workout_sheet_id])
-    @training.next_training_type
+    # @training.next_training_type
     
     error = false
     if !params[:workout_ids].to_a.empty?
@@ -29,6 +33,12 @@ class TrainingsController < ApplicationController
     else
       flash[:notice] = "Informe pelo menos um exercício."
       error = true
+    end
+    
+    @training.valid?
+    @disabled = true
+    if !@training.errors[:training_type].nil?
+      @disabled = false
     end
     
     respond_to do |format|
@@ -54,10 +64,16 @@ class TrainingsController < ApplicationController
   def edit
     @training = Training.find(params[:id])
     @workout_sheet = @training.workout_sheet
+    @disabled = true
   end
   
   def update
     @training = Training.find(params[:id])
+    
+    # You can't modify training_type yet
+    if !params[:training][:training_type].nil?
+      params[:training].delete(:training_type)
+    end
     
     respond_to do |format|
       if @training.update_attributes(params[:training])
