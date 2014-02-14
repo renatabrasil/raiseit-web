@@ -1,5 +1,7 @@
 # encoding: utf-8
 class TrainingsController < ApplicationController
+  load_and_authorize_resource
+  
   def new
     @training = Training.new
     @training.training_workouts.build

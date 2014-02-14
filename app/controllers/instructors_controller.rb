@@ -1,5 +1,7 @@
 # encoding: utf-8
 class InstructorsController < ApplicationController
+  load_and_authorize_resource
+  
   def index
     
     @instructors = Instructor.all
@@ -27,7 +29,8 @@ class InstructorsController < ApplicationController
     
     @instructor.user.email = @instructor.email
     @instructor.user.username = @instructor.registration_code.code
-    @instructor.user.roles = Role.find(Role::PROFESSOR)
+    
+    @instructor.user.roles << Role.find(Role::INSTRUCTOR)
     
     respond_to do |format|
       if @instructor.save

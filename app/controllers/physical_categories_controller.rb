@@ -1,4 +1,6 @@
 class PhysicalCategoriesController < ApplicationController
+  load_and_authorize_resource
+  
   before_action :set_physical_category, only: [:show, :edit, :update, :destroy]
 
   # GET /physical_categories

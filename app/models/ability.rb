@@ -5,8 +5,27 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
        user ||= User.new # guest user (not logged in)
-      if user.role? :administrador
+      if user.role? :admin
         can :manage, :all
+      elsif user.role? :instructor
+        can :manage, WorkoutSheet
+        can :manage, Training
+        can :manage, TrainingGoal
+        can :read, Person
+        can :read, ModelWorkoutSheet
+        can :manage, ClassGym, :instructor_id => user.user_account.id
+        cannot :create, ClassGym
+        can :read, EntryRecord
+      elsif user.role? :manager
+        can :manage, Payment
+        can :manage, Enrollment
+        can :manage, ClassGym
+        can :manage, Modality
+        can :read, EntryRecord
+        can :create, EntryRecord
+        can :manage, Student
+        can :manage, Instructor
+        can :read, Person
       end
        # if user_signed_in?
         # can :manage, :all

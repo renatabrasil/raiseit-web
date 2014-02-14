@@ -1,4 +1,6 @@
 class WorkoutSheetsController < ApplicationController
+  load_and_authorize_resource
+  
   def show
     @workout_sheet = WorkoutSheet.find(params[:id])
   end
