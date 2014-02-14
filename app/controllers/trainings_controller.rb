@@ -1,5 +1,7 @@
 # encoding: utf-8
 class TrainingsController < ApplicationController
+  load_and_authorize_resource
+  
   def new
     @workout_sheet = WorkoutSheet.find(params[:workout_sheet_id])
     @training = Training.new

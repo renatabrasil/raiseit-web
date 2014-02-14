@@ -1,5 +1,7 @@
 # encoding: utf-8
 class EnrollmentsController < ApplicationController
+  load_and_authorize_resource
+  
   def index
     @search = Enrollment.joins(:student).search(params[:q])
     @enrollments = @search.result(distinct: true, :order => 'created_at DESC')

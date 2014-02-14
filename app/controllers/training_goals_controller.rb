@@ -1,4 +1,6 @@
 class TrainingGoalsController < ApplicationController
+  load_and_authorize_resource
+  
   def show
     @training_goal = TrainingGoal.find(params[:id])
   end
