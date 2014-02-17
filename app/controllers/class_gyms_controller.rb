@@ -1,5 +1,6 @@
 class ClassGymsController < ApplicationController
-
+  load_and_authorize_resource
+  
   def show
     @class_gym = ClassGym.find(params[:id])
   

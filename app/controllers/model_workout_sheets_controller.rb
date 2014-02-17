@@ -1,4 +1,6 @@
 class ModelWorkoutSheetsController < ApplicationController
+  load_and_authorize_resource
+  
   before_action :set_model_workout_sheet, only: [:show, :edit, :update, :destroy]
 
   # GET /model_workout_sheets

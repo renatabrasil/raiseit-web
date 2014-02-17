@@ -40,16 +40,16 @@
   
     <br>
     <%= f.label 'Estudante', :class => "control-label" %>
-    <%= f.text_field :student_id, :value => (@workout_sheet.student.blank? ? "" : @workout_sheet.student.name ), :id => "select_student", :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "40", :disabled => @disabled.nil? ? false : true %>
+    <%= f.text_field :student_id, :value => (@workout_sheet.student.blank? ? "" : @workout_sheet.student.name ), :id => "select_student", :maxlength => "40", :disabled => @disabled.nil? ? false : true %>
     <%= hidden_field(:workout_sheet, :student_id) %>
     
     <br>
     <%= f.label 'Professor', :class => "control-label" %>
-    <%= select("workout_sheet", "instructor_id", (@instructors.nil? ? Instructor.all : @instructors).collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o instrutor --'}, {class: "span4", onchange: "atualizaForm()", id:"idInstructor"}) %>
+    <%= select("workout_sheet", "instructor_id", (@instructors.nil? ? Instructor.all : @instructors).collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o instrutor --'}) %>
     
     <br>
     <%= f.label 'Objetivo', :class => "control-label" %>
-    <%= select("workout_sheet", "training_goal_id", TrainingGoal.all.collect {|t| [ t.denomination, t.id ] }, {include_blank: '-- Selecione o objetivo --'}, {class: "span4", onchange: "atualizaForm()", id:"idTrainingGoal"}) %>
+    <%= select("workout_sheet", "training_goal_id", TrainingGoal.all.collect {|t| [ t.denomination, t.id ] }, {include_blank: '-- Selecione o objetivo --'}) %>
     
     
     
@@ -63,7 +63,7 @@
       <%= f.submit 'Alterar', :name => 'action_button', :value => "Alterar"%>
       <% end %>
       ou 
-      <%= link_to "Cancelar", workout_sheets_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+      <%= link_to "Cancelar", workout_sheets_path, data: { confirm: 'Deseja cancelar a operação? Todos os dados serão perdidos.'} %>
     </div>
     
   <% end %>

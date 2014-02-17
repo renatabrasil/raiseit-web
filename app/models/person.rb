@@ -8,4 +8,9 @@ class Person < ActiveRecord::Base
   
   attr_accessible :name, :phone1, :phone2, :locality_attributes
   
+  
+  def my_type_is?(type_name)
+    self.type == type_name.to_s.capitalize
+  end
+  
 end

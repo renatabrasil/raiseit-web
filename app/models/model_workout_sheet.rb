@@ -12,7 +12,7 @@ class ModelWorkoutSheet < ActiveRecord::Base
   
   def self.new_copy(id)
     model_workout_sheet = ModelWorkoutSheet.find(id)
-    model_workout_sheet_copy = model_workout_sheet.dup
+    model_workout_sheet_copy = model_workout_sheet.dup # dup = duplicate
     
     model_workout_sheet.physical_categories.each do |physical_category|
       model_workout_sheet_copy.physical_categories << physical_category.dup

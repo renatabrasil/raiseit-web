@@ -7,22 +7,22 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-  # Roles
+  # Roles  
   
   role1 = Role.new
-  role1.name = 'ADMINISTRADOR'
+  role1.name = 'ADMIN'
   role1.save
   
   role2 = Role.new
-  role2.name = 'FUNCIONARIO_SECRETARIA'
+  role2.name = 'MANAGER'
   role2.save
   
   role3 = Role.new
-  role3.name = 'FUNCIONARIO_PROFESSOR'
+  role3.name = 'INSTRUCTOR'
   role3.save
   
   role4 = Role.new
-  role4.name = 'ALUNO'
+  role4.name = 'STUDENT'
   role4.save
   
   # First user
