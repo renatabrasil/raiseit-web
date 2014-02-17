@@ -1,5 +1,6 @@
 # encoding: utf-8
 class EquipmentsController < ApplicationController
+  load_and_authorize_resource
   
   def index
     @equipments = Equipment.all

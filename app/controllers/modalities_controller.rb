@@ -1,4 +1,6 @@
 class ModalitiesController < ApplicationController
+  load_and_authorize_resource
+  
   def index
     @modalities = Modality.all.order("name ASC")
   end

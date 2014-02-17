@@ -36,6 +36,8 @@ class StudentsController < ApplicationController
     @student.user.email = @student.email
     @student.user.username = @student.registration_code.code
     
+    @student.user.roles << Role.find(Role::STUDENT)
+    
     respond_to do |format|
       if @student.save
         format.html { redirect_to students_path, notice: 'Estudante '+@student.name+' foi cadastrado com sucesso.' }

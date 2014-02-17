@@ -1,6 +1,6 @@
 <h1>Editar Ficha de Treino</h1>
 
-<%= form_for [@training], :url => training_path(@training), :html => { :class => :form, :id => "edit_class_gym" } do |f| -%>
+<%= form_for [@training], :url => workout_sheet_training_path(@training.workout_sheet, @training), :html => { :class => :form, :id => "edit_class_gym" } do |f| -%>
   <input name="_method" type="hidden" value="put" />
   <%= render :partial => "form", :locals => {:f => f} %>
 <% end -%>

@@ -26,18 +26,25 @@ SystemGym::Application.routes.draw do
   resources :equipments
   resources :workouts
   resources :training_goals
-  resources :trainings do
-    member do
-      get 'specify_exercises'
+  
+  resources :workout_sheets do
+    resources :trainings, except: [:index] do
+      member do
+        get 'specify_exercises'
+      end
     end
   end
   
-  resources :modalities
+  # resources :trainings, except: [:index, :new] do
+    # member do
+      # get 'specify_exercises'
+    # end
+  # end
   
+  resources :modalities
   
   # In routes.rb
   get '/employee/:type_employee' => 'employees#new', as: 'login'
-  
 
   # resources :enrollments#, only: [:index, :new, :create]
   

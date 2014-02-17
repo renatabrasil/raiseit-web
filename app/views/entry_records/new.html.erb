@@ -36,7 +36,7 @@
         </tr>
 	  </tbody>
 	</table>
-	
+	<% if @entry_record_now.individual.my_type_is? :student %>
 	<table class="table table-bordered">
 	  <thead>
 	    <tr>
@@ -66,6 +66,7 @@
         <%end%>
 	  </tbody>
 	</table>
+	<%end%>
 <% end %>
 <hr>
 <%= link_to 'Listar Registros', entry_records_path %>

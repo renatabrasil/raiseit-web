@@ -1,5 +1,6 @@
 class ClassGyms::AddStudentsController < ApplicationController
   
+  
   def select_students
     @class_gym = ClassGym.find(params[:class_gym_id])
     # @enrollments = Enrollment.all.where(['modality_id = ?', @class_gym.modality.id])

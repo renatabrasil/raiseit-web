@@ -33,6 +33,7 @@
 			<% if user_signed_in? %>
             <ul class="nav navbar-top-links navbar-right">
 				<%= current_user.email %>
+				<%= link_to 'Logout', destroy_user_session_path , :method=>:delete %>
 				<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -167,6 +168,18 @@
                         <li>
                         	<%= link_to '<i class="fa fa-chevron-circle-right fa-fw arrowMenu"></i> Matrículas' .html_safe, enrollments_path %></li>
                     	</li>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-chevron-circle-right fa-fw arrowMenu"></i> Ficha de Treino</a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <%= link_to 'Elaborar Ficha de Treino', new_workout_sheet_path %>
+                            </li>
+                            <li>
+                                <%= link_to 'Listar Fichas de Treino', workout_sheets_path %>
+                            </li>
+                        </ul>
                         <!-- /.nav-second-level -->
                     </li>
                     <li>

@@ -1,29 +1,6 @@
-<script type="text/javascript">
-    $(function() {
-    $('#select_student').autocomplete({
-            minLength: 3,
-            source: '<%= students_path(:json) %>',
-            focus: function(event, ui) {
-                $('#select_student').val(ui.item.name);
-                return false;
-            },
-            select: function(event, ui) {
-                $('#select_student').val(ui.item.name);
-        $('#training_student_id').val(ui.item.id);
-                return false;
-            }
-        })
-        .data( "uiAutocomplete" )._renderItem = function( ul, item ) {
-            return $( "<li></li>" )
-                .data( "item.autocomplete", item )
-                .append( "<a>" + item.name + "</a>" )
-                .appendTo( ul );
-        };
-    });
-</script>
 
 <br>
-
+<br>
 <fieldset>
   <% if @training.errors.any? %>
     <div class="alert alert-error">
@@ -36,46 +13,33 @@
     </div>
   <% end %>
   
-  <%= nested_form_for([@training], :html => { :class => :form }) do |f| -%>
+<%= form_for @training, url: workout_sheet_training_path(@training.workout_sheet, @training), method: "post" do |f| %>
+  <%= hidden_field_tag 'workout_sheet_id', @training.workout_sheet.id %>
+  <%= f.label 'Tipo:' %>
+  <%= f.text_field :training_type, :maxlength => "2", :value => @training.next_training_type, :disabled => @training.next_training_type.nil? ? false : true  %>
   
-    <br>
-    <%= f.label 'Estudante', :class => "control-label" %>
-    <%= f.text_field :student_id, :value => (@training.student.blank? ? "" : @training.student.name ), :id => "select_student", :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "40", :disabled => @disabled.nil? ? false : true %>
-    <%= hidden_field(:training, :student_id) %>
-    
-    <br>
-    <%= f.label 'Professor', :class => "control-label" %>
-    <%= select("training", "instructor_id", (@instructors.nil? ? Instructor.all : @instructors).collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o instrutor --'}, {class: "span4", onchange: "atualizaForm()", id:"idModality"}) %>
-    
-    <br>
-    <%= f.label 'Objetivo', :class => "control-label" %>
-    <%= select("training", "training_goal_id", TrainingGoal.all.collect {|t| [ t.denomination, t.id ] }, {include_blank: '-- Selecione o objetivo --'}, {class: "span4", onchange: "atualizaForm()", id:"idModality"}) %>
-    
-    <br>
+  <br>
     <!-- Por enquanto -->
     <table>
       <tr>
-        <td><h2>Modelo de ficha: <%= @training.model_workout_sheet.name %></h2></td>
+        <td><h2>Modelo de ficha: <%= @training.workout_sheet.model_workout_sheet.name %></h2></td>
       </tr>
-      <% @training.model_workout_sheet.physical_categories.each_with_index do |physical_category, i| %>
+      <% @training.workout_sheet.model_workout_sheet.physical_categories.each_with_index do |physical_category, i| %>
         <%#= render partial: "physical_category", collection: @model_workout_sheet.physical_categories %>
         <%= render physical_category %>
       <% end %>
     </table>
     
-    
-    
-    <br>
-    <br>
     <div class="form-actions-white">
       <% if @training.id.nil? %>
-      <%= f.submit 'Alterar', :name => 'action_button', :value => "Próximo >>"%>
+      <%= submit_tag "Criar treino", :name => 'action_button', remote: true %>
       <% else %>
-      <%= f.submit 'Alterar', :name => 'action_button', :value => "Alterar"%>
+      <%= submit_tag "Alterar treino", :name => 'action_button' %>
       <% end %>
       ou 
-      <%= link_to "Cancelar", trainings_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+      <%= link_to "Cancelar", workout_sheet_path(@workout_sheet), :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
     </div>
-    
-  <% end %>
+      
+<% end %>
+
 </fieldset>
