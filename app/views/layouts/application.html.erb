@@ -106,7 +106,15 @@
                         <!-- /input-group -->
                     </li>
                     <li>
-                    	<%= link_to '<i class="fa fa-chevron-circle-right fa-fw"></i> Pagamentos' .html_safe, enrollments_path %>
+                    	<a href="#"><i class="fa fa-chevron-circle-right fa-fw arrowMenu"></i> Pagamentos</a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <%= link_to 'Novo Pagamento', new_payment_path %>
+                            </li>
+                            <li>
+                                <%= link_to 'Listar Pagamentos', payments_path %>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-chevron-circle-right fa-fw arrowMenu"></i> Alunos</a>

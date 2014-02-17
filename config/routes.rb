@@ -54,7 +54,7 @@ SystemGym::Application.routes.draw do
       patch 'add_student'
     end
   end
-  resources :payments, only: [:index, :show]
+  resources :payments#, only: [:index, :show]
 
   #  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
