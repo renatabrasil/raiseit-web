@@ -12,10 +12,19 @@
  *= require_tree .
  */
 
+//redefine o icones de seta no menu lateral
 .active > a > .fa.arrowMenu:before {
     content: "\f13a";
 }
 
+//redefine a cor de fundo da area 
 #page-wrapper {
 	background-color: #FDFDFD !important;
+}
+
+//redefine para cor mais escura a linha da tabela quando status:hover
+.table-hover.dark > tbody > tr:hover > td,
+.table-hover.dark > tbody > tr:hover > th {
+  // background-color: #E7F2DF;
+  background-color: #EAEAEA;
 }
