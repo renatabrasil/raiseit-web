@@ -4,6 +4,7 @@ class Training < ActiveRecord::Base
   has_many :workouts, through: :training_workouts
   
   belongs_to :workout_sheet
+  belongs_to :profile_training
   
   accepts_nested_attributes_for :training_workouts, :allow_destroy => true
   accepts_nested_attributes_for :workouts, :allow_destroy => true

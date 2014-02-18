@@ -35,11 +35,7 @@ SystemGym::Application.routes.draw do
     end
   end
   
-  # resources :trainings, except: [:index, :new] do
-    # member do
-      # get 'specify_exercises'
-    # end
-  # end
+  resources :profile_trainings
   
   resources :modalities
   

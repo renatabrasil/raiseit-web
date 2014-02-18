@@ -25,7 +25,8 @@
             <% end %> |
              <%= link_to 'Especificar exercícios', specify_exercises_workout_sheet_training_path(training.workout_sheet, training) %> |
              <%= link_to 'Alterar', edit_workout_sheet_training_path(training.workout_sheet, training) %> |
-             <%= link_to 'Remover', workout_sheet_training_path(training.workout_sheet, training), :method => :delete %>
+             <%= link_to 'Remover', workout_sheet_training_path(training.workout_sheet, training), :method => :delete %> |
+             <%= link_to 'Cadastrar Perfil de Treino', new_profile_workout_sheet_path() %> 
             <br>
           <% end %>
         

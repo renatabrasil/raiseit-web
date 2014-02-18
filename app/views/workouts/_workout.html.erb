@@ -1,7 +1,8 @@
 <!-- Tabela com duas colunas -->
 <tr>
   <td>
-    <%= check_box_tag("workout_ids[]", workout.id, @training.workout_ids.include?(workout.id) ? true : false) %>
+    <%= check_box_tag("workout_ids[]", workout.id, @training.workout_ids.include?(workout.id) ? true : false) if !@training.nil? %>
+    <%= check_box_tag("workout_ids[]", workout.id, @training.workout_ids.include?(workout.id) ? true : false) if !@training.nil? %>
     <!-- <%= check_box_tag("workout_ids[]", workout.id, false) %> -->
   </td>
   <td><%= workout.description %></td>
