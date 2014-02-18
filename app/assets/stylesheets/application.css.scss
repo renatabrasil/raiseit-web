@@ -8,8 +8,9 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
+ *
  *= require_tree .
+ *= require_self
  */
 
 //redefine o icones de seta no menu lateral
@@ -19,12 +20,23 @@
 
 //redefine a cor de fundo da area 
 #page-wrapper {
-	background-color: #FDFDFD !important;
+	background-color: #FDFDFD;
 }
 
 //redefine para cor mais escura a linha da tabela quando status:hover
 .table-hover.dark > tbody > tr:hover > td,
 .table-hover.dark > tbody > tr:hover > th {
-  // background-color: #E7F2DF;
   background-color: #EAEAEA;
+}
+
+.table.table40{
+  width: 40%;
+}
+
+// .table.text-center > thead > tr > th{
+  // text-align: center;
+// }
+
+.text-center > thead > tr > th{
+  text-align: center;
 }
