@@ -16,9 +16,9 @@
 </table>
 <br>
 
-<div class="form-actions-white">
-  <%= link_to "Voltar", equipments_path, :class => 'btn'  %>
+<div>
+  <%= link_to "Voltar", equipments_path, :class => 'btn btn-default'  %>
   <%= link_to "Alterar", edit_equipment_path(@equipment), :class => 'btn btn-info' %>
-  <%= link_to "Remover", equipment_path(@equipment), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse equipamento ?")}", :class => 'btn' %>
+  <%= link_to "Remover", equipment_path(@equipment), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse equipamento ?")}", :class => 'btn btn-danger' %>
 </div>
 
