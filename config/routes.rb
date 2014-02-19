@@ -13,7 +13,11 @@ SystemGym::Application.routes.draw do
   :path => "usr"#, :skip => [:registrations]
 
   resources :employees
-  resources :students
+  resources :students do
+    member do
+      get 'profile'
+    end
+  end
   resources :instructors
   resources :entry_records
   
