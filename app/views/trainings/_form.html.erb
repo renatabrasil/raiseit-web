@@ -1,3 +1,11 @@
+<script type="text/javascript">
+  function refreshField(field, field2, event){
+    changedValue = field2.value;
+    document.getElementById(field).value = changedValue;
+    // var changedValue = document.getElementById('value').value
+    
+  }
+</script>
 
 <br>
 <br>
@@ -16,8 +24,8 @@
 <%= form_for @training, url: workout_sheet_training_path(@training.workout_sheet, @training), method: "post" do |f| %>
   <%= hidden_field_tag 'workout_sheet_id', @training.workout_sheet.id %>
   <%= f.label 'Tipo:' %>
-  <%= f.text_field :training_type, :maxlength => "2", :value => @training.next_training_type, :disabled => @training.next_training_type.nil? ? false : true  %>
-  
+  <%= f.text_field :training_type, :maxlength => "2", :value => @training.training_type, :disabled => @disabled, :onchange => "refreshField('training_type_hidden',this, event)"  %>
+  <%= hidden_field_tag 'training[training_type]', @training.training_type, {:id => 'training_type_hidden'} %>
   <br>
     <!-- Por enquanto -->
     <table>
@@ -30,7 +38,7 @@
       <% end %>
     </table>
     
-    <div class="form-actions-white">
+    <div>
       <% if @training.id.nil? %>
       <%= submit_tag "Criar treino", :name => 'action_button', remote: true %>
       <% else %>

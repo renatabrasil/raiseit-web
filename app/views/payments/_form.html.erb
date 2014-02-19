@@ -1,0 +1,36 @@
+<br>
+<fiedset>
+  <% if @payment.errors.any? %>
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+        <ul>
+          <% @payment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+    </div>
+  
+  <% end %>
+  
+<%= nested_form_for(@payment, :html => { :class => :form }) do |f| -%>
+  
+  <%= f.label :payday, t("activerecord.attributes.payment.payday", :date => "Data do Pagamento"), :class => 'control-label' %>
+  <%= f.text_field :payday, :class => 'text_field', :onkeyup => "maskIt(this,event,'##/##/####')", :value => l(Date.today, :format => :date), :maxlength => "10" %>
+  
+  <br>
+  Feito por: <%= select("payment", "individual_id", Individual.collection.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione uma pessoa --'}, {class: "span4", onchange: "atualizaForm()", id:"idInstructor"}) %>
+  <br>
+  
+<br>  
+  <div class="form-actions-white">
+    <!-- <%= f.submit %> -->
+    <% if @payment.id.nil? %>
+    <button class="btn btn-primary" type="submit">Cadastrar</button>
+    <% else %>
+    <button class="btn btn-info" type="submit">Alterar</button>
+    <% end %>
+    ou 
+    <%= link_to "Cancelar", payments_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+  </div>
+<% end %>
+</fiedset>

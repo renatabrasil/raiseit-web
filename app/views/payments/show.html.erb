@@ -3,7 +3,7 @@
 <table>
   <tbody>
     <tr>
-      <td><strong>Dia do pagamento:</strong> <%= l(@payment.payday, :format => :sample) %></td>
+      <td><strong>Dia do pagamento:</strong> <%= l(@payment.payday, :format => :date) %></td>
     </tr>
     <tr>
       <td><strong>Matrícula:</strong> <%= @payment.individual.registration_code.code + " - " + @payment.individual.name %></td>

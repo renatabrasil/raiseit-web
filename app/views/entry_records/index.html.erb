@@ -1,44 +1,45 @@
 <h2>Todos Registros</h2>
 
-
 <%= link_to 'Novo Registro', new_entry_record_path %>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th class="rotulo text-center">Hora de Entrada</th>
-      <th class="rotulo text-center">Hora de Saida</th>
-      <th class="rotulo text-center">Nome</th>
-      <th class="rotulo text-center">Tipo</th>
-      <th class="rotulo"></th>
-    </tr>    
-  </thead>
-  <tbody>
-    <% if !@entry_records.empty? %>
-      <% @entry_records.each do |entry_record| %>
-        <tr>
-          <td class="text-center"><%= l(entry_record.entry_time, :format => :full) %></td>
-          <td class="text-center"><%= l(entry_record.exit_time, :format => :full) if !entry_record.exit_time.blank? %></td>
-          <td class="text-center"><%= entry_record.individual.name %></td>          
-          <td class="text-center"><%= entry_record.individual.type%></td>
-          <td class="text-center">
-            <%= link_to(entry_record_path(entry_record), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
-               Visualizar
-              <% end %> |
-              <%= link_to(edit_entry_record_path(entry_record), :class => "link-icon", :title => "Alterar") do %>
-               Editar
-              <% end %> |
-            <%= link_to(entry_record_path(entry_record), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
-             Deletar
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <% else %>
-    <tr>
-        <td colspan="4" class="text-center">
-          <font class="text-error" >Não há Registro cadastrado.</font>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped table-hover dark table-condensed text-center">
+	  <thead>
+	    <tr>
+	      <th>Hora de Entrada</th>
+	      <th>Hora de Saida</th>
+	      <th>Nome</th>
+	      <th>Tipo</th>
+	      <th></th>
+	    </tr>    
+	  </thead>
+	  <!-- <tbody> -->
+	    <% if !@entry_records.empty? %>
+	      <% @entry_records.each do |entry_record| %>
+	        <tr>
+	          <td><%= l(entry_record.entry_time, :format => :full) %></td>
+	          <td><%= l(entry_record.exit_time, :format => :full) if !entry_record.exit_time.blank? %></td>
+	          <td><%= entry_record.individual.name %></td>          
+	          <td><%= entry_record.individual.type%></td>
+	          <td>
+	            <%= link_to(entry_record_path(entry_record), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+	               Visualizar
+	              <% end %> |
+	              <%= link_to(edit_entry_record_path(entry_record), :class => "link-icon", :title => "Alterar") do %>
+	               Editar
+	              <% end %> |
+	            <%= link_to(entry_record_path(entry_record), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
+	             Deletar
+	            <% end %>
+	          </td>
+	        </tr>
+	      <% end %>
+	    <% else %>
+	    <tr>
+	        <td colspan="4">
+	          <font class="text-error" >Não há Registro cadastrado.</font>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>

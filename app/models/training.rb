@@ -11,13 +11,15 @@ class Training < ActiveRecord::Base
   validates :training_type, presence: true
   
   # Consertar com passos
-  # validate :uniqueness_training_type
+  validate :uniqueness_training_type, on: :create
   
   attr_accessible :training_type, :last_training_date, :training_workouts_attributes
   
   def uniqueness_training_type
-    if Training.where(workout_sheet_id: self.workout_sheet_id).exists?
-      errors.add(:training_type, "já existe um treino com este tipo.")
+    if self.id.nil?
+      if !Training.where(workout_sheet_id: self.workout_sheet_id, training_type: self.training_type).exists?.nil?
+        errors.add(:training_type, "já existe um treino com este tipo: "+self.training_type+".")
+      end
     end
   end
   

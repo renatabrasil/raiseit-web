@@ -1,5 +1,5 @@
-<h2>Alunos cadastrados</h2>
-
+<% title " - Alunos" %>
+<h2>Alunos Cadastrados</h2>
 
 <%= link_to 'Novo Aluno', new_student_path %>
 
@@ -16,64 +16,60 @@
   <%= f.submit %>
 <% end %>
 
+<div class="table-responsive">
+	<table class="table table-bordered table-striped table-hover dark table-condensed text-center">
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th>Nome</th>
+	      <th>E-mail</th>
+	      <th>Matrícula</th>
+	      <th>Modalidades</th>
+	      <th>Ativo</th>
+	      <th></th>
+	    </tr>    
+	  </thead>
+	  <tbody>
+	    <% if !@students.empty? %>
+	      <% @students.each_with_index do |student, i| %>
+	        <tr>
+	          <td ><%= i+1 %></td>
+	          <td ><%= student.name %></td>
+	          <td ><%= student.email %></td>
+	          <td><%= student.registration_code.code %></td>
+	          <td>
+	              <% student.enrollments.each do |enrollment| %> 
+	               <%= enrollment.modality.name %><br /> 
+	              <% end %>
+	          </td>
+	           <td> 
+	              <% student.enrollments.each do |enrollment| %> 
+	              	<%= enrollment.active %><br />
+	              <% end %>  
+	          </td>
+	          <td>
+	            <%= link_to(student_path(student), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+	               Visualizar
+	              <% end %> |
+	              <%= link_to(edit_student_path(student), :class => "link-icon", :title => "Alterar") do %>
+	               Editar
+	              <% end %> |
+	            <%= link_to(student_path(student), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
+	             Deletar
+	            <% end %>
+	            <!-- <a href="#">Realizar matrícula</a>
+	            <%= link_to '| Cadastrar Ficha de Treino', new_workout_sheet_path(:student_id => student.id) if student.enrollment_in_bodybuilding? %> -->
+	          </td>
+	        </tr>
+	      <% end %>
+	    <% else %>
+	    <tr>
+	        <td>
+	          <font class="text-error" >Não há alunos cadastrados.</font>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Nome</th>
-      <th>E-mail</th>
-      <th>Matrícula</th>
-      <th>Modalidades</th>
-      <th>Ativo</th>
-      <th>c</th>
-      <th></th>
-    </tr>    
-  </thead>
-  <tbody>
-    <% if !@students.empty? %>
-      <% @students.each_with_index do |student, i| %>
-        <tr>
-          <td style="text-align: center; width: 4%"><%= i+1 %></td>
-          <td><%= student.name %></td>
-          <td style="text-align: center;"><%= student.email %></td>
-          <td style="text-align: center;"><%= student.registration_code.code %></td>
-          <td> 
-            <table>
-              <% student.enrollments.each do |enrollment| %> 
-              <tr><td><%= enrollment.modality.name %> </td></tr> 
-              <% end %>  
-            </table>
-          </td>
-           <td> 
-            <table>
-              <% student.enrollments.each do |enrollment| %> 
-              <tr><td><%= enrollment.active %> </td></tr> 
-              <% end %>  
-            </table>
-          </td>
-          <td style="text-align: center">
-            <%= link_to 'Cadastrar Ficha de Treino', new_workout_sheet_path(:student_id => student.id) if student.enrollment_in_bodybuilding? %>
-          </td>
-          <td style="text-align: center; width: 20%">
-            <%= link_to(student_path(student), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
-               Visualizar
-              <% end %> |
-              <%= link_to(edit_student_path(student), :class => "link-icon", :title => "Alterar") do %>
-               Editar
-              <% end %> |
-            <%= link_to(student_path(student), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
-             Deletar
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <% else %>
-    <tr>
-        <td colspan="4" style="text-align: center">
-          <font class="text-error" >Não há alunos cadastrados.</font>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>

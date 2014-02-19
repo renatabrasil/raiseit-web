@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   
   has_and_belongs_to_many :roles
   
+  belongs_to :individual, :class_name => 'Individual', :foreign_key => 'individual_id'
+  
   belongs_to :user_account, polymorphic: true
          
   # Virtual attribute for authenticating by either username or email

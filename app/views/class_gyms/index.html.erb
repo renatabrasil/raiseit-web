@@ -1,45 +1,48 @@
-<h1>Turmas</h1>
-<br />
-<%= link_to 'Nova Turma', new_class_gym_path %>
-<table width="100%" style="border: 1px solid #000000;">
-  <thead>
-    <tr>
-      <th style="text-align: left">Modalidade</th>
-      <th style="text-align: center">Data de Início</th>
-      <th>Horário</th>
-      <th style="text-align: left">Professor</th>
-      <th style="text-align: center">Alunos Matriculados</th>
-      <th style="text-align: center">Capacidade</th>
-      <th style="text-align: center">Status</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% if !@class_gyms.empty? %>
-      <% @class_gyms.each do |class_gym| %>
-        <tr>
-          <td style="text-align: left"><%= class_gym.modality.name%> </td>
-          <td style="text-align: center"><%= class_gym.start_date.blank? ? "-" : l(class_gym.start_date, :format => :date) %></td>
-          <td><%= class_gym.schedule %></td>
-          <td style="text-align: left"><%= class_gym.instructor.blank? ? "Não informado" : class_gym.instructor.name %></td>
-          <td style="text-align: center"><%= class_gym.students.size %></td>
-          <td style="text-align: center"><%= class_gym.capacity %></td>
-          <td style="text-align: center"><%= class_gym.open? ? "ABERTA" : "FECHADA" %></td>
-          <td>
-            <%= link_to(class_gym_path(class_gym), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
-                 Visualizar
-            <% end %> |
-            <%= link_to(edit_class_gym_path(class_gym), :class => "link-icon", :title => "Alterar") do %>
-               Alterar
-              <% end %> |
-            <%= link_to(class_gym_path(class_gym), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
-              Apagar
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <% else %>
-      <tr>Não há turmas cadastradas até esta data.</tr>
-    <% end %>   
-  </tbody>
-</table>
+<% title " - Turmas" %>
+<h2>Turmas</h2>
+
+<%= link_to 'Nova Turma', new_class_gym_path %><br/>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped table-hover dark table-condensed text-center">
+	  <thead>
+	    <tr>
+	      <th>Modalidade</th>
+	      <th>Data de Início</th>
+	      <th>Horário</th>
+	      <th>Professor</th>
+	      <th>Alunos Matriculados</th>
+	      <th>Capacidade</th>
+	      <th>Status</th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% if !@class_gyms.empty? %>
+	      <% @class_gyms.each do |class_gym| %>
+	        <tr>
+	          <td><%= class_gym.modality.name%> </td>
+	          <td><%= class_gym.start_date.blank? ? "-" : l(class_gym.start_date, :format => :date) %></td>
+	          <td><%= class_gym.schedule %></td>
+	          <td><%= class_gym.instructor.blank? ? "Não informado" : class_gym.instructor.name %></td>
+	          <td><%= class_gym.students.size %></td>
+	          <td><%= class_gym.capacity %></td>
+	          <td><%= class_gym.open? ? "ABERTA" : "FECHADA" %></td>
+	          <td>
+	            <%= link_to(class_gym_path(class_gym), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+	                 Visualizar
+	            <% end %> |
+	            <%= link_to(edit_class_gym_path(class_gym), :class => "link-icon", :title => "Alterar") do %>
+	               Alterar
+	              <% end %> |
+	            <%= link_to(class_gym_path(class_gym), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
+	              Apagar
+	            <% end %>
+	          </td>
+	        </tr>
+	      <% end %>
+	    <% else %>
+	      <tr>Não há turmas cadastradas até esta data.</tr>
+	    <% end %>   
+	  </tbody>
+	</table>
+</div>

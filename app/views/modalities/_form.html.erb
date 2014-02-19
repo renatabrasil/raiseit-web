@@ -16,7 +16,7 @@
     <%= f.text_field :name, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "80" %>
     
     <br>
-    <div class="form-actions-white">
+    <div>
       <!-- <%= f.submit %> -->
       <% if @modality.id.nil? %>
       <button class="btn btn-primary" type="submit">Cadastrar</button>
@@ -24,7 +24,7 @@
       <button class="btn btn-info" type="submit">Alterar</button>
       <% end %>
       ou 
-      <%= link_to "Cancelar", modalities_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+      <%= link_to "Cancelar", modalities_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos.", :class => 'btn btn-default' %>
     </div>
     
   <% end %>

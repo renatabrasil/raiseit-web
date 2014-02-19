@@ -1,28 +1,28 @@
-<h1>Visualização</h1>
+<% title " - Visualizar Aluno" %>
+<h2>Visualizar Aluno</h2>
 
-<table>
-  <caption></caption>
+<table class="table table40 table-bordered table-condensed">
   <tbody>
     <tr>
-      <td><strong>Nome:</strong> <%= @student.name %></td>
+      <td><strong>Nome:</strong></td><td><%= @student.name %></td>
     </tr>
     <tr>
-      <td><strong>CPF:</strong> <%= @student.cpf %></td>
+      <td><strong>CPF:</strong></td><td><%= @student.cpf %></td>
     </tr>
     <tr>
-      <td><strong>Telefone:</strong> <%= @student.phone1 %></td>
+      <td><strong>Telefone:</strong></td><td><%= @student.phone1 %></td>
     </tr>
     <tr>
-      <td><strong>E-mail:</strong> <%= @student.email %></td>
+      <td><strong>E-mail:</strong></td><td><%= @student.email %></td>
     </tr>
     <tr>
-      <td><strong>Matrícula:</strong> <%= @student.registration_code.code %></td>
+      <td><strong>Matrícula:</strong></td><td><%= @student.registration_code.code %></td>
     </tr>
   </tbody>
 </table>
 <br>
-<div class="form-actions-white">
-  <%= link_to "Voltar", students_path, :class => 'btn'  %>
+<div>
+  <%= link_to "Voltar", students_path, :class => 'btn btn-default'  %>
   <%= link_to "Alterar", edit_student_path(@student), :class => 'btn btn-info' %>
-  <%= link_to "Remover", student_path(@student), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn' %>
+  <%= link_to "Remover", student_path(@student), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn btn-danger' %>
 </div>
