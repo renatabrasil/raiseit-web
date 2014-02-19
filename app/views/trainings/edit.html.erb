@@ -1,4 +1,6 @@
 <h1>Editar Ficha de Treino</h1>
+O tipo do treino deve ser alterado no caso de uso: Alterar Tipo do Treino.
+<br>
 
 <%= form_for [@training], :url => workout_sheet_training_path(@training.workout_sheet, @training), :html => { :class => :form, :id => "edit_class_gym" } do |f| -%>
   <input name="_method" type="hidden" value="put" />
