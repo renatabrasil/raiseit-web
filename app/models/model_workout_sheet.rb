@@ -8,7 +8,7 @@ class ModelWorkoutSheet < ActiveRecord::Base
   
   accepts_nested_attributes_for :physical_categories, :allow_destroy => true
   
-  validates :name, presence:true
+  validates :name, presence:true, uniqueness: { case_sensitive: false }
   
   def self.new_copy(id)
     model_workout_sheet = ModelWorkoutSheet.find(id)
