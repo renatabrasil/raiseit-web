@@ -9,12 +9,19 @@ class Training < ActiveRecord::Base
   accepts_nested_attributes_for :training_workouts, :allow_destroy => true
   accepts_nested_attributes_for :workouts, :allow_destroy => true
   
-  validates :training_type, presence: true
+  # Fix in the user case create profile training
+  # validates :training_type, presence: true, if: :profile_training_register?
   
-  # Consertar com passos
-  validate :uniqueness_training_type, on: :create
+  # Fix with steps
+  # validate :uniqueness_training_type, on: :create
   
-  attr_accessible :training_type, :last_training_date, :training_workouts_attributes
+  attr_accessible :training_type, :last_training_date, :training_workouts_attributes,
+    :workouts_attributes, :workout_ids
+    
+  # Conditional Validation
+  def profile_training_register?
+    return self.profile_training.nil?
+  end
   
   def uniqueness_training_type
     if self.id.nil?

@@ -299,18 +299,6 @@ ActiveRecord::Schema.define(version: 20140218181354) do
     t.foreign_key ["training_goal_id"], "training_goals", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_profile_trainings_training_goal_id"
   end
 
-  create_table "profile_workout_sheets", force: true do |t|
-    t.string   "name"
-    t.integer  "training_goal_id"
-    t.integer  "created_by"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["created_by"], :name => "fk__profile_workout_sheets_created_by"
-    t.index ["training_goal_id"], :name => "fk__profile_workout_sheets_training_goal_id"
-    t.foreign_key ["created_by"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_profile_workout_sheets_created_by"
-    t.foreign_key ["training_goal_id"], "training_goals", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_profile_workout_sheets_training_goal_id"
-  end
-
   create_table "registration_codes", force: true do |t|
     t.string   "code",          limit: 100
     t.integer  "individual_id"
@@ -389,7 +377,7 @@ ActiveRecord::Schema.define(version: 20140218181354) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "model_workout_sheet_id"
-    t.string   "training_type",          limit: 1, null: false
+    t.string   "training_type",          limit: 1
     t.integer  "workout_sheet_id"
     t.integer  "profile_training_id"
     t.index ["model_workout_sheet_id"], :name => "fk__trainings_model_workout_sheet_id"

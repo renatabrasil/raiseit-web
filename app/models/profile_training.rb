@@ -7,5 +7,6 @@ class ProfileTraining < ActiveRecord::Base
   
   belongs_to :training_goal
   
-  attr_accessible :name, :training_attributes
+  attr_accessible :name, :training_goal_id, :created_by, :training_attributes 
+   
 end

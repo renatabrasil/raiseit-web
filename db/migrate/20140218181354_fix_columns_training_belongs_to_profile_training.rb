@@ -5,5 +5,6 @@ class FixColumnsTrainingBelongsToProfileTraining < ActiveRecord::Migration
       t.belongs_to :profile_training
       
     end
+    change_column :trainings, :training_type, :string, :limit => 1, :null => true
   end
 end

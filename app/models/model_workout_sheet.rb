@@ -24,4 +24,8 @@ class ModelWorkoutSheet < ActiveRecord::Base
     model_workout_sheet_copy
   end
   
+  def self.load_default
+    return ModelWorkoutSheet.find(ModelWorkoutSheet::DEFAULT)
+  end
+  
 end

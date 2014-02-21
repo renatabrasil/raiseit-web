@@ -19,43 +19,25 @@
     
     <br>
     <%= f.label 'Objetivo', :class => "control-label" %>
-    <%= select("training", "training_goal_id", TrainingGoal.all.collect {|t| [ t.denomination, t.id ] }, {include_blank: '-- Selecione o objetivo --'}) %>
+    <%= select("profile_training", "training_goal_id", TrainingGoal.all.collect {|t| [ t.denomination, t.id ] }, {include_blank: '-- Selecione o objetivo --'}) %>
     
     <br>
     <%= f.fields_for :training do |fa| %>
     <strong><%= fa.object %></strong><br>
-    
-      <!-- <%= fa.fields_for :training_workouts do |fb| %>
-      
-      <%= fb.label "Séries:", t("activerecord.attributes.training_workout.series", :default => "Séries:") %>
-      <%= fb.text_field :series, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
-      
-      <%= fb.label "Repetições:", t("activerecord.attributes.training_workout.repetitions", :default => "Repetições:") %>
-      <%= fb.text_field :repetitions, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
-      
-      <%= fb.label "Duração:", t("activerecord.attributes.training_workout.duration", :default => "Duração:") %>
-      <%= fb.text_field :duration, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
-      
-      <%= fb.label "Carga:", t("activerecord.attributes.training_workout.load", :default => "Carga:") %>
-      <%= fb.text_field :load, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
-      <br>
-      
-      <% end %> -->
-     
-    <%= PhysicalCategory.all.each do |physical_category| %>
-      <%= render physical_category %>
-    <% end %>
-    
-    
+    <br>
+      <%= yield fa %>
     <% end %>
     
     <br>
     <br>
     <div class="form-actions-white">
       <% if @profile_training.id.nil? %>
-      <button class="btn btn-primary" type="submit">Cadastrar</button>
+      <button class="btn btn-primary" type="submit">Próximo</button>
       <% else %>
-      <button class="btn btn-info" type="submit">Alterar</button>
+        <% if @profile_training.training.id.nil? %>
+          
+        <% end %>
+        <button class="btn btn-info" type="submit">Alterar</button>
       <% end %>
       ou 
       <%= link_to "Cancelar", profile_trainings_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>

@@ -2,7 +2,7 @@
 <tr>
   <td>
     <%= check_box_tag("workout_ids[]", workout.id, @training.workout_ids.include?(workout.id) ? true : false) if !@training.nil? %>
-    <%= check_box_tag("workout_ids[]", workout.id, @training.workout_ids.include?(workout.id) ? true : false) if !@training.nil? %>
+    <%= check_box_tag("profile_training[training_attributes][workout_ids][]", workout.id, @profile_training.training.workout_ids.include?(workout.id) ? true : false) if !@profile_training.training.nil? %>
     <!-- <%= check_box_tag("workout_ids[]", workout.id, false) %> -->
   </td>
   <td><%= workout.description %></td>
