@@ -28,9 +28,12 @@ class Ability
         can :read, Person
       elsif user.role? :student
         can :profile, Student,  id: user.user_account.id
+        can :payments, Student,  id: user.user_account.id
+        can :class_gyms, Student,  id: user.user_account.id
         can :show, Student,  id: user.user_account.id
         can :update, Student,  id: user.user_account.id
         can :read, Payment, individual_id: user.user_account.id
+        can :show, WorkoutSheet, student_id: user.user_account.id
       end
        # if user_signed_in?
         # can :manage, :all

@@ -19,6 +19,11 @@ class ApplicationController < ActionController::Base
   end
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    if current_user.role? :student
+      redirect_to profile_student_path(current_user.user_account.id), alert: exception.message
+    else
+      redirect_to root_url, :alert => exception.message
+    end
+    
   end
 end

@@ -1,0 +1,30 @@
+<h2>Turmas de <%=@student.name%> </h2>
+
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover dark table-condensed text-center">
+    <thead>
+      <tr>
+        <th>Modalidade</th>
+        <th>Data de Início</th>
+        <th>Horário</th>
+        <th>Professor</th>
+        <th>Frequência</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if !@class_gyms.empty? %>
+        <% @class_gyms.each do |class_gym| %>
+          <tr>
+            <td><%= class_gym.modality.name%> </td>
+            <td><%= class_gym.start_date.blank? ? "-" : l(class_gym.start_date, :format => :date) %></td>
+            <td><%= class_gym.schedule %></td>
+            <td><%= class_gym.instructor.blank? ? "Não informado" : class_gym.instructor.name %></td>
+            <td><%= @student.attendance(class_gym) %></td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>Não há turmas cadastradas até esta data.</tr>
+      <% end %>   
+    </tbody>
+  </table>
+</div>

@@ -16,6 +16,8 @@ SystemGym::Application.routes.draw do
   resources :students do
     member do
       get 'profile'
+      get 'payments'
+      get 'class_gyms'
     end
   end
   resources :instructors

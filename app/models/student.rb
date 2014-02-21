@@ -3,6 +3,7 @@ class Student < Individual
   
   has_and_belongs_to_many :class_gyms
   has_many :enrollments, dependent: :destroy
+  has_many :workout_sheets, dependent: :destroy
   
   # has_one :user, as: :user_account, dependent: :destroy
   
