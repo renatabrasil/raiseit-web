@@ -1,4 +1,3 @@
-Form Training
 <%= render layout: "form" do |fa| %>
 
   <%= fa.fields_for :training_workouts do |fb| %>
@@ -18,5 +17,13 @@ Form Training
     <br>
     
   <% end %>
+  
+  <br>
+  <br>
+  <div class="form-actions-white">
+    <button class="btn btn-primary" type="submit">Confirmar</button>
+    ou 
+    <%= link_to "Cancelar", profile_trainings_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+  </div>
   
 <% end %>

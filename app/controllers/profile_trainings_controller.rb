@@ -11,7 +11,7 @@ class ProfileTrainingsController < ApplicationController
     @profile_training.training.training_workouts
     @profile_training.training.workouts
     
-    render "form_exercise"
+    render "_form_exercise"
     # respond_to do |format|
       # format.html { render "form_exercise" }
       # format.json { render json: @profile_training }
@@ -26,7 +26,7 @@ class ProfileTrainingsController < ApplicationController
         # error = insert_workouts
         # if !error
           # @profile.training.update_attributes(params[:profile_training][:training])
-          format.html { redirect_to form_training_profile_training_path(@profile_training), notice: 'Perfil '+@profile_training.name+' foi cadastrado com sucesso.' }
+          format.html { render "_form_training", notice: 'Perfil '+@profile_training.name+' foi cadastrado com sucesso.' }
           format.json { render json: @profile_training, status: :created, location: @profile_training }
         # end
       else
@@ -36,18 +36,54 @@ class ProfileTrainingsController < ApplicationController
     end
   end
   
-  
+  def show
+    @profile_training = ProfileTraining.find(params[:id])
+  end
   
   def form_training
     @profile_training = ProfileTraining.find(params[:id])
+    render "_form_training"
+  end
+  
+  def form_exercise
+    @profile_training = ProfileTraining.find(params[:id])
+    render "_form_exercise"
   end
   
   def edit
     @profile_training = ProfileTraining.find(params[:id])
+    # render "form_training"
   end
   
   def update
+    @profile_training = ProfileTraining.find(params[:id])
     
+    respond_to do |format|
+      if @profile_training.update_attributes(params[:profile_training])
+        # The update flow isn't over yet
+        if !params[:action_button].nil?
+          format.html { redirect_to form_training_profile_training_path(@profile_training) }
+          format.json { head :ok }
+        else
+          format.html { redirect_to profile_training_path(@profile_training), :notice => 'O perfil foi atualizado com sucesso.' }
+          format.json { head :ok }
+        end
+      else
+        format.html { render :action => "edit" }
+        format.json { render :json => @training.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+  
+  def destroy
+    @profile_training = ProfileTraining.find(params[:id])
+    
+    @profile_training.destroy
+
+    respond_to do |format|
+        format.html { redirect_to profile_trainings_url, notice: 'Perfil de treino removido com sucesso.'  }
+        format.json { head :no_content }
+    end  
   end
   
   private

@@ -38,6 +38,7 @@ SystemGym::Application.routes.draw do
   resources :profile_trainings do
     member do
       get 'form_training'
+      get 'form_exercise'
     end
   end
   

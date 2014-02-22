@@ -1,3 +1,8 @@
+<% if @profile_training.id.nil? %>
+  <h1>Cadastrar Perfil de Treino</h1>
+<% end %>
+
+
 <br>
 
 <fieldset>
@@ -23,25 +28,18 @@
     
     <br>
     <%= f.fields_for :training do |fa| %>
-    <strong><%= fa.object %></strong><br>
-    <br>
+      <br>
+      <% if !@profile_training.id.nil? %>
+        <%= link_to 'Cadastrar mais exercícios', form_exercise_profile_training_path(@profile_training) %>
+        <br>
+        <br>
+      <% end %>
+      
       <%= yield fa %>
+      
     <% end %>
     
-    <br>
-    <br>
-    <div class="form-actions-white">
-      <% if @profile_training.id.nil? %>
-      <button class="btn btn-primary" type="submit">Próximo</button>
-      <% else %>
-        <% if @profile_training.training.id.nil? %>
-          
-        <% end %>
-        <button class="btn btn-info" type="submit">Alterar</button>
-      <% end %>
-      ou 
-      <%= link_to "Cancelar", profile_trainings_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
-    </div>
+    
     
   <% end %>
 </fieldset>
