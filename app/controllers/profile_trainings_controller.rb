@@ -12,10 +12,6 @@ class ProfileTrainingsController < ApplicationController
     @profile_training.training.workouts
     
     render "_form_exercise"
-    # respond_to do |format|
-      # format.html { render "form_exercise" }
-      # format.json { render json: @profile_training }
-    # end
   end
   
   def create
@@ -62,25 +58,6 @@ class ProfileTrainingsController < ApplicationController
     respond_to do |format|
       format.html { render "_form_training", notice: 'Perfil foi copiado com sucesso.' }
       format.json { render json: [@profile_training, @profile_training.training.training_workouts], status: :created, location: @profile_training }
-    end
-  end
-  
-  def create_copy
-    @profile_training = ProfileTraining.new(params[:profile_training])
-    
-    respond_to do |format|
-      if @profile_training.save
-        if !params[:training_copy].nil? and params[:training_copy] == "true"
-          format.html { redirect_to profile_training_path(@profile_training), notice: 'Perfil '+@profile_training.name+' foi cadastrado com sucesso.' }
-          format.json { render json: @profile_training, status: :created, location: @profile_training }
-        else
-          format.html { render "_form_training", notice: 'Perfil '+@profile_training.name+' foi cadastrado com sucesso.' }
-          format.json { render json: @profile_training, status: :created, location: @profile_training }
-        end
-      else
-        format.html { render action: "new" }
-        format.json { render json: @profile_training.errors, status: :unprocessable_entity }
-      end
     end
   end
   

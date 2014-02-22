@@ -40,11 +40,7 @@ SystemGym::Application.routes.draw do
       get 'form_training'
       get 'form_exercise'
       get 'new_copy'
-      post 'create_copy'
     end
-    # collection do
-      # match 'new_copy', to: 'profile_trainings#new_copy', via: [:get, :post]
-    # end
   end
   
   resources :modalities
