@@ -115,6 +115,7 @@ class Training < ActiveRecord::Base
       training_workout_copy.workout = training_workout.workout
       training_copy.training_workouts << training_workout_copy
       # training_copy.workouts << training_workout.workout.dup
+      puts '\n \n Workout para cada Training_workout duplicado: \n'+training_workout_copy.workout.description+" \n \n"
     end
     
     training_copy
