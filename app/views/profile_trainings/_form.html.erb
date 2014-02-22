@@ -29,11 +29,9 @@
     <br>
     <%= f.fields_for :training do |fa| %>
       <br>
-      <% if !@profile_training.id.nil? %>
         <%= link_to 'Cadastrar mais exercícios', form_exercise_profile_training_path(@profile_training) %>
         <br>
         <br>
-      <% end %>
       
       <%= yield fa %>
       

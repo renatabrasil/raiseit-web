@@ -2,9 +2,6 @@
   <%= hidden_field_tag 'training_copy', params[:training_copy] %>
   <%= fa.fields_for :training_workouts do |fb| %>
     <strong><%= fb.object.workout.description %> (<%= fb.object.workout.physical_category.name %>)</strong><br>
-    <br>
-    <br />
-    <%= fb.object.workout.id %>
       <%# To save workouts in copy profile trainings. Without this we can't save workouts just the training_workouts %>
       <%= fb.hidden_field :workout_id, :value => fb.object.workout.id %>
       <%= fb.label "Séries:", t("activerecord.attributes.training_workout.series", :default => "Séries:") %>

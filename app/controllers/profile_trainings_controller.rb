@@ -56,8 +56,7 @@ class ProfileTrainingsController < ApplicationController
   def new_copy
     @profile_training = ProfileTraining.new
     @profile_training.training_goal = TrainingGoal.find(params[:training_goal_id])
-    @profile_training.name = 'Treino de '+ @profile_training.training_goal.denomination
-    puts "\n \n Executando o new_copy agora: \n"
+    @profile_training.name = define_name_automatically(params[:training_goal_id])
     @profile_training.training = Training.new_copy(params[:id])
     
     respond_to do |format|
@@ -122,6 +121,14 @@ class ProfileTrainingsController < ApplicationController
   end
   
   private
+  
+  def define_name_automatically(training_goal_id)
+    if !@profile_training.training_goal.nil?
+      return 'Treino de '+ @profile_training.training_goal.denomination.downcase.camelcase + " " + (ProfileTraining.size_by_training_goal(training_goal_id)+1).to_s
+    end
+     return "Treino"
+  end
+  
   def insert_workouts
     # if !params[:workout_ids].to_a.empty?
       # if @profile_training.training.nil? 

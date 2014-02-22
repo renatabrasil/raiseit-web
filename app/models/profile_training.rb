@@ -9,4 +9,10 @@ class ProfileTraining < ActiveRecord::Base
   
   attr_accessible :name, :training_goal, :training_goal_id, :created_by, :training_attributes
   
+  # Static method
+  # Return number of profile trainings which his training_goal_id is equal to the value given
+  def self.size_by_training_goal(training_goal_id)
+    return ProfileTraining.where(training_goal_id: training_goal_id).size
+  end
+  
 end
