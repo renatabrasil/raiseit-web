@@ -58,6 +58,7 @@ class ProfileTrainingsController < ApplicationController
     @profile_training.training.training_workouts
     @profile_training.training.workouts
     @profile_training.training = Training.new_copy(params[:id])
+    
     respond_to do |format|
       # if @profile_training.save
         # format.html { redirect_to form_training_profile_training_path(@profile_training), notice: 'Perfil foi copiado com sucesso.' }
