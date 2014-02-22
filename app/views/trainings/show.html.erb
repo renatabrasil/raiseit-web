@@ -9,6 +9,9 @@
       <td><strong>Aluno:</strong> <%= @training.workout_sheet.student.registration_code.code + " - " + @training.workout_sheet.student.name %></td>
     </tr>
     <tr>
+      <td><strong>Tipo:</strong> <%= @training.training_type %></td>
+    </tr>
+    <tr>
       <td><strong>Data de vencimento:</strong> <%= @training.workout_sheet.expiration_date.blank? ? "" : l(@training.workout_sheet.expiration_date, :format => :sample) %></td>
     </tr>
     <tr>

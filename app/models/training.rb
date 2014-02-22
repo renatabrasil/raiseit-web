@@ -54,6 +54,7 @@ class Training < ActiveRecord::Base
     end
   end
   
+  #
   def get_training_workout_by_workout_id(workout_id)
     return self.training_workouts.where(workout_id: workout_id).first
   end
@@ -100,6 +101,23 @@ class Training < ActiveRecord::Base
       hash_workouts[physical_category] = aux_all_workouts
     end
     return hash_workouts
+  end
+  
+  # Make a copy from a given training
+  def self.new_copy(id)
+    training = Training.find(id)
+    training_copy = training.dup # dup = duplicate
+    training_copy.workout_sheet = nil
+    training_copy.training_type = ''
+    
+    training.training_workouts.each do |training_workout|
+      training_workout_copy = training_workout.dup
+      training_workout_copy.workout = training_workout.workout
+      training_copy.training_workouts << training_workout_copy
+      # training_copy.workouts << training_workout.workout.dup
+    end
+    
+    training_copy
   end
   
 end
