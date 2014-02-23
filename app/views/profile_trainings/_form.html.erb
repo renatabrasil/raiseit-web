@@ -29,9 +29,12 @@
     <br>
     <%= f.fields_for :training do |fa| %>
       <br>
-        <%= link_to 'Cadastrar mais exercícios', form_exercise_profile_training_path(@profile_training), :class => "btn btn-primary" %>
-        <br>
-        <br>
+        <% if !@profile_training.id.nil? or params[:training_copy] == "true" %>
+          <%= link_to 'Cadastrar mais exercícios', form_exercise_profile_training_path(@profile_training), :class => "btn btn-primary" %>
+          <br>
+          <br>
+        <% end %>
+        
       
       <%= yield fa %>
       

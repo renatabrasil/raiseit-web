@@ -21,6 +21,9 @@
       <td><strong>Objetivo:</strong> <%= @training.workout_sheet.training_goal.blank? ? "Não especificado" : @training.workout_sheet.training_goal.denomination %></td>
     </tr>
     <tr>
+      <td><%= link_to 'Cadastrar como Perfil', new_copy_profile_training_path(@training, :training_goal_id => @training.workout_sheet.training_goal.id, :training_copy => "true") %></td>
+    </tr>
+    <tr>
       <td>
         <% if !@training.workouts.empty? %>
         <table width="100%">

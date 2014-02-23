@@ -16,9 +16,10 @@ class ProfileTrainingsController < ApplicationController
   
   def create
     @profile_training = ProfileTraining.new(params[:profile_training])
-    # insert_workouts
+    error = false
+    # error = insert_workouts_with_errors
     respond_to do |format|
-      if @profile_training.save
+      if !error && @profile_training.save
         if !params[:training_copy].nil? and params[:training_copy] == "true"
           format.html { redirect_to profile_training_path(@profile_training), notice: 'Perfil '+@profile_training.name+' foi cadastrado com sucesso.' }
           format.json { render json: @profile_training, status: :created, location: @profile_training }
@@ -29,7 +30,7 @@ class ProfileTrainingsController < ApplicationController
         format.json { render json: @profile_training, status: :created, location: @profile_training }
         end
       else
-        format.html { render action: "new" }
+        format.html { render "_form_exercise" }
         format.json { render json: @profile_training.errors, status: :unprocessable_entity }
       end
     end
@@ -49,6 +50,7 @@ class ProfileTrainingsController < ApplicationController
     render "_form_exercise"
   end
   
+  # From list trainings in workout_sheets
   def new_copy
     @profile_training = ProfileTraining.new
     @profile_training.training_goal = TrainingGoal.find(params[:training_goal_id])
@@ -106,18 +108,21 @@ class ProfileTrainingsController < ApplicationController
      return "Treino"
   end
   
-  def insert_workouts
-    # if !params[:workout_ids].to_a.empty?
-      # if @profile_training.training.nil? 
-        # puts '\n\nO treino é vazio\n\n'
-        # @profile_training.training = params[:profile_training][:training]
-      # end
-      # @profile_training.training.workouts = Workout.find(params[:workout_ids])
-      # return true
-    # else
-      # flash[:notice] = "Informe pelo menos um exercício."
-      # return false
-    # end
+  def insert_workouts_with_errors
+    if !@profile_training.training.nil? && @profile_training.training.workouts.empty?
+      flash[:notice] = "Informe pelo menos um exercício."
+      return true
+    else
+      if @profile_training.training.nil?
+        if params[:profile_training][:training_attributes].nil? or params[:profile_training][:training_attributes][:workout_ids].nil?
+          flash[:notice] = "Informe pelo menos um exercício."      
+          return true
+        else
+          return false
+        end
+      end
+    end
+    
   end
   
 end

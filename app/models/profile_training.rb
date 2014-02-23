@@ -7,7 +7,11 @@ class ProfileTraining < ActiveRecord::Base
   
   belongs_to :training_goal
   
+  validates :name, :training_goal, presence: true
+  validates :name, uniqueness: true
+  
   attr_accessible :name, :training_goal, :training_goal_id, :created_by, :training_attributes
+  
   
   # Static method
   # Return number of profile trainings which his training_goal_id is equal to the value given

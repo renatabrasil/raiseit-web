@@ -14,6 +14,7 @@ class Training < ActiveRecord::Base
   
   # Fix with steps
   # validate :uniqueness_training_type, on: :create
+  # validate :without_workout?
   
   attr_accessible :training_type, :last_training_date, :training_workouts_attributes,
     :workouts_attributes, :workout_ids
@@ -21,6 +22,12 @@ class Training < ActiveRecord::Base
   # Conditional Validation
   def profile_training_register?
     return self.profile_training.nil?
+  end
+  
+  def without_workout?
+    if (self.workouts.empty? && self.workout_ids.empty?)
+      errors.add(:workouts, "informe pelo menos um exercício.")
+    end
   end
   
   def uniqueness_training_type
