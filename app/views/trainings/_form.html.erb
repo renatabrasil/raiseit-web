@@ -26,6 +26,9 @@
   <%= f.label 'Tipo:' %>
   <%= f.text_field :training_type, :maxlength => "2", :value => @training.training_type, :disabled => @disabled, :onchange => "refreshField('training_type_hidden',this, event)"  %>
   <%= hidden_field_tag 'training[training_type]', @training.training_type, {:id => 'training_type_hidden'} %>
+  <br />
+  <br>
+  <%= link_to "Usar um perfil de treino" %>
   <br>
     <!-- Por enquanto -->
     <table>

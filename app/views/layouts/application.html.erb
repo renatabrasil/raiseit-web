@@ -187,8 +187,17 @@
                             <li>
                                 <%= link_to 'Listar Fichas de Treino', workout_sheets_path %>
                             </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-chevron-circle-right fa-fw arrowMenu"></i> Perfil de Treino</a>
+                        <ul class="nav nav-second-level">
                             <li>
-                                <%= link_to 'Criar Perfil de Ficha de Treino', workout_sheets_path %>
+                                <%= link_to 'Cadastrar Perfil de Treino', new_profile_training_path %>
+                            </li>
+                            <li>
+                                <%= link_to 'Listar Perfil de Treino', profile_trainings_path %>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
