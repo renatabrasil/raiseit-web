@@ -55,5 +55,5 @@
 <div>
   <%= link_to "Voltar", workout_sheet_path(@training.workout_sheet), :class => 'btn btn-default'  %>
   <%= link_to "Alterar", edit_workout_sheet_training_path(@training.workout_sheet, @training), :class => 'btn btn-info' %>
-  <%= link_to "Remover", workout_sheet_training_path(@training.workout_sheet,@training), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn btn-danger' %>
+  <%= link_to "Remover", workout_sheet_training_path(@training.workout_sheet,@training), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro ?")}", :class => 'btn btn-danger' %>
 </div>

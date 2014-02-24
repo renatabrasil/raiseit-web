@@ -1,5 +1,6 @@
-<h1>Editar Aluno</h1>
-            
+<% title " - Editar Aluno" %>
+<h2>Alterar Dados - Aluno</h2>
+
 <%= form_for [@student], :url => student_path(@student), :html => { :class => :form, :id => "edit_student" } do |f| -%>
 <input name="_method" type="hidden" value="put" />
 <%= render :partial => "form", :locals => {:f => f} %>

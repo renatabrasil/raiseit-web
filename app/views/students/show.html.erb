@@ -24,5 +24,5 @@
 <div>
   <%= link_to "Voltar", students_path, :class => 'btn btn-default'  %>
   <%= link_to "Alterar", edit_student_path(@student), :class => 'btn btn-info' %>
-  <%= link_to "Remover", student_path(@student), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn btn-danger' %>
+  <%= link_to "Remover", student_path(@student), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro ?")}", :class => 'btn btn-danger' %>
 </div>
