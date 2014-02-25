@@ -1,5 +1,7 @@
 # This controller is for the student view, this is the student environment  
 class StudentController < ApplicationController
+  load_and_authorize_resource :class => "Student"
+  
   def home
     @student = Student.find(params[:id])
   end

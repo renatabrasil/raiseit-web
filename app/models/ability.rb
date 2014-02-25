@@ -16,6 +16,7 @@ class Ability
         can :manage, ClassGym, instructor_id: user.user_account.id
         cannot :create, ClassGym
         can :read, EntryRecord
+        can :index, :home
       elsif user.role? :manager
         can :manage, Payment
         can :manage, Enrollment
@@ -26,14 +27,11 @@ class Ability
         can :manage, Student
         can :manage, Instructor
         can :read, Person
+        can :index, :home
       elsif user.role? :student
-        can :profile, Student,  id: user.user_account.id
-        can :payments, Student,  id: user.user_account.id
-        can :class_gyms, Student,  id: user.user_account.id
-        can :show, Student,  id: user.user_account.id
-        can :update, Student,  id: user.user_account.id
-        can :read, Payment, individual_id: user.user_account.id
-        can :show, WorkoutSheet, student_id: user.user_account.id
+        alias_action :home, :edit, :update, :payments, :classes, :workout_sheet, 
+          :to => :profile
+        can :profile, Student, id: user.user_account.id
       end
        # if user_signed_in?
         # can :manage, :all
