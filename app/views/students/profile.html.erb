@@ -1,6 +1,0 @@
-<h1> <%= @student.name %> </h1>
-
-<%= link_to "Editar Perfil", @student%> <br />
-<%= link_to "Pagamentos", payments_student_path(@student)  %><br /> 
-<%= link_to "Turmas", class_gyms_student_path(@student) %> <br />
-<%= link_to "Ficha de Treino", workout_sheet_path(@student.workout_sheets.last)%><br />

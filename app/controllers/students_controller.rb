@@ -78,20 +78,6 @@ class StudentsController < ApplicationController
     end
   end
   
-  def profile
-    @student = Student.find(params[:id])
-  end
-  
-  def payments
-    @student = Person.find(params[:id])
-    @payments = @student.payments
-  end
-  
-  def class_gyms
-    @student = Person.find(params[:id])
-    @class_gyms = @student.class_gyms
-  end
-  
   def destroy
     @student = Student.find(params[:id])
     @student.destroy

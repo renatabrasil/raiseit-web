@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   
   def after_sign_in_path_for(resource)
     if current_user.role? :student
-      profile_student_path(current_user.user_account.id)
+      student_home_path(current_user.user_account.id)
     else
       root_path 
     end
@@ -20,9 +20,9 @@ class ApplicationController < ActionController::Base
   
   rescue_from CanCan::AccessDenied do |exception|
     if current_user.role? :student
-      redirect_to profile_student_path(current_user.user_account.id), alert: exception.message
+      redirect_to student_home_path(current_user.user_account.id), alert: exception.message
     else
-      redirect_to root_url, :alert => exception.message
+      redirect_to root_url, alert: exception.message
     end
     
   end
