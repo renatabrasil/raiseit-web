@@ -30,7 +30,7 @@
         <tr>
           <td class="text-center"><strong><%= @entry_record_now.individual.name %></strong></td>     
           <td class="text-center"><%= @entry_record_now.individual.type %></td>     
-          <td class="text-center"><%= @entry_record_now.individual.registration_code.code %></td>
+          <td class="text-center"><%= @entry_record_now.individual.code %></td>
           <td class="text-center"><%= l(@entry_record_now.entry_time, :format => :full) %></td>
           <td class="text-center"><%= l(@entry_record_now.exit_time, :format => :full) if !@entry_record_now.exit_time.blank? %></td>
         </tr>

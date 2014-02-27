@@ -41,8 +41,6 @@
   type_employee2.save
   type_employee3 = TypeEmployee.create!(:name => 'Professor')
   type_employee3.save
-  type_employee4 = TypeEmployee.create!(:name => 'Instrutor')
-  type_employee4.save
   
   # Periodicity
   periodicity1 = Periodicity.create!(:description => 'ANUAL')

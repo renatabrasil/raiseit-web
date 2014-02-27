@@ -18,11 +18,8 @@
   <%= f.text_field :name, :maxlength => "80" %>
   
   <br>
-  <%= f.fields_for :registration_code do |fa| %>
-    <%= fa.label 'Matrícula' %>
-    <%= fa.text_field :code, :maxlength => "40" %>
-  <% end %>
-  
+  <%= f.label 'Código' %>
+  <%= f.text_field :code, :maxlength => "40" %>
   
   <br>
   <%= f.label 'CPF' %>

@@ -6,7 +6,7 @@ class Individual < Person
   
   scope :individual, -> { where(type: 'Individual') }
   
-  attr_accessible :cpf, :rg, :gender, :email, :registration_code_id, :code
+  attr_accessible :cpf, :rg, :gender, :email, :code
   
   has_one :user, as: :user_account, dependent: :destroy
   

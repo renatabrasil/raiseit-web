@@ -2,7 +2,7 @@
 
 <%= search_form_for @search do |f| %>
   <%= f.label "Matrícula:" %>
-  <%= f.text_field :student_registration_code_code_cont %>
+  <%= f.text_field :student_code_cont %>
   <%= f.label "Modalidade:" %>
   <%= f.text_field :modality_name_cont %>
   <%= f.label "Alunos Ativos:" %>
@@ -36,7 +36,7 @@
 		<% if !@enrollments.empty? %>
 			<% @enrollments.each do |enrollment| %>
 				<tr>
-				  <td style="text-align: right" rowspan="2"><%= link_to enrollment.student.registration_code.code, enrollment_path(enrollment) %></td>
+				  <td style="text-align: right" rowspan="2"><%= link_to enrollment.student.code, enrollment_path(enrollment) %></td>
 				  <td style="text-align: left"><%= enrollment.student.name %></td>
 					<td style="text-align: center"><%= enrollment.start_date.blank? ? "-" : l(enrollment.start_date, :format => :date) %></td>
 					<td style="text-align: center"><%= enrollment.expiration_day %></td>

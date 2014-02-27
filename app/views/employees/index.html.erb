@@ -20,7 +20,7 @@
       <% @employees.each do |employee| %>
         <tr>
           <td><%= employee.name %></td>
-          <td style="text-align: right"><%= employee.registration_code.nil? ? " - " : employee.registration_code.code %></td>
+          <td style="text-align: right"><%= employee.code.nil? ? " - " : employee.code %></td>
           <td style="text-align: right"><%= employee.cpf.nil? ? " - " : employee.cpf %></td>
           <td style="text-align: center;"><%= employee.phone1 %></td>
           <td style="text-align: center;"><%= employee.email %></td>

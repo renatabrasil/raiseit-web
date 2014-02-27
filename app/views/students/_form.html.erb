@@ -30,10 +30,8 @@
   <%= f.text_field :email, :class => "input-xlarge", :maxlength => "40" %>
   
   <br>
-  <%= f.fields_for :registration_code do |fa| %>
-    <%= fa.label 'Matrícula', :class => "control-label" %>
-    <%= fa.text_field :code, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "20" %>  
-  <% end %>
+  <%= f.label 'Código', :class => "control-label" %>
+  <%= f.text_field :code, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "20" %>
   
   <%= f.fields_for :user do |fb| %>
 

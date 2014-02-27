@@ -16,7 +16,6 @@ class InstructorsController < ApplicationController
   def new
     @instructor = Instructor.new
     @instructor.build_user
-    @instructor.build_registration_code
     
     respond_to do |format|
       format.html # new.html.erb
@@ -28,7 +27,7 @@ class InstructorsController < ApplicationController
     @instructor = Instructor.new(params[:instructor])
     
     @instructor.user.email = @instructor.email
-    @instructor.user.username = @instructor.registration_code.code
+    @instructor.user.username = @instructor.code
     
     @instructor.user.roles << Role.find(Role::INSTRUCTOR)
     

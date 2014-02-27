@@ -5,8 +5,8 @@
 
 
 <%= search_form_for @search do |f| %>
-  <%= f.label :registration_code_code_cont %>
-  <%= f.text_field :registration_code_code_cont %>
+  <%= f.label :code_cont %>
+  <%= f.text_field :code_cont %>
   <%= f.label :enrollments_modality_name_cont %>
   <%= f.text_field :enrollments_modality_name_cont %>
   <%= f.label "Alunos Ativos:" %>
@@ -36,7 +36,7 @@
 	          <td ><%= i+1 %></td>
 	          <td ><%= student.name %></td>
 	          <td ><%= student.email %></td>
-	          <td><%= student.registration_code.code %></td>
+	          <td><%= student.code %></td>
 	          <td>
 	              <% student.enrollments.each do |enrollment| %> 
 	               <%= enrollment.modality.name %><br /> 

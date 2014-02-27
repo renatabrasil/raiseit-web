@@ -30,10 +30,8 @@
   <%= f.text_field :email, :maxlength => "40" %>
   
   <br>
-  <%= f.fields_for :registration_code do |fa| %>
-    <%= fa.label 'Matrícula' %>
-    <%= fa.text_field :code, :maxlength => "20" %>
-  <% end %>
+  <%= f.label 'Código' %>
+  <%= f.text_field :code, :maxlength => "20" %>
   
   <%= f.fields_for :user do |fb| %>
 

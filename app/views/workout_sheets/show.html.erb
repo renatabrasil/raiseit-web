@@ -4,7 +4,7 @@
 <table>
   <tbody>
     <tr>
-      <td><strong>Aluno:</strong> <%= @workout_sheet.student.registration_code.code + " - " + @workout_sheet.student.name %></td>
+      <td><strong>Aluno:</strong> <%= @workout_sheet.student.code + " - " + @workout_sheet.student.name %></td>
     </tr>
     <tr>
       <td><strong>Data de vencimento:</strong> <%= @workout_sheet.expiration_date.blank? ? "" : l(@workout_sheet.expiration_date, :format => :sample) %></td>

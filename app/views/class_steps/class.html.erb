@@ -54,7 +54,7 @@ Class
       <% if !@class_gym.students.empty? %>
           <% @class_gym.students.each do |student| %>
             <tr id="student_<%= student.id %>">
-              <td style="text-align: right" style="text-align: right"><%= student.registration_code.code %></td>
+              <td style="text-align: right" style="text-align: right"><%= student.code %></td>
               <td><%= student.name %></td>
               <td>
                 <%= link_to "Remover", delete_student_class_gym_path(@class_gym, :student_id => student.id), remote: true, method: :delete %>

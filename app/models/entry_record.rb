@@ -8,10 +8,10 @@ class EntryRecord < ActiveRecord::Base
   def self.new_by_code_and_password(code, password)
     entry_record = EntryRecord.new
     password_valid = false
-    person = RegistrationCode.find_by code: code
+    person = Individual.find_by code: code
 
     if !person.nil?
-      person = Person.find(person.individual_id)
+      # person = Person.find(person.individual_id)
       password_valid = person.user.valid_password?(password)      
     end
     

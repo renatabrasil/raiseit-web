@@ -6,7 +6,7 @@
 <table>
   <tbody>
     <tr>
-      <td><strong>Aluno:</strong> <%= @enrollment.student.registration_code.code + " - " + @enrollment.student.name %></td>
+      <td><strong>Aluno:</strong> <%= @enrollment.student.code + " - " + @enrollment.student.name %></td>
     </tr>
     <tr>
       <td><strong>Data de início:</strong> <%= l(@enrollment.start_date, :format => :date) %></td>

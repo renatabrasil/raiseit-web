@@ -17,7 +17,7 @@
     <% @class_gym.students.each_with_index do |student, i| %>
       <tr>
         <td><%= i+1 %></td>
-        <td><%= student.registration_code.code %></td>
+        <td><%= student.code %></td>
         <td><%= student.name %></td>
         <td style="text-align: center;"><%= student.attendance(@class_gym.id) %></td>
       </tr>

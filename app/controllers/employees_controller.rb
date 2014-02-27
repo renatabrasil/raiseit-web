@@ -16,7 +16,6 @@ class EmployeesController < ApplicationController
   def new
     @employee = Employee.new
     @employee.build_user
-    @employee.build_registration_code
     
     type_employee = params[:type_employee].nil? ? nil : params[:type_employee].to_i 
     
@@ -34,7 +33,7 @@ class EmployeesController < ApplicationController
     @employee = Employee.new(params[:employee])
     
     @employee.user.email = @employee.email
-    @employee.user.username = @employee.registration_code.code
+    @employee.user.username = @employee.code
     
     respond_to do |format|
       if @employee.save

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227185400) do
+ActiveRecord::Schema.define(version: 20140227193113) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20140227185400) do
     t.integer  "type_employee_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code",                           null: false
     t.index ["type_employee_id"], :name => "fk__people_type_employee_id"
     t.foreign_key ["type_employee_id"], "type_employees", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_people_type_employee_id"
   end
