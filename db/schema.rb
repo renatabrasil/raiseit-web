@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140218181354) do
+ActiveRecord::Schema.define(version: 20140227182227) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -210,12 +210,13 @@ ActiveRecord::Schema.define(version: 20140218181354) do
   end
 
   create_table "payments", force: true do |t|
-    t.datetime "payday"
+    t.datetime "pay_day"
     t.integer  "account_id"
     t.string   "account_type"
     t.integer  "individual_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "value",         precision: 6, scale: 2
     t.index ["individual_id"], :name => "fk__payments_individual_id"
     t.foreign_key ["individual_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_payments_individual_id"
   end
