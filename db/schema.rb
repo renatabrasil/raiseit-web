@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227182227) do
+ActiveRecord::Schema.define(version: 20140227185400) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -298,15 +298,6 @@ ActiveRecord::Schema.define(version: 20140227182227) do
     t.index ["training_goal_id"], :name => "fk__profile_trainings_training_goal_id"
     t.foreign_key ["created_by"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_profile_trainings_created_by"
     t.foreign_key ["training_goal_id"], "training_goals", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_profile_trainings_training_goal_id"
-  end
-
-  create_table "registration_codes", force: true do |t|
-    t.string   "code",          limit: 100
-    t.integer  "individual_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["individual_id"], :name => "fk__registration_codes_individual_id"
-    t.foreign_key ["individual_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_registration_codes_individual_id"
   end
 
   create_table "roles", force: true do |t|

@@ -3,7 +3,6 @@ class Enrollment < ActiveRecord::Base
   belongs_to :student, :class_name => 'Student', :foreign_key => 'student_id'
   belongs_to :periodicity
   belongs_to :modality
-  # belongs_to :registration_code
   
   validates :student, :modality, :start_date, :registration_fee, :periodicity, 
             :value,  presence: true
