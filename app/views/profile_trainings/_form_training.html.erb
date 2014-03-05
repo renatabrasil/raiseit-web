@@ -1,0 +1,30 @@
+<%= render layout: "form" do |fa| %>
+  <%= hidden_field_tag 'training_copy', params[:training_copy] %>
+  <%= fa.fields_for :training_workouts do |fb| %>
+    <strong><%= fb.object.workout.description %> (<%= fb.object.workout.physical_category.name %>)</strong><br>
+      <%# To save workouts in copy profile trainings. Without this we can't save workouts just the training_workouts %>
+      <%= fb.hidden_field :workout_id, :value => fb.object.workout.id %>
+      <%= fb.label "Séries:", t("activerecord.attributes.training_workout.series", :default => "Séries:") %>
+      <%= fb.text_field :series, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
+      
+      <%= fb.label "Repetições:", t("activerecord.attributes.training_workout.repetitions", :default => "Repetições:") %>
+      <%= fb.text_field :repetitions, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
+      
+      <%= fb.label "Duração:", t("activerecord.attributes.training_workout.duration", :default => "Duração:") %>
+      <%= fb.text_field :duration, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
+      
+      <%= fb.label "Carga:", t("activerecord.attributes.training_workout.load", :default => "Carga:") %>
+      <%= fb.text_field :load, :class => 'text_field input-xxlarge', :size => '6', :maxlength => '4' %>
+      <br>
+    
+  <% end %>
+  
+  <br>
+  <br>
+  <div class="form-actions-white">
+    <button class="btn btn-primary" type="submit">Confirmar</button>
+    ou 
+    <%= link_to "Cancelar", profile_trainings_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+  </div>
+  
+<% end %>

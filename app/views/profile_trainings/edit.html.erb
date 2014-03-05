@@ -1,0 +1,7 @@
+<h1>Editar Perfil de Treino</h1>
+
+<%= form_for [@profile_training], :url => profile_training_path(@profile_training), :html => { :class => :form, :id => "edit_profile_training" } do |f| -%>
+  <input name="_method" type="hidden" value="put" />
+  <%= render :partial => "form_training", :locals => {:f => f} %>
+  <br />
+<% end -%>
