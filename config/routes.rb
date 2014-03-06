@@ -14,7 +14,7 @@ SystemGym::Application.routes.draw do
 
   resources :employees
   resources :students
-  resources :instructors
+  # resources :instructors
   resources :entry_records
   
   resources :class_gyms do

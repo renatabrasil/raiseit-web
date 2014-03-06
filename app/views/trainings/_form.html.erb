@@ -42,10 +42,11 @@
     </table>
     
     <div>
+      <br>
       <% if @training.id.nil? %>
-      <%= submit_tag "Criar treino", :name => 'action_button', remote: true %>
+      <%= submit_tag "Criar treino", :name => 'action_button', :class => 'btn btn-info', remote: true %>
       <% else %>
-      <%= submit_tag "Alterar treino", :name => 'action_button' %>
+      <%= submit_tag "Alterar treino", :name => 'action_button', :class => 'btn btn-info' %>
       <% end %>
       ou 
       <%= link_to "Cancelar", workout_sheet_path(@workout_sheet), :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>

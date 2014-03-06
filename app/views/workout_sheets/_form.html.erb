@@ -45,14 +45,11 @@
     
     <br>
     <%= f.label 'Professor', :class => "control-label" %>
-    <%= select("workout_sheet", "instructor_id", (@instructors.nil? ? Instructor.all : @instructors).collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o instrutor --'}) %>
+    <%= select("workout_sheet", "instructor_id", Employee.load_bodybuilder_instructors.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o instrutor --'}) %>
     
     <br>
     <%= f.label 'Objetivo', :class => "control-label" %>
     <%= select("workout_sheet", "training_goal_id", TrainingGoal.all.collect {|t| [ t.denomination, t.id ] }, {include_blank: '-- Selecione o objetivo --'}) %>
-    
-    
-    
   
     <br>
     <br>

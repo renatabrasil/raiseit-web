@@ -1,7 +1,7 @@
 # encoding: utf-8
 class ClassGym < ActiveRecord::Base
   belongs_to :modality
-  belongs_to :instructor, :class_name => 'Instructor', :foreign_key => 'instructor_id'
+  belongs_to :employee, :class_name => 'Employee', :foreign_key => 'instructor_id'
   # has_many :enrollments, dependent: :destroy
   
   has_and_belongs_to_many :students

@@ -20,7 +20,7 @@
     
     <br>
     <%= f.label 'Professor', :class => "control-label" %>
-    <%= select("class_gym", "instructor_id", Instructor.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o professor --'}, {class: "span4", onchange: "atualizaForm()", id:"idInstructor"}) %>
+    <%= select("class_gym", "instructor_id", Employee.where(type_employee_id: TypeEmployee::TEACHER).collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o professor --'}, {class: "", id:"idInstructor"}) %>
     
     <br />
     

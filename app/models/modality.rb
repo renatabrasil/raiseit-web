@@ -1,7 +1,9 @@
 class Modality < ActiveRecord::Base
   WORK_OUT = 1
   
-  has_many :instructors
+  # has_many :instructors
+  
+  # has_many :employees
   
   has_many :equipments
   

@@ -14,8 +14,6 @@ class WorkoutSheetsController < ApplicationController
     @workout_sheet = WorkoutSheet.new
     @workout_sheet.trainings.build
     
-    @instructors = load_instructors
-    
     if !params[:student_id].nil?
       @training.student = Student.find(params[:student_id])
       @disabled = "true"
@@ -51,8 +49,6 @@ class WorkoutSheetsController < ApplicationController
   
   def edit
     @workout_sheet = WorkoutSheet.find(params[:id])
-    # To load instructor relates to bodybuilding
-    @instructors = load_instructors
   end
   
   def update
@@ -83,13 +79,6 @@ class WorkoutSheetsController < ApplicationController
         format.html { redirect_to workout_sheets_url, notice: 'Ficha de treino removida com sucesso.'  }
         format.json { head :no_content }
     end  
-  end
-  
-  private
-  
-  def load_instructors
-    return Instructor.distinct.joins(:class_gyms).joins("INNER JOIN modalities ON 
-      modalities.id = class_gyms.modality_id").where("modalities.id = ?", Modality::WORK_OUT)
   end
   
 end

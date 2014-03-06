@@ -13,8 +13,8 @@ class Individual < Person
   accepts_nested_attributes_for :user, :allow_destroy => true
   
   def self.collection
-    # SELECT "people".* FROM "people" WHERE "people"."type" IN ('Individual', 'Employee', 'Student', 'Instructor')
-    return Person.find_by_sql "SELECT people.* FROM people WHERE people.type IN ('Individual', 'Employee', 'Student', 'Instructor')"
+    # SELECT "people".* FROM "people" WHERE "people"."type" IN ('Individual', 'Employee', 'Student')
+    return Person.find_by_sql "SELECT people.* FROM people WHERE people.type IN ('Individual', 'Employee', 'Student')"
   end
 
 end
