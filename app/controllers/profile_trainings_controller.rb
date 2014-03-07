@@ -16,6 +16,10 @@ class ProfileTrainingsController < ApplicationController
   
   def create
     @profile_training = ProfileTraining.new(params[:profile_training])
+    if !current_user.user_account.nil?
+      @profile_training.created_by = current_user.user_account
+    end
+
     error = false
     # error = insert_workouts_with_errors
     respond_to do |format|

@@ -55,7 +55,7 @@
     <br>
     <div>
       <% if @workout_sheet.id.nil? %>
-      <%= f.submit 'Alterar', :name => 'action_button', :value => "Próximo >>"%>
+      <%= f.submit 'Alterar', :name => 'action_button', :value => "Próximo >>", :class => 'btn btn-info' %>
       <% else %>
       <%= f.submit 'Alterar', :name => 'action_button', :value => "Alterar"%>
       <% end %>

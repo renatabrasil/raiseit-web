@@ -16,7 +16,7 @@
     <% if !@workout_sheets.empty? %>
       <% @workout_sheets.each do |workout_sheet| %>
         <tr>
-          <td style="text-align: left"><%= workout_sheet.instructor.name %></td>
+          <td style="text-align: left"><%= workout_sheet.instructor.name if !workout_sheet.instructor.blank? %></td>
           <td style="text-align: left"><%= workout_sheet.student.blank? ? "Não informado" : workout_sheet.student.name %></td>
           <td style="text-align: center"><%= workout_sheet.expiration_date.blank? ? "Não informado" : l(workout_sheet.expiration_date, :format => :sample) %></td>
           <td style="text-align: left"><%= workout_sheet.training_goal.blank? ? "Não informado" : workout_sheet.training_goal.denomination %></td>
