@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227182227) do
+ActiveRecord::Schema.define(version: 20140305204518) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -74,9 +74,8 @@ ActiveRecord::Schema.define(version: 20140227182227) do
     t.integer  "capacity"
     t.string   "code",          limit: 8
     t.datetime "start_date"
-    t.string   "schedule",      limit: 200
-    t.boolean  "open",                      default: true, null: false
-    t.boolean  "active",                    default: true, null: false
+    t.boolean  "open",                    default: true, null: false
+    t.boolean  "active",                  default: true, null: false
     t.integer  "modality_id"
     t.integer  "instructor_id"
     t.datetime "created_at"
@@ -344,6 +343,18 @@ ActiveRecord::Schema.define(version: 20140227182227) do
     t.foreign_key ["user_id"], "users", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_roles_users_user_id"
   end
 
+  create_table "schedules", force: true do |t|
+    t.integer  "week_day"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.integer  "class_gym_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["class_gym_id"], :name => "fk__schedules_class_gym_id"
+    t.index ["class_gym_id"], :name => "index_schedules_on_class_gym_id"
+    t.foreign_key ["class_gym_id"], "class_gyms", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_schedules_class_gym_id"
+  end
+
   create_table "self_physical_assessments", force: true do |t|
     t.datetime "assessment_date"
     t.string   "note"
@@ -409,7 +420,7 @@ ActiveRecord::Schema.define(version: 20140227182227) do
     t.integer  "workout_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "duration"
+    t.string   "duration"
     t.index ["training_id"], :name => "fk__training_workouts_training_id"
     t.index ["workout_id"], :name => "fk__training_workouts_workout_id"
     t.foreign_key ["training_id"], "trainings", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_training_workouts_training_id"

@@ -16,6 +16,7 @@ class ClassGymsController < ApplicationController
   
   def new
     @class_gym = ClassGym.new
+    @class_gym.schedules.build 
     
     respond_to do |format|
       format.html # new.html.erb
@@ -26,6 +27,12 @@ class ClassGymsController < ApplicationController
   def create
     @class_gym = ClassGym.new(params[:class_gym])
     
+    if !params[:start_time].empty?
+      @class_gym.schedules.each do |s|
+        s.start_time = params[:start_time]
+        s.end_time = params[:end_time]
+      end
+    end
     respond_to do |format|
       if @class_gym.save
         format.html { redirect_to class_gyms_path, notice: 'A turma foi cadastrada com sucesso.' }

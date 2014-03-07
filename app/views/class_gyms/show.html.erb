@@ -8,8 +8,19 @@
       <td><%= @class_gym.modality.name %></td>
     </tr>
     <tr>
-      <td><strong>Horário:</strong></td>
-      <td><%= @class_gym.schedule %></td>
+      <td><strong>Dias:</strong></td>
+      <td>
+      <% @class_gym.schedules.each do |schedule| %>
+        <%= Date::DAYNAMES[schedule.week_day] %> &nbsp; 
+      <%end%>          
+      </td>
+    </tr>
+    <tr>
+      <td><strong> Horário: </strong></td>
+      <td>
+        <%= @class_gym.schedules.first.start_time.strftime("%R") %> -          
+        <%= @class_gym.schedules.first.end_time.strftime("%R") %> 
+      </td>
     </tr>
     <tr>
       <td><strong>Professor:</strong></td>
