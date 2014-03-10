@@ -6,8 +6,6 @@ class Employee < Individual
   has_and_belongs_to_many :class_gyms, :foreign_key => 'instructor_id', 
     :join_table => 'class_gyms_instructors' 
   
-  # has_many :class_gyms, :foreign_key => "instructor_id"
-  
   attr_accessible :type_employee_id, :user_attributes
   
   # To load instructor relates to bodybuilding

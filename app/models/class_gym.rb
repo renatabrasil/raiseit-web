@@ -2,9 +2,6 @@
 class ClassGym < ActiveRecord::Base
   belongs_to :modality
   
-  # belongs_to :instructor, :class_name => 'Employee', :foreign_key => 'instructor_id'
-  # has_many :enrollments, dependent: :destroy
-  
   has_and_belongs_to_many :students
   has_and_belongs_to_many :instructors, :class_name => 'Employee', 
     :association_foreign_key => 'instructor_id', :join_table => 'class_gyms_instructors'
