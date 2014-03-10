@@ -1,59 +1,81 @@
-<br>
-<fiedset>
-  <% if @student.errors.any? %>
-    <div class="alert alert-error">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-        <ul>
-          <% @student.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-    </div>
-  
-  <% end %>
-  
-<%= nested_form_for(@student, :html => { :class => :form }) do |f| -%>
-  
-  <%= f.label 'Nome', :class => "control-label" %>
-  <%= f.text_field :name, :class => "input-xlarge", :maxlength => "80" %>
-  
-  <br>
-  <%= f.label 'CPF', :class => "control-label" %>
-  <%= f.text_field :cpf, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "80" %>
-  
-  <br>
-  <%= f.label 'Telefone', :class => "control-label" %>
-  <%= f.text_field :phone1, :onkeyup => "toUppercase(this);", :maxlength => "40" %>
-  
-  <br>
-  <%= f.label 'E-mail', :class => "control-label" %>
-  <%= f.text_field :email, :class => "input-xlarge", :maxlength => "40" %>
-  
-  <br>
-  <%= f.fields_for :registration_code do |fa| %>
-    <%= fa.label 'Matrícula', :class => "control-label" %>
-    <%= fa.text_field :code, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "20" %>  
-  <% end %>
-  
-  <%= f.fields_for :user do |fb| %>
-
-
-  	<div><%= fb.label :password %><br />
-  	<%= fb.password_field :password %></div>
-
-  	<div><%= fb.label :password_confirmation %><br />
-  	<%= fb.password_field :password_confirmation %></div>
-  <% end %>
-  
-
-<br>  
-  <div>
-    <% if @student.id.nil? %>
-    	<button class="btn btn-primary" type="submit">Cadastrar</button>
-    <% else %>
-  	  <button class="btn btn-info" type="submit">Alterar</button>
-    <% end %>
-    <%= link_to "Cancelar", students_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos.", :class => 'btn btn-default' %>
-  </div>
+<% if @student.errors.any? %>
+<div class="alert alert-error">
+	<button type="button" class="close" data-dismiss="alert">
+		×
+	</button>
+	<ul>
+		<% @student.errors.full_messages.each do |msg| %>
+		<li>
+			<%= msg %>
+		</li>
+		<% end %>
+	</ul>
+</div>
 <% end %>
-</fiedset>
+
+<%#= nested_form_for(@student, :html => { :class => 'col-md-6'}) do |f| -%>
+<%= nested_form_for(@student) do |f| -%>
+
+	<div class="row">
+		<div class="form-group col-xs-8 col-sm-10 col-md-6">
+			<%= f.label 'Nome'%>
+			<%= f.text_field :name, :class => "form-control", :maxlength => "80" %>
+		</div>		
+	</div>
+	<div class="row">
+		<div class="form-group col-xs-4 col-sm-5 col-md-3">
+			<%= f.label 'CPF'%>
+			<%= f.text_field :cpf, :class => "form-control", :maxlength => "80" %>
+		</div>
+		<div class="form-group col-xs-4 col-sm-5 col-md-3">
+			<%= f.label 'Telefone'%>
+			<%= f.text_field :phone1, :class => "form-control", :maxlength => "40" %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group col-xs-8 col-sm-10 col-md-6">
+			<%= f.label 'E-mail'%>
+			<%= f.text_field :email, :class => "form-control", :maxlength => "40", :type =>'email'%>
+		</div>	
+	</div>
+	<div class="row">
+		<div class="form-group col-xs-8 col-sm-10 col-md-6">
+			<%= f.fields_for :registration_code do |fa| %>
+			<%= fa.label 'Código de Registro'%>
+			<%= fa.text_field :code, :class => "form-control", :maxlength => "20" %>
+		</div>
+	</div>
+<% end %>
+
+<%= f.fields_for :user do |fb| %>
+
+	<div class="row">
+		<div class="form-group col-xs-4 col-sm-5 col-md-3">
+			<%= fb.label 'Senha' %>
+			<%= fb.password_field :password, :class => "form-control" %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="form-group col-xs-4 col-sm-5 col-md-3">
+			<%= fb.label 'Confirmação de senha' %>
+			<%= fb.password_field :password_confirmation, :class => "form-control" %>
+		</div>
+	</div>
+
+<% end %>
+
+<br><!-- criar classe e acrescentar margem pra substituir o <br> -->
+
+<div class="form-buttons">
+	<% if @student.id.nil? %>
+	<button class="btn btn-primary" type="submit">
+		Cadastrar
+	</button>
+	<% else %>
+	<button class="btn btn-info" type="submit">
+		Salvar
+	</button>
+	<% end %>
+	<%= link_to "Cancelar", students_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos.", :class => 'btn btn-default' %>
+</div>
+<% end %>

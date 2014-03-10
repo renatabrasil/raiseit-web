@@ -9,34 +9,12 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *
- *= require_tree .
  *= require_self
+ *= require bootstrap.css
+ *= require font-awesome.min.css
+ *= require_tree ./plugins
+ *= require_tree ./ui-lightness
+ *= require sb-admin.css
+ *= require customized.css
  */
 
-//redefine o icones de seta no menu lateral
-.active > a > .fa.arrowMenu:before {
-    content: "\f13a";
-}
-
-//redefine a cor de fundo da area 
-#page-wrapper {
-	background-color: #FDFDFD;
-}
-
-//redefine para cor mais escura a linha da tabela quando status:hover
-.table-hover.dark > tbody > tr:hover > td,
-.table-hover.dark > tbody > tr:hover > th {
-  background-color: #EAEAEA;
-}
-
-.table.table40{
-  width: 40%;
-}
-
-// .table.text-center > thead > tr > th{
-  // text-align: center;
-// }
-
-.text-center > thead > tr > th{
-  text-align: center;
-}

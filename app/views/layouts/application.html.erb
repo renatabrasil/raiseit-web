@@ -17,7 +17,7 @@
 <body>
 
     <div id="wrapper">
-
+        <!-- /.navbar-static-top -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -31,17 +31,18 @@
             <!-- /.navbar-header -->
 
 			<% if user_signed_in? %>
-            <ul class="nav navbar-top-links navbar-right">
-				<%= current_user.email %>
-				<%= link_to 'Logout', destroy_user_session_path , :method=>:delete %>
+            <ul class="nav navbar-top-links navbar-right pull-right">
+			<!-- Observar questao de responsividade do 
+			dropdown de alertas quando media <= small -->
+                
+				<!-- .dropdown-usuario -->
 				<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        <%= current_user.email %> <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
-                    <!-- /.dropdown-usuario -->
-                    <ul class="dropdown-menu dropdown-user">	
+                    <ul class="dropdown-menu dropdown-user">
 	                    <li>
-	                    	<%= link_to '<i class="fa fa-user fa-fw"></i> Editar conta'.html_safe, edit_user_registration_path %>
+	                    	<%= link_to '<i class="fa fa-gear fa-fw"></i> Editar conta'.html_safe, edit_user_registration_path %>
 	                    </li>
 	                    <li class="divider"></li>
 	                    <li>
@@ -51,8 +52,8 @@
 	                    </li>
                     </ul>	                    
                 </li>
-                <!-- /.dropdown -->
-                <!-- /.dropdown-alertas -->
+                <!-- /.dropdown-usuario -->
+				<!-- .dropdown-alertas -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -68,23 +69,14 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
                             <a class="text-center" href="#">
                                 <strong>See All Alerts</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
                     </ul>
-                    <!-- /.dropdown-alerts -->
                 </li>
+                <!-- /.dropdown-alertas -->
             </ul>
             <%end%>
             <!-- /.navbar-top-links -->
@@ -92,6 +84,7 @@
         </nav>
         <!-- /.navbar-static-top -->
 
+		<!-- .navbar-static-side -->
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="side-menu">
@@ -242,7 +235,6 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-           
         </div>
         <!-- /#page-wrapper -->
 
