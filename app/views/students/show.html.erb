@@ -1,28 +1,33 @@
-<% title " - Visualizar Aluno" %>
-<h2>Visualizar Aluno</h2>
-
-<table class="table table40 table-bordered table-condensed">
+<% title " - Alunos" %>
+<div class="header">
+	Alunos
+	<hr class="hr-header">
+	<div class="subheader">
+		Detalhar
+	</div>
+</div>
+<table class="table table-40 table-bordered table-condensed table-striped ">
   <tbody>
     <tr>
-      <td><strong>Nome:</strong></td><td><%= @student.name %></td>
+      <td><strong>Nome</strong></td><td><%= @student.name %></td>
     </tr>
     <tr>
-      <td><strong>CPF:</strong></td><td><%= @student.cpf %></td>
+      <td><strong>CPF</strong></td><td><%= @student.cpf %></td>
     </tr>
     <tr>
-      <td><strong>Telefone:</strong></td><td><%= @student.phone1 %></td>
+      <td><strong>Telefone</strong></td><td><%= @student.phone1 %></td>
     </tr>
     <tr>
-      <td><strong>E-mail:</strong></td><td><%= @student.email %></td>
+      <td><strong>E-mail</strong></td><td><%= @student.email %></td>
     </tr>
     <tr>
-      <td><strong>Matrícula:</strong></td><td><%= @student.registration_code.code %></td>
+      <td><strong>Código</strong></td><td><%= @student.registration_code.code %></td>
     </tr>
   </tbody>
 </table>
 <br>
 <div>
   <%= link_to "Voltar", students_path, :class => 'btn btn-default'  %>
-  <%= link_to "Alterar", edit_student_path(@student), :class => 'btn btn-info' %>
+  <%= link_to "Editar", edit_student_path(@student), :class => 'btn btn-info' %>
   <%= link_to "Remover", student_path(@student), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro ?")}", :class => 'btn btn-danger' %>
 </div>

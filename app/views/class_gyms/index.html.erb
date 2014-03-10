@@ -1,9 +1,14 @@
 <% title " - Turmas" %>
-<h2>Turmas</h2>
+<div class="header">
+	Turmas
+	<hr class="hr-header">
+	<div class="subheader">
+	</div>
+</div>
 
 <%= link_to 'Nova Turma', new_class_gym_path %><br/>
 <div class="table-responsive">
-	<table class="table table-bordered table-striped table-hover dark table-condensed text-center">
+	<table class="table table-bordered table-striped table-hover hover-dark table-condensed text-center">
 	  <thead>
 	    <tr>
 	      <th>Modalidade</th>
@@ -28,8 +33,8 @@
 	          <td><%= class_gym.capacity %></td>
 	          <td><%= class_gym.open? ? "ABERTA" : "FECHADA" %></td>
 	          <td>
-	            <%= link_to(class_gym_path(class_gym), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
-	                 Visualizar
+	            <%= link_to(class_gym_path(class_gym), :class => "link-icon", :title => "Detalhar", :alt => "Detalhar") do %>
+	                 Detalhar
 	            <% end %> |
 	            <%= link_to(edit_class_gym_path(class_gym), :class => "link-icon", :title => "Alterar") do %>
 	               Alterar

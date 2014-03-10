@@ -20,7 +20,7 @@
       <% if !@workout_sheet.trainings.empty? %>
           <% @workout_sheet.trainings.each_with_index do |training, i| %>
             <%= i+1 %> - 
-            <%= link_to(workout_sheet_training_path(training.workout_sheet,training), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+            <%= link_to(workout_sheet_training_path(training.workout_sheet,training), :class => "link-icon", :title => "Detalhar", :alt => "Detalhar") do %>
                 <%= training.training_type %>
             <% end %> |
              <%= link_to 'Especificar exercícios', specify_exercises_workout_sheet_training_path(training.workout_sheet, training) %> |
