@@ -1,0 +1,17 @@
+<%= render layout: "form" do |fa| %>
+  <% ModelWorkoutSheet.load_default.physical_categories.each do |physical_category| %>
+      <%= render physical_category %>
+  <% end %>
+  
+  <br>
+  <br>
+  <div class="form-actions-white">
+    <% if @profile_training.id.nil? %>
+      <%= submit_tag "Próximo", :name => 'action_button', :class => "btn btn-primary" %>
+    <% else %>
+      <%= submit_tag "Alterar", :name => 'action_button', :class => "btn btn-primary" %>
+    <% end %>
+    ou 
+    <%= link_to "Cancelar", profile_trainings_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+  </div>
+<% end %>
