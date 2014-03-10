@@ -1,7 +1,7 @@
 <br>
 
 <fieldset>
-  <%= form_for([@class_gym], :html => { :class => :form }) do |f| -%>
+  <%= nested_form_for([@class_gym], :html => { :class => :form }) do |f| -%>
     
     <%= f.label 'Modalidade', :class => "control-label" %>
     <%= select("class_gym", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}) %>
@@ -19,9 +19,11 @@
     <%= f.text_field :capacity, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "6" %>
     
     <br>
+    <%#= select("class_gym","instructor_id", Employee.where(type_employee_id: TypeEmployee::TEACHER).collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o professor --'}, {class: "", id:"idInstructor"}) %>
     <%= f.label 'Professor', :class => "control-label" %>
-    <%= select("class_gym", "instructor_id", Employee.where(type_employee_id: TypeEmployee::TEACHER).collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o professor --'}, {class: "", id:"idInstructor"}) %>
-    
+    <%= f.select(:instructor_ids, Employee.where(type_employee_id: TypeEmployee::TEACHER).collect {|c| [ c.name, c.id ] }, {}, {:multiple => true})%>
+    <br>
+
     <br />
     
     <% if !@class_gym.id.nil? %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227193113) do
+ActiveRecord::Schema.define(version: 20140307184452) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -86,6 +86,15 @@ ActiveRecord::Schema.define(version: 20140227193113) do
     t.index ["modality_id"], :name => "fk__class_gyms_modality_id"
     t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_instructor_id"
     t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_modality_id"
+  end
+
+  create_table "class_gyms_instructors", id: false, force: true do |t|
+    t.integer "class_gym_id"
+    t.integer "instructor_id"
+    t.index ["class_gym_id"], :name => "fk__class_gyms_instructors_class_gym_id"
+    t.index ["instructor_id"], :name => "fk__class_gyms_instructors_instructor_id"
+    t.foreign_key ["class_gym_id"], "class_gyms", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_instructors_class_gym_id"
+    t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_instructors_instructor_id"
   end
 
   create_table "class_gyms_people", id: false, force: true do |t|

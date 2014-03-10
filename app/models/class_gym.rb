@@ -1,14 +1,19 @@
 # encoding: utf-8
 class ClassGym < ActiveRecord::Base
   belongs_to :modality
-  belongs_to :instructor, :class_name => 'Employee', :foreign_key => 'instructor_id'
+  
+  # belongs_to :instructor, :class_name => 'Employee', :foreign_key => 'instructor_id'
   # has_many :enrollments, dependent: :destroy
   
   has_and_belongs_to_many :students
+  has_and_belongs_to_many :instructors, :class_name => 'Employee', 
+    :association_foreign_key => 'instructor_id', :join_table => 'class_gyms_instructors'
     
-  attr_accessible :schedule, :capacity, :modality_id, :instructor_id, :student_ids, :open, :start_date
+  attr_accessible :schedule, :capacity, :modality_id, :instructor_ids, :instructors, 
+    :student_ids, :open, :start_date, :instructors_attributes
   
   accepts_nested_attributes_for :students, :allow_destroy => true
+  accepts_nested_attributes_for :instructors, :allow_destroy => true
   
   def calendar_days
     today = Date.today
