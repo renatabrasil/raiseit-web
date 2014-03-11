@@ -409,7 +409,7 @@ ActiveRecord::Schema.define(version: 20140227182227) do
     t.integer  "workout_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "duration"
+    t.string   "duration"
     t.index ["training_id"], :name => "fk__training_workouts_training_id"
     t.index ["workout_id"], :name => "fk__training_workouts_workout_id"
     t.foreign_key ["training_id"], "trainings", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_training_workouts_training_id"
