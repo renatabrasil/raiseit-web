@@ -25,6 +25,7 @@ class ClassGymsController < ApplicationController
   
   def create
     @class_gym = ClassGym.new(params[:class_gym])
+    # @class_gym.instructors = Employee.find(params[:instructor_ids])
     
     respond_to do |format|
       if @class_gym.save

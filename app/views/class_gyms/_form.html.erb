@@ -1,3 +1,15 @@
+<script>
+  $('.multi-field-wrapper').each(function() {
+      var $wrapper = $('.multi-fields', this);
+      $("#add-field", $(this)).click(function(e) {
+          $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
+      });
+      $('.multi-field #remove-field', $wrapper).click(function() {
+          if ($('.multi-field', $wrapper).length > 1)
+              $(this).parent('.multi-field').remove();
+      });
+  });
+</script>
 <br>
 
 <fieldset>
@@ -19,9 +31,19 @@
     <%= f.text_field :capacity, :class => "form-control", :onkeyup => "toUppercase(this);", :maxlength => "6" %>
     
     <br>
-    <%= f.label 'Professor'%>
-    <%= select("", "", Employee.where(type_employee_id: TypeEmployee::TEACHER).collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o professor --'}, {class: "", id:"idInstructor"}) %>
     
+    <%= f.label 'Professor(es)', :class => "control-label" %>
+      <div class="multi-field-wrapper">
+        <div class="multi-fields">
+          <div class="multi-field">
+            <%= select_tag "class_gym[instructor_ids][]", options_from_collection_for_select(Employee.where(type_employee_id: TypeEmployee::TEACHER), :id, :name), prompt: '-- Selecione o professor --' %>      
+            <button id="remove-field" type="button" class="btn btn-default">Remover</button>
+          </div>
+        </div>
+      <button type="button" class="btn btn-default" id="add-field">Adicionar mais</button>
+    </div>
+
+
     <br />
     
     <% if !@class_gym.id.nil? %>

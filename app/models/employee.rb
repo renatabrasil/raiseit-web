@@ -3,7 +3,8 @@ class Employee < Individual
   scope :employee, -> { where(type: 'Employee') }
   
   belongs_to :type_employee, foreign_key: :type_employee_id
-  has_many :class_gyms, :foreign_key => "instructor_id"
+  has_and_belongs_to_many :class_gyms, :foreign_key => 'instructor_id', 
+    :join_table => 'class_gyms_instructors' 
   
   attr_accessible :type_employee_id, :user_attributes
   
