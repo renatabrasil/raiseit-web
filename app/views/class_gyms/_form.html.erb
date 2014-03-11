@@ -32,21 +32,15 @@
     
     <br>
     
-    <select class="form-control">
-    <option>Mustard</option>
-    <option>Ketchup</option>
-    <option>Relish</option>
-  </select>
-
-    <%= f.label 'Professor', :class => "control-label" %>
+    <%= f.label 'Professor(es)', :class => "control-label" %>
       <div class="multi-field-wrapper">
         <div class="multi-fields">
           <div class="multi-field">
             <%= select_tag "class_gym[instructor_ids][]", options_from_collection_for_select(Employee.where(type_employee_id: TypeEmployee::TEACHER), :id, :name), prompt: '-- Selecione o professor --' %>      
-            <button id="remove-field" type="button" class="btn btn">Remover</button>
+            <button id="remove-field" type="button" class="btn btn-default">Remover</button>
           </div>
         </div>
-      <button type="button" class="btn btn" id="add-field">Adicionar</button>
+      <button type="button" class="btn btn-default" id="add-field">Adicionar mais</button>
     </div>
 
 

@@ -4,7 +4,10 @@ class ClassGym < ActiveRecord::Base
   
   has_and_belongs_to_many :students
   has_and_belongs_to_many :instructors, :class_name => 'Employee', 
-    :association_foreign_key => 'instructor_id', :join_table => 'class_gyms_instructors'
+    :association_foreign_key => 'instructor_id', 
+    :join_table => 'class_gyms_instructors', :uniq => true
+    
+  validates :instructors, :modality, presence: true
     
   attr_accessible :schedule, :capacity, :modality_id, :instructor_ids, :instructors, 
     :student_ids, :open, :start_date, :instructors_attributes
@@ -18,4 +21,5 @@ class ClassGym < ActiveRecord::Base
     end
     return self.start_date.blank? ? 0 : (self.start_date.to_date > today ? 0 : (today - self.start_date.to_date).to_i)
   end
+  
 end
