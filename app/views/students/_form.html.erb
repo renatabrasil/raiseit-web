@@ -1,41 +1,4 @@
-<<<<<<< HEAD
-<br>
 <fiedset>
-  <% if @student.errors.any? %>
-    <div class="alert alert-error">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-        <ul>
-          <% @student.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-    </div>
-  
-  <% end %>
-  
-<%= nested_form_for(@student, :html => { :class => :form }) do |f| -%>
-  
-  <%= f.label 'Nome', :class => "control-label" %>
-  <%= f.text_field :name, :class => "input-xlarge", :maxlength => "80" %>
-  
-  <br>
-  <%= f.label 'CPF', :class => "control-label" %>
-  <%= f.text_field :cpf, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "80" %>
-  
-  <br>
-  <%= f.label 'Telefone', :class => "control-label" %>
-  <%= f.text_field :phone1, :onkeyup => "toUppercase(this);", :maxlength => "40" %>
-  
-  <br>
-  <%= f.label 'E-mail', :class => "control-label" %>
-  <%= f.text_field :email, :class => "input-xlarge", :maxlength => "40" %>
-  
-  <br>
-  <%= f.label 'Código', :class => "control-label" %>
-  <%= f.text_field :code, :class => "input-xlarge", :onkeyup => "toUppercase(this);", :maxlength => "20" %>
-  
-  <%= f.fields_for :user do |fb| %>
-=======
 <% if @student.errors.any? %>
 <div class="alert alert-error">
 	<button type="button" class="close" data-dismiss="alert">
@@ -86,7 +49,6 @@
 <% end %>
 
 <%= f.fields_for :user do |fb| %>
->>>>>>> 1d9a56ea044af209d79f95ad72196106f629aa1e
 
 	<div class="row">
 		<div class="form-group col-xs-4 col-sm-5 col-md-3">

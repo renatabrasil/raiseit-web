@@ -15,33 +15,51 @@
 <fieldset>
   <%= form_for([@class_gym], :html => { :class => :form }) do |f| -%>
     
-    <%= f.label 'Modalidade'%>
-    <%= select("class_gym", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}) %>
-    
-    <br>
-    <%= f.label 'Data de Início', :class => 'control-label' %>
-    <%= f.text_field :start_date, :class => 'text_field', :onkeyup => "maskIt(this,event,'##/##/####')", :value => l(Date.today, :format => :date), :maxlength => "10" %>
-    
-    <br>
-    <%= f.label 'Horário'%>
-    <%= f.text_field :schedule, :class => "form-control", :onkeyup => "toUppercase(this);", :maxlength => "100" %>
-    
-    <br>
-    <%= f.label 'Capacidade'%>
-    <%= f.text_field :capacity, :class => "form-control", :onkeyup => "toUppercase(this);", :maxlength => "6" %>
-    
-    <br>
-    
-    <%= f.label 'Professor(es)', :class => "control-label" %>
-      <div class="multi-field-wrapper">
-        <div class="multi-fields">
-          <div class="multi-field">
-            <%= select_tag "class_gym[instructor_ids][]", options_from_collection_for_select(Employee.where(type_employee_id: TypeEmployee::TEACHER), :id, :name), prompt: '-- Selecione o professor --' %>      
-            <button id="remove-field" type="button" class="btn btn-default">Remover</button>
-          </div>
-        </div>
-      <button type="button" class="btn btn-default" id="add-field">Adicionar mais</button>
+    <div class="row">
+      <div class="form-group col-xs-4 col-sm-5 col-md-3">
+        <%= f.label 'Modalidade'%>
+        <%= select("class_gym", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}) %>
+      </div>
     </div>
+    
+    <div class="row">
+      <div class="form-group col-xs-4 col-sm-5 col-md-3">
+        <%= f.label 'Data de Início', :class => 'control-label' %>
+        <%= f.text_field :start_date, :class => 'text_field', :onkeyup => "maskIt(this,event,'##/##/####')", :value => l(Date.today, :format => :date), :maxlength => "10" %>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="form-group col-xs-4 col-sm-5 col-md-3">
+        <%= f.label 'Horário'%>
+        <%= f.text_field :schedule, :class => "form-control", :onkeyup => "toUppercase(this);", :maxlength => "100" %>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="form-group col-xs-4 col-sm-5 col-md-3">
+        <%= f.label 'Capacidade'%>
+        <%= f.text_field :capacity, :class => "form-control", :onkeyup => "toUppercase(this);", :maxlength => "6" %>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="form-group col-xs-4 col-sm-5 col-md-3">
+        <%= f.label 'Professor(es)', :class => "control-label" %>
+        <div class="multi-field-wrapper">
+          <div class="multi-fields">
+            <div class="multi-field">
+              <%= select_tag "class_gym[instructor_ids][]", options_from_collection_for_select(Employee.where(type_employee_id: TypeEmployee::TEACHER), :id, :name), {prompt: '-- Selecione o professor --'} %>      
+              <button id="remove-field" type="button" class="btn btn-default">Remover</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-default" id="add-field">Adicionar mais</button>
+        </div>
+      </div>
+    </div>
+    
+    
+    
 
 
     <br />
