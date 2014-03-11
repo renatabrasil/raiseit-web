@@ -1,4 +1,4 @@
-<h2>Visualizar Modalidade</h2>
+<h2>Detalhar Modalidade</h2>
 
 <table>
   <caption></caption>
@@ -13,5 +13,5 @@
 <div>
   <%= link_to "Voltar", modalities_path, :class => 'btn btn-default'  %>
   <%= link_to "Alterar", edit_modality_path(@modality), :class => 'btn btn-info' %>
-  <%= link_to "Remover", modality_path(@modality), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn btn-danger' %>
+  <%= link_to "Remover", modality_path(@modality), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro ?")}", :class => 'btn btn-danger' %>
 </div>

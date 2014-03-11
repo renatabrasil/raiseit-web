@@ -1,4 +1,4 @@
-<h2>Visualizar Funcionário</h2>
+<h2>Detalhar Funcionário</h2>
 
 <table>
   <caption></caption>
@@ -16,7 +16,7 @@
       <td><strong>E-mail:</strong> <%= @employee.email %></td>
     </tr>
     <tr>
-      <td><strong>Matrícula:</strong> <%= @employee.enrollment %></td>
+      <td><strong>Código:</strong> <%= @employee.enrollment %></td>
     </tr>
     <tr>
       <td><strong>Sexo:</strong> <%= @employee.gender == 'F' ? "Feminino" : "Masculino" %></td>
@@ -28,6 +28,6 @@
 <div>
   <%= link_to "Voltar", employees_path, :class => 'btn btn-default'  %>
   <%= link_to "Alterar", edit_employee_path(@employee), :class => 'btn btn-info' %>
-  <%= link_to "Remover", employee_path(@employee), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse corretor ?")}", :class => 'btn btn-danger' %>
+  <%= link_to "Remover", employee_path(@employee), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro ?")}", :class => 'btn btn-danger' %>
 </div>
 

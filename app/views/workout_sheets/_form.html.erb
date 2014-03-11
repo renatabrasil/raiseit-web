@@ -39,16 +39,16 @@
   <%= nested_form_for([@workout_sheet], :html => { :class => :form }) do |f| -%>
   
     <br>
-    <%= f.label 'Estudante', :class => "control-label" %>
+    <%= f.label 'Estudante'%>
     <%= f.text_field :student_id, :value => (@workout_sheet.student.blank? ? "" : @workout_sheet.student.name ), :id => "select_student", :maxlength => "40", :disabled => @disabled.nil? ? false : true %>
     <%= hidden_field(:workout_sheet, :student_id) %>
     
     <br>
-    <%= f.label 'Professor', :class => "control-label" %>
+    <%= f.label 'Professor'%>
     <%= select("workout_sheet", "instructor_id", Employee.load_bodybuilder_instructors.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione o instrutor --'}) %>
     
     <br>
-    <%= f.label 'Objetivo', :class => "control-label" %>
+    <%= f.label 'Objetivo'%>
     <%= select("workout_sheet", "training_goal_id", TrainingGoal.all.collect {|t| [ t.denomination, t.id ] }, {include_blank: '-- Selecione o objetivo --'}) %>
   
     <br>
@@ -59,7 +59,7 @@
       <% else %>
       <%= f.submit 'Alterar', :name => 'action_button', :value => "Alterar"%>
       <% end %>
-      ou 
+       
       <%= link_to "Cancelar", workout_sheets_path, data: { confirm: 'Deseja cancelar a operação? Todos os dados serão perdidos.'} %>
     </div>
     

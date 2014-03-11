@@ -14,13 +14,13 @@
         <tr>
           <td><%= modality.name %></td>
           <td>
-            <%= link_to(modality_path(modality), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
-                 Visualizar
+            <%= link_to(modality_path(modality), :class => "link-icon", :title => "Detalhar", :alt => "Detalhar") do %>
+                 Detalhar
             <% end %> |
             <%= link_to(edit_modality_path(modality), :class => "link-icon", :title => "Alterar") do %>
                Alterar
               <% end %> |
-            <%= link_to(modality_path(modality), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este imóvel?")}", :class => "link-icon", :title => "Remover" ) do %>
+            <%= link_to(modality_path(modality), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro?")}", :class => "link-icon", :title => "Remover" ) do %>
               Apagar
             <% end %>
           </td>

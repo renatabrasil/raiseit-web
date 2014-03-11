@@ -1,6 +1,13 @@
-<h1>Editar Aluno</h1>
-            
+<% title " - Alunos" %>
+<div class="header">
+	Alunos
+	<hr class="hr-header">
+	<div class="subheader">
+		Editar
+	</div>
+</div>
+
 <%= form_for [@student], :url => student_path(@student), :html => { :class => :form, :id => "edit_student" } do |f| -%>
 <input name="_method" type="hidden" value="put" />
 <%= render :partial => "form", :locals => {:f => f} %>
-<% end -%>        
+<% end -%>

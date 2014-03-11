@@ -16,8 +16,8 @@
 <%= form_for(@equipment, url: equipment_path)  do |f| %>
   
   
-  <%= f.label 'Nome', :class => "control-label" %>
-  <%= f.text_field :description, :class => "input-xlarge", :onkeyup => "toUppercase(this);" %>
+  <%= f.label 'Nome'%>
+  <%= f.text_field :description, :class => "form-control", :onkeyup => "toUppercase(this);" %>
   
   
   <div><%= f.label(:modality_id, "Modalidade") %> <br />
@@ -33,7 +33,7 @@
     <% else %>
     <button class="btn btn-info" type="submit">Alterar</button>
     <% end %>
-    ou 
+     
     <%= link_to "Cancelar", equipments_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos.", :class => 'btn btn-default' %>
   </div>
 <% end %>
