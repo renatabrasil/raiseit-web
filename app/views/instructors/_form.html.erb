@@ -31,7 +31,7 @@
   
   <br>
   <%= f.fields_for :registration_code do |fa| %>
-    <%= fa.label 'Matrícula' %>
+    <%= fa.label 'Código' %>
     <%= fa.text_field :code, :maxlength => "20" %>
   <% end %>
   
@@ -46,15 +46,15 @@
   
 
 <br>  
-  <div class="form-actions-white">
+  <div>
     <!-- <%= f.submit %> -->
     <% if @instructor.id.nil? %>
     <button class="btn btn-primary" type="submit">Cadastrar</button>
     <% else %>
     <button class="btn btn-info" type="submit">Alterar</button>
     <% end %>
-    ou 
-    <%= link_to "Cancelar", instructors_path, data: { confirm: 'Deseja cancelar a operação? Todos os dados serão perdidos.'} %>
+     
+    <%= link_to "Cancelar", instructors_path, data: { confirm: 'Deseja cancelar a operação? Todos os dados serão perdidos.'}, :class => 'btn btn-default' %>
   </div>
 <% end %>
 </fiedset>

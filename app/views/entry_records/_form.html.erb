@@ -3,14 +3,14 @@
 	<%= form_for(@entry_record, :html => { :class => :form }) do |f| -%>
 	  
 	  <br>
-	  	<%= f.label 'Matrícula', :class => "control-label" %>
+	  	<%= f.label 'Código'%>
 	  	<%= text_field_tag :code%>
 		
 		<br>
-		<%= f.label 'Password', :class => "control-label" %>
+		<%= f.label 'Password'%>
 		<%= password_field_tag :password%>	
 		<br>  
-	  	<div class="form-actions-white">
+	  	<div>
 	   		<!-- <%= f.submit %> -->
 	    	<% if @entry_record.id.nil? %>
 	    		<button class="btn btn-primary" type="submit">Registrar</button>

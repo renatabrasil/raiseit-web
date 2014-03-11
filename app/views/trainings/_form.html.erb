@@ -26,6 +26,9 @@
   <%= f.label 'Tipo:' %>
   <%= f.text_field :training_type, :maxlength => "2", :value => @training.training_type, :disabled => @disabled, :onchange => "refreshField('training_type_hidden',this, event)"  %>
   <%= hidden_field_tag 'training[training_type]', @training.training_type, {:id => 'training_type_hidden'} %>
+  <br />
+  <br>
+  <%= link_to "Usar um perfil de treino" %>
   <br>
     <!-- Por enquanto -->
     <table>
@@ -38,13 +41,14 @@
       <% end %>
     </table>
     
-    <div class="form-actions-white">
+    <div>
+      <br>
       <% if @training.id.nil? %>
-      <%= submit_tag "Criar treino", :name => 'action_button', remote: true %>
+      <%= submit_tag "Criar treino", :name => 'action_button', :class => 'btn btn-info', remote: true %>
       <% else %>
-      <%= submit_tag "Alterar treino", :name => 'action_button' %>
+      <%= submit_tag "Alterar treino", :name => 'action_button', :class => 'btn btn-info' %>
       <% end %>
-      ou 
+       
       <%= link_to "Cancelar", workout_sheet_path(@workout_sheet), :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
     </div>
       

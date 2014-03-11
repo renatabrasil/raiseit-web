@@ -1,17 +1,23 @@
-<h2>Turmas</h2>
+<% title " - Turmas" %>
+<div class="header">
+	Turmas
+	<hr class="hr-header">
+	<div class="subheader">
+	</div>
+</div>
 
 <%= link_to 'Nova Turma', new_class_gym_path %><br/>
 <div class="table-responsive">
-	<table class="table table-bordered table-striped table-hover dark">
+	<table class="table table-bordered table-striped table-hover hover-dark table-condensed text-center">
 	  <thead>
 	    <tr>
-	      <th class="text-center">Modalidade</th>
-	      <th class="text-center">Data de Início</th>
-	      <th class="text-center">Horário</th>
-	      <th class="text-center">Professor</th>
-	      <th class="text-center">Alunos Matriculados</th>
-	      <th class="text-center">Capacidade</th>
-	      <th class="text-center">Status</th>
+	      <th>Modalidade</th>
+	      <th>Data de Início</th>
+	      <th>Horário</th>
+	      <th>Professor</th>
+	      <th>Alunos Matriculados</th>
+	      <th>Capacidade</th>
+	      <th>Status</th>
 	      <th></th>
 	    </tr>
 	  </thead>
@@ -19,21 +25,21 @@
 	    <% if !@class_gyms.empty? %>
 	      <% @class_gyms.each do |class_gym| %>
 	        <tr>
-	          <td class="text-center"><%= class_gym.modality.name %> </td>
-	          <td class="text-center"><%= class_gym.start_date.blank? ? "-" : l(class_gym.start_date, :format => :date) %></td>
-	          <td class="text-center"><%= class_gym.schedule %></td>
-	          <td class="text-center"><%= class_gym.instructor.blank? ? "Não informado" : class_gym.instructor.name %></td>
-	          <td class="text-center"><%= class_gym.students.size %></td>
-	          <td class="text-center"><%= class_gym.capacity %></td>
-	          <td class="text-center"><%= class_gym.open? ? "ABERTA" : "FECHADA" %></td>
-	          <td class="text-center">
-	            <%= link_to(class_gym_path(class_gym), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
-	                 Visualizar
+	          <td><%= class_gym.modality.name%> </td>
+	          <td><%= class_gym.start_date.blank? ? "-" : l(class_gym.start_date, :format => :date) %></td>
+	          <td><%= class_gym.schedule %></td>
+	          <td><%= class_gym.instructor.blank? ? "Não informado" : class_gym.instructor.name %></td>
+	          <td><%= class_gym.students.size %></td>
+	          <td><%= class_gym.capacity %></td>
+	          <td><%= class_gym.open? ? "ABERTA" : "FECHADA" %></td>
+	          <td>
+	            <%= link_to(class_gym_path(class_gym), :class => "link-icon", :title => "Detalhar", :alt => "Detalhar") do %>
+	                 Detalhar
 	            <% end %> |
 	            <%= link_to(edit_class_gym_path(class_gym), :class => "link-icon", :title => "Alterar") do %>
 	               Alterar
 	              <% end %> |
-	            <%= link_to(class_gym_path(class_gym), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover essa turma?")}", :class => "link-icon", :title => "Remover" ) do %>
+	            <%= link_to(class_gym_path(class_gym), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro?")}", :class => "link-icon", :title => "Remover" ) do %>
 	              Apagar
 	            <% end %>
 	          </td>

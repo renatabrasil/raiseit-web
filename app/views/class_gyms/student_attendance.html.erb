@@ -8,7 +8,7 @@
   <thead>
     <tr>
       <th></th>
-      <th>Matrícula</th>
+      <th>Código</th>
       <th>Aluno</th>
       <th style="text-align: center;">Presenças</th>
     </tr>
@@ -17,13 +17,13 @@
     <% @class_gym.students.each_with_index do |student, i| %>
       <tr>
         <td><%= i+1 %></td>
-        <td><%= student.registration_code.code %></td>
+        <td><%= student.code %></td>
         <td><%= student.name %></td>
         <td style="text-align: center;"><%= student.attendance(@class_gym.id) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<div class="form-actions-white">
-  <%= link_to "Voltar", class_gym_path(@class_gym), :class => 'btn'  %>
+<div>
+  <%= link_to "Voltar", class_gym_path(@class_gym), :class => 'btn btn-default'  %>
 </div>

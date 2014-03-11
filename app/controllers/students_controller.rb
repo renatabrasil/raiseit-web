@@ -7,7 +7,7 @@ class StudentsController < ApplicationController
     # Autocomplete
     if !params[:term].nil?
       term = params[:term].to_s.upcase
-      @students = Student.find(:all, include: :registration_code, :conditions => ['UPPER(name) LIKE ?', "#{term}%"])
+      @students = Student.find(:all, :conditions => ['UPPER(name) LIKE ?', "#{term}%"])
     else
       @search = Student.search(params[:q])
       @students = @search.result(distinct: true)
@@ -23,7 +23,6 @@ class StudentsController < ApplicationController
   def new
     @student = Student.new
     @student.build_user
-    @student.build_registration_code
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @student }
@@ -34,7 +33,7 @@ class StudentsController < ApplicationController
     @student = Student.new(params[:student])
     
     @student.user.email = @student.email
-    @student.user.username = @student.registration_code.code
+    @student.user.username = @student.code
     
     @student.user.roles << Role.find(Role::STUDENT)
     

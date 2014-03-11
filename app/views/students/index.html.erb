@@ -1,79 +1,91 @@
-<h2>Alunos cadastrados</h2>
+<% title " - Alunos" %>
+<div class="header">
+	Alunos
+	<hr class="hr-header">
+	<div class="subheader">
+	</div>
+</div>
 
+<%= search_form_for([@search], :html => { :class => "form-inline"}) do |f| %>
+	<div class="form-group">
+	  <%= f.label 'Código', :for => 'codigo'%>
+    <%= f.text_field :code_cont, :class => 'form-control input-busca', :id => 'codigo' %>
+	</div>
+	<div class="form-group">
+		<%= f.label "Modalidade", :for => 'modalidade' %>
+		<%= f.text_field :enrollments_modality_name_cont, :class => 'form-control input-busca', :id => 'modalidade' %>
+	</div>
+	<div class="form-group">
+		<%= f.label "Status:", :class => 'control-label', :for => 'enrollments_active_eq' %>
+		<%= f.select :enrollments_active_eq, options_for_select([["Todos"],["Ativos",true],["Inativos", false]], :selected => params[:enrollments_active]), {}, { :class => 'form-control input-busca' } %>
+	</div>
+	<div class="form-group">
+		<button class="btn btn-primary" type="submit">
+			Filtrar
+		</button>
+	</div>
+  
+<% end %>
+<br>
 
 <%= link_to 'Novo Aluno', new_student_path %>
-
-
-<%= search_form_for @search do |f| %>
-  <%= f.label :registration_code_code_cont %>
-  <%= f.text_field :registration_code_code_cont %>
-  <%= f.label :enrollments_modality_name_cont %>
-  <%= f.text_field :enrollments_modality_name_cont %>
-  <%= f.label "Alunos Ativos:" %>
-  <%= f.check_box :enrollments_active_true %>
-  <%= f.label "Alunos Inativos:" %>
-  <%= f.check_box :enrollments_active_false %>
-  <%= f.submit %>
-<% end %>
-
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Nome</th>
-      <th>E-mail</th>
-      <th>Matrícula</th>
-      <th>Modalidades</th>
-      <th>Ativo</th>
-      <th>c</th>
-      <th></th>
-    </tr>    
-  </thead>
-  <tbody>
-    <% if !@students.empty? %>
-      <% @students.each_with_index do |student, i| %>
-        <tr>
-          <td style="text-align: center; width: 4%"><%= i+1 %></td>
-          <td><%= student.name %></td>
-          <td style="text-align: center;"><%= student.email %></td>
-          <td style="text-align: center;"><%= student.registration_code.code %></td>
-          <td> 
-            <table>
-              <% student.enrollments.each do |enrollment| %> 
-              <tr><td><%= enrollment.modality.name %> </td></tr> 
-              <% end %>  
-            </table>
-          </td>
-           <td> 
-            <table>
-              <% student.enrollments.each do |enrollment| %> 
-              <tr><td><%= enrollment.active %> </td></tr> 
-              <% end %>  
-            </table>
-          </td>
-          <td style="text-align: center">
-            <%= link_to 'Cadastrar Ficha de Treino', new_workout_sheet_path(:student_id => student.id) if student.enrollment_in_bodybuilding? %>
-          </td>
-          <td style="text-align: center; width: 20%">
-            <%= link_to(student_path(student), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
-               Visualizar
-              <% end %> |
-              <%= link_to(edit_student_path(student), :class => "link-icon", :title => "Alterar") do %>
-               Editar
-              <% end %> |
-            <%= link_to(student_path(student), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este aluno?")}", :class => "link-icon", :title => "Remover" ) do %>
-             Deletar
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <% else %>
-    <tr>
-        <td colspan="4" style="text-align: center">
-          <font class="text-error" >Não há alunos cadastrados.</font>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped table-hover hover-dark table-condensed text-center">
+	  <thead>
+	    <tr>
+	      <th>#</th>
+	      <th>Código</th>
+	      <th>Nome</th>
+	      <th>E-mail</th>
+	      <th>Matrículas</th>
+	      <th>Status de Matrícula</th>
+	      <th></th>
+	    </tr>    
+	  </thead>
+	  <tbody>
+	    <% if !@students.empty? %>
+	      <% @students.each_with_index do |student, i| %>
+	        <tr>
+	          <td ><%= i+1 %></td>
+	          <td><%= student.code %></td>
+	          <td ><%= student.name %></td>
+	          <td ><%= student.email %></td>
+	          <td>
+	              <% student.enrollments.each do |enrollment| %> 
+	               <%= enrollment.modality.name %> - Turma 1
+	               <!-- Nome da Turma (Musculaçao tem Turma ùnica) -->
+	               <br />  
+	              <% end %>
+	          </td>
+	           <td> 
+	              <% student.enrollments.each do |enrollment| %> 
+	            	<% if enrollment.active? %>
+	              		Ativo<br>
+	              	<%else%>
+	              		Inativo<br>
+	              	<% end %>  
+	              <% end %>
+	          </td>
+	          <td>
+	            <%= link_to(student_path(student), :class => "link-icon", :title => "Detalhar", :alt => "Detalhar") do %>
+	               Detalhar
+	              <% end %> |
+	              <%= link_to(edit_student_path(student), :class => "link-icon", :title => "Alterar") do %>
+	               Editar
+	              <% end %> |
+	            <%= link_to(student_path(student), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro?")}", :class => "link-icon", :title => "Remover" ) do %>
+	             Remover
+	            <% end %>
+	          </td>
+	        </tr>
+	      <% end %>
+	    <% else %>
+	    <tr>
+	        <td colspan="7">
+	          Não foram encontrados alunos.
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>

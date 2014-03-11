@@ -19,14 +19,14 @@
     
     <br>
     <br>
-    <div class="form-actions-white">
+    <div>
       <% if @training_goal.id.nil? %>
       <button class="btn btn-primary" type="submit">Cadastrar</button>
       <% else %>
       <button class="btn btn-info" type="submit">Alterar</button>
       <% end %>
-      ou 
-      <%= link_to "Cancelar", training_goals_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+       
+      <%= link_to "Cancelar", training_goals_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos.", :class=> 'btn btn-default' %>
     </div>
     
   <% end %>

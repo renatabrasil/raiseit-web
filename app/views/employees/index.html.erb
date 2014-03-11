@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th class="" style="text-align: left">Nome</th>
-      <th class="" style="text-align: right">Matrícula</th>
+      <th class="" style="text-align: right">Código</th>
       <th class="" style="text-align: right">CPF</th>
       <th class="" style="text-align: center;">Telefone</th>
       <th class="" style="text-align: center; width: 20%">E-mail</th>
@@ -20,21 +20,21 @@
       <% @employees.each do |employee| %>
         <tr>
           <td><%= employee.name %></td>
-          <td style="text-align: right"><%= employee.registration_code.nil? ? " - " : employee.registration_code.code %></td>
+          <td style="text-align: right"><%= employee.code.nil? ? " - " : employee.code %></td>
           <td style="text-align: right"><%= employee.cpf.nil? ? " - " : employee.cpf %></td>
           <td style="text-align: center;"><%= employee.phone1 %></td>
           <td style="text-align: center;"><%= employee.email %></td>
           <td style="text-align: center;"><%= employee.gender == 'F' ? "Feminino" : "Masculino" %></td>
           <td style="text-align: right"><%= employee.type_employee.nil? ? " - " : employee.type_employee.name %></td>
           <td style="text-align: center; width: 20%">
-            <%= link_to(employee_path(employee), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
-               Visualizar
-              <% end %> |
-              <%= link_to(edit_employee_path(employee), :class => "link-icon", :title => "Alterar") do %>
+            <%= link_to(employee_path(employee), :class => "link-icon", :title => "Detalhar", :alt => "Detalhar") do %>
+               Detalhar
+            <% end %> |
+            <%= link_to(edit_employee_path(employee), :class => "link-icon", :title => "Alterar") do %>
                Editar
-              <% end %> |
-            <%= link_to(employee_path(employee), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse funcionário?")}", :class => "link-icon", :title => "Remover" ) do %>
-             Deletar
+            <% end %> |
+            <%= link_to(employee_path(employee), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro?")}", :class => "link-icon", :title => "Remover" ) do %>
+             Remover
             <% end %>
           </td>
         </tr>

@@ -22,7 +22,7 @@ Confirm
           <caption>Alunos matriculados nesta turma</caption>
           <thead>
             <tr>
-              <th style="text-align: right">Matrícula</th>
+              <th style="text-align: right">Código</th>
               <th>Nome</th>
             </tr>
           </thead>
@@ -30,7 +30,7 @@ Confirm
             <% if !@class_gym.students.empty? %>
               <% @class_gym.students.each do |student| %>
                 <tr>
-                  <td style="text-align: right"><%= student.registration_code.code %></td>
+                  <td style="text-align: right"><%= student.code %></td>
                   <td><%= student.name %></td>
                 </tr>
               <% end %>

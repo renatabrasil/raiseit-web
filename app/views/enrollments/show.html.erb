@@ -6,7 +6,7 @@
 <table>
   <tbody>
     <tr>
-      <td><strong>Aluno:</strong> <%= @enrollment.student.registration_code.code + " - " + @enrollment.student.name %></td>
+      <td><strong>Aluno:</strong> <%= @enrollment.student.code + " - " + @enrollment.student.name %></td>
     </tr>
     <tr>
       <td><strong>Data de início:</strong> <%= l(@enrollment.start_date, :format => :date) %></td>
@@ -48,8 +48,8 @@
 </table>
 <br />
 
-<div class="form-actions-white">
-  <%= link_to "Voltar", enrollments_path, :class => 'btn'  %>
+<div>
+  <%= link_to "Voltar", enrollments_path, :class => 'btn btn-default'  %>
   <%= link_to "Alterar", edit_enrollment_path(@enrollment), :class => 'btn btn-info' %>
-  <%= link_to "Remover", enrollment_path(@enrollment), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse aluno?")}", :class => 'btn' %>
+  <%= link_to "Remover", enrollment_path(@enrollment), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro?")}", :class => 'btn btn-danger' %>
 </div>

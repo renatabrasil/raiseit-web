@@ -14,7 +14,7 @@ SystemGym::Application.routes.draw do
 
   resources :employees
   resources :students
-  resources :instructors
+  # resources :instructors
   resources :entry_records
   
   resources :class_gyms do
@@ -35,11 +35,13 @@ SystemGym::Application.routes.draw do
     end
   end
   
-  # resources :trainings, except: [:index, :new] do
-    # member do
-      # get 'specify_exercises'
-    # end
-  # end
+  resources :profile_trainings do
+    member do
+      get 'form_training'
+      get 'form_exercise'
+      get 'new_copy'
+    end
+  end
   
   resources :modalities
   

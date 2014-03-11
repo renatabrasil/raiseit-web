@@ -4,7 +4,7 @@
 <table>
   <tbody>
     <tr>
-      <td><strong>Aluno:</strong> <%= @workout_sheet.student.registration_code.code + " - " + @workout_sheet.student.name %></td>
+      <td><strong>Aluno:</strong> <%= @workout_sheet.student.code + " - " + @workout_sheet.student.name %></td>
     </tr>
     <tr>
       <td><strong>Data de vencimento:</strong> <%= @workout_sheet.expiration_date.blank? ? "" : l(@workout_sheet.expiration_date, :format => :sample) %></td>
@@ -20,12 +20,13 @@
       <% if !@workout_sheet.trainings.empty? %>
           <% @workout_sheet.trainings.each_with_index do |training, i| %>
             <%= i+1 %> - 
-            <%= link_to(workout_sheet_training_path(training.workout_sheet,training), :class => "link-icon", :title => "Visualizar", :alt => "Visualizar") do %>
+            <%= link_to(workout_sheet_training_path(training.workout_sheet,training), :class => "link-icon", :title => "Detalhar", :alt => "Detalhar") do %>
                 <%= training.training_type %>
             <% end %> |
              <%= link_to 'Especificar exercícios', specify_exercises_workout_sheet_training_path(training.workout_sheet, training) %> |
              <%= link_to 'Alterar', edit_workout_sheet_training_path(training.workout_sheet, training) %> |
-             <%= link_to 'Remover', workout_sheet_training_path(training.workout_sheet, training), :method => :delete %>
+             <%= link_to 'Remover', workout_sheet_training_path(training.workout_sheet, training), :method => :delete %> |
+             <%= link_to 'Cadastrar como Perfil', new_copy_profile_training_path(training, :training_goal_id => training.workout_sheet.training_goal.id, :training_copy => "true") %> 
             <br>
           <% end %>
         
@@ -41,8 +42,8 @@
 </table>
 <br />
 
-<div class="form-actions-white">
-  <%= link_to "Voltar", workout_sheets_path, :class => 'btn'  %>
+<div>
+  <%= link_to "Voltar", workout_sheets_path, :class => 'btn btn-default'  %>
   <%= link_to "Alterar", edit_workout_sheet_path(@workout_sheet), :class => 'btn btn-info' %>
-  <%= link_to "Remover", workout_sheet_path(@workout_sheet), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover essa ficha?")}", :class => 'btn' %>
+  <%= link_to "Remover", workout_sheet_path(@workout_sheet), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro?")}", :class => 'btn btn-danger' %>
 </div>

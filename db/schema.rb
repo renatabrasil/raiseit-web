@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140209025442) do
+ActiveRecord::Schema.define(version: 20140227193113) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20140209025442) do
     t.integer  "type_employee_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code",                           null: false
     t.index ["type_employee_id"], :name => "fk__people_type_employee_id"
     t.foreign_key ["type_employee_id"], "type_employees", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_people_type_employee_id"
   end
@@ -210,12 +211,13 @@ ActiveRecord::Schema.define(version: 20140209025442) do
   end
 
   create_table "payments", force: true do |t|
-    t.datetime "payday"
+    t.datetime "pay_day"
     t.integer  "account_id"
     t.string   "account_type"
     t.integer  "individual_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "value",         precision: 6, scale: 2
     t.index ["individual_id"], :name => "fk__payments_individual_id"
     t.foreign_key ["individual_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_payments_individual_id"
   end
@@ -281,13 +283,22 @@ ActiveRecord::Schema.define(version: 20140209025442) do
     t.foreign_key ["physical_parameter_id"], "physical_parameters", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_physical_parameter_measures_physical_parameter_id"
   end
 
-  create_table "registration_codes", force: true do |t|
-    t.string   "code",          limit: 100
-    t.integer  "individual_id"
+  create_table "training_goals", force: true do |t|
+    t.string   "denomination", limit: 500
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["individual_id"], :name => "fk__registration_codes_individual_id"
-    t.foreign_key ["individual_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_registration_codes_individual_id"
+  end
+
+  create_table "profile_trainings", force: true do |t|
+    t.string   "name",             limit: 200
+    t.integer  "training_goal_id"
+    t.integer  "created_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["created_by"], :name => "fk__profile_trainings_created_by"
+    t.index ["training_goal_id"], :name => "fk__profile_trainings_training_goal_id"
+    t.foreign_key ["created_by"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_profile_trainings_created_by"
+    t.foreign_key ["training_goal_id"], "training_goals", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_profile_trainings_training_goal_id"
   end
 
   create_table "roles", force: true do |t|
@@ -335,12 +346,6 @@ ActiveRecord::Schema.define(version: 20140209025442) do
     t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_self_physical_assessments_student_id"
   end
 
-  create_table "training_goals", force: true do |t|
-    t.string   "denomination", limit: 500
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "workout_sheets", force: true do |t|
     t.datetime "expiration_date"
     t.boolean  "active",                 default: true, null: false
@@ -365,11 +370,14 @@ ActiveRecord::Schema.define(version: 20140209025442) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "model_workout_sheet_id"
-    t.string   "training_type",          limit: 1, null: false
+    t.string   "training_type",          limit: 1
     t.integer  "workout_sheet_id"
+    t.integer  "profile_training_id"
     t.index ["model_workout_sheet_id"], :name => "fk__trainings_model_workout_sheet_id"
+    t.index ["profile_training_id"], :name => "fk__trainings_profile_training_id"
     t.index ["workout_sheet_id"], :name => "fk__trainings_workout_sheet_id"
     t.foreign_key ["model_workout_sheet_id"], "model_workout_sheets", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_model_workout_sheet_id"
+    t.foreign_key ["profile_training_id"], "profile_trainings", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_profile_training_id"
     t.foreign_key ["workout_sheet_id"], "workout_sheets", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_trainings_workout_sheet_id"
   end
 
@@ -393,7 +401,7 @@ ActiveRecord::Schema.define(version: 20140209025442) do
     t.integer  "workout_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "duration"
+    t.integer  "duration"
     t.index ["training_id"], :name => "fk__training_workouts_training_id"
     t.index ["workout_id"], :name => "fk__training_workouts_workout_id"
     t.foreign_key ["training_id"], "trainings", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_training_workouts_training_id"

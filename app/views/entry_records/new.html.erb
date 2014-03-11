@@ -9,7 +9,14 @@
 </div>
 <% end %>
 
-<h2>Registrar Entrada</h2>
+<% title " - Registros de Entrada" %>
+<div class="header">
+	Registros de Entrada
+	<hr class="hr-header">
+	<div class="subheader">
+		Novo Registro
+	</div>
+</div>
 
 <%= render 'form' %>
 
@@ -22,7 +29,7 @@
 	    <tr>
 	      <th class=" text-center">Nome</th>
 	      <th class=" text-center">Tipo</th>
-	      <th class=" text-center">Matrícula</th>
+	      <th class=" text-center">Código</th>
 	      <th class=" text-center">Hora de Entrada</th>
 	      <th class=" text-center">Hora de Saída</th>
 	  </thead>
@@ -30,7 +37,7 @@
         <tr>
           <td class="text-center"><strong><%= @entry_record_now.individual.name %></strong></td>     
           <td class="text-center"><%= @entry_record_now.individual.type %></td>     
-          <td class="text-center"><%= @entry_record_now.individual.registration_code.code %></td>
+          <td class="text-center"><%= @entry_record_now.individual.code %></td>
           <td class="text-center"><%= l(@entry_record_now.entry_time, :format => :full) %></td>
           <td class="text-center"><%= l(@entry_record_now.exit_time, :format => :full) if !@entry_record_now.exit_time.blank? %></td>
         </tr>

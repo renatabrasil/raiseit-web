@@ -8,23 +8,13 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *
  *= require_self
- *= require_tree .
+ *= require bootstrap.css
+ *= require font-awesome.min.css
+ *= require_tree ./plugins
+ *= require_tree ./ui-lightness
+ *= require sb-admin.css
+ *= require customized.css
  */
 
-//redefine o icones de seta no menu lateral
-.active > a > .fa.arrowMenu:before {
-    content: "\f13a";
-}
-
-//redefine a cor de fundo da area 
-#page-wrapper {
-	background-color: #FDFDFD !important;
-}
-
-//redefine para cor mais escura a linha da tabela quando status:hover
-.table-hover.dark > tbody > tr:hover > td,
-.table-hover.dark > tbody > tr:hover > th {
-  // background-color: #E7F2DF;
-  background-color: #EAEAEA;
-}

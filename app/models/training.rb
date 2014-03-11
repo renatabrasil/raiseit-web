@@ -4,16 +4,31 @@ class Training < ActiveRecord::Base
   has_many :workouts, through: :training_workouts
   
   belongs_to :workout_sheet
+  belongs_to :profile_training
   
   accepts_nested_attributes_for :training_workouts, :allow_destroy => true
   accepts_nested_attributes_for :workouts, :allow_destroy => true
   
-  validates :training_type, presence: true
+  # Fix in the user case create profile training
+  # validates :training_type, presence: true, if: :profile_training_register?
   
-  # Consertar com passos
-  validate :uniqueness_training_type, on: :create
+  # Fix with steps
+  # validate :uniqueness_training_type, on: :create
+  # validate :without_workout?
   
-  attr_accessible :training_type, :last_training_date, :training_workouts_attributes
+  attr_accessible :training_type, :last_training_date, :training_workouts_attributes,
+    :workouts_attributes, :workout_ids
+    
+  # Conditional Validation
+  def profile_training_register?
+    return self.profile_training.nil?
+  end
+  
+  def without_workout?
+    if (self.workouts.empty? && self.workout_ids.empty?)
+      errors.add(:workouts, "informe pelo menos um exercício.")
+    end
+  end
   
   def uniqueness_training_type
     if self.id.nil?
@@ -46,6 +61,7 @@ class Training < ActiveRecord::Base
     end
   end
   
+  #
   def get_training_workout_by_workout_id(workout_id)
     return self.training_workouts.where(workout_id: workout_id).first
   end
@@ -92,6 +108,22 @@ class Training < ActiveRecord::Base
       hash_workouts[physical_category] = aux_all_workouts
     end
     return hash_workouts
+  end
+  
+  # Make a copy from a given training
+  def self.new_copy(id)
+    training = Training.find(id)
+    training_copy = training.dup # dup = duplicate
+    training_copy.workout_sheet = nil
+    training_copy.training_type = ''
+    
+    training.training_workouts.each do |training_workout|
+      training_workout_copy = training_workout.dup
+      training_workout_copy.workout = training_workout.workout
+      training_copy.training_workouts << training_workout_copy
+    end
+    
+    training_copy
   end
   
 end

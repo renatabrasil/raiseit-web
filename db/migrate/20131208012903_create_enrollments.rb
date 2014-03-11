@@ -16,7 +16,6 @@ class CreateEnrollments < ActiveRecord::Migration
       # Foreign Key
       t.belongs_to :modality
       t.belongs_to :periodicity
-      # t.belongs_to :registration_code
       t.integer :student_id, :references => "people"
 
       t.timestamps

@@ -9,8 +9,12 @@
   </tbody>
 </table>
 <br>
-<div class="form-actions-white">
-  <%= link_to "Voltar", training_goals_path, :class => 'btn'  %>
+<div>
+  <%= link_to "Voltar", training_goals_path, :class => 'btn btn-default'  %>
   <%= link_to "Alterar", edit_training_goal_path(@training_goal), :class => 'btn btn-info' %>
+<<<<<<< HEAD
   <%= link_to "Remover", training_goal_path(@training_goal), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse objetivo?")}", :class => 'btn' %>
+=======
+  <%= link_to "Remover", training_goal_path(@training_goal), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover esse objetivo ?")}", :class => 'btn btn-danger' %>
+>>>>>>> aa3e94a79f6f1e65e56fdc29eb47dd31b3346eb7
 </div>

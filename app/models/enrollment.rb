@@ -3,7 +3,6 @@ class Enrollment < ActiveRecord::Base
   belongs_to :student, :class_name => 'Student', :foreign_key => 'student_id'
   belongs_to :periodicity
   belongs_to :modality
-  # belongs_to :registration_code
   
   validates :student, :modality, :start_date, :registration_fee, :periodicity, 
             :value,  presence: true
@@ -24,12 +23,12 @@ class Enrollment < ActiveRecord::Base
     day_before = day_after << 1
     
     # DESUSO    
-    # !Enrollment.distinct.joins(:payments).where('payday BETWEEN ? AND ? AND active = true AND payments.individual_id = ?', 
+    # !Enrollment.distinct.joins(:payments).where('pay_day BETWEEN ? AND ? AND active = true AND payments.individual_id = ?', 
             # day_before, day_after, self.student_id).exists?
             
     # Trazer todos os pagamentos que foram efetuados até a data de vencimento da matrícula corrente.
     return Payment.distinct.joins("INNER JOIN enrollments ON payments.account_id = enrollments.id AND 
-      payments.account_type = \'Enrollment\' ").where('payday BETWEEN ? AND ? AND active = true AND payments.account_id = ?', 
+      payments.account_type = \'Enrollment\' ").where('pay_day BETWEEN ? AND ? AND active = true AND payments.account_id = ?', 
         day_before, day_after, self.id).first
   end
   
