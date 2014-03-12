@@ -18,14 +18,14 @@
     <div class="row">
       <div class="form-group col-xs-4 col-sm-5 col-md-3">
         <%= f.label 'Modalidade'%>
-        <%= select("class_gym", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}) %>
+        <%= select("class_gym", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}, {:class => "form-control"}) %>
       </div>
     </div>
     
     <div class="row">
       <div class="form-group col-xs-4 col-sm-5 col-md-3">
-        <%= f.label 'Data de Início', :class => 'control-label' %>
-        <%= f.text_field :start_date, :class => 'text_field', :onkeyup => "maskIt(this,event,'##/##/####')", :value => l(Date.today, :format => :date), :maxlength => "10" %>
+        <%= f.label 'Data de Início' %>
+        <%= f.text_field :start_date, :class => 'form-control', :onkeyup => "maskIt(this,event,'##/##/####')", :value => l(Date.today, :format => :date), :maxlength => "10" %>
       </div>
     </div>
     
@@ -39,36 +39,41 @@
     <div class="row">
       <div class="form-group col-xs-4 col-sm-5 col-md-3">
         <%= f.label 'Capacidade'%>
-        <%= f.text_field :capacity, :class => "form-control", :onkeyup => "toUppercase(this);", :maxlength => "6" %>
+        <%= f.text_field :capacity, :class => "form-control input-mini", :onkeyup => "toUppercase(this);", :maxlength => "6" %>
       </div>
     </div>
     
     <div class="row">
-      <div class="form-group col-xs-4 col-sm-5 col-md-3">
-        <%= f.label 'Professor(es)', :class => "control-label" %>
-        <div class="multi-field-wrapper">
-          <div class="multi-fields">
-            <div class="multi-field">
-              <%= select_tag "class_gym[instructor_ids][]", options_from_collection_for_select(Employee.where(type_employee_id: TypeEmployee::TEACHER), :id, :name), {prompt: '-- Selecione o professor --'} %>      
+      <div class="form-group col-xs-3 col-sm-5 col-md-3">
+        <%= f.label 'Professor(es)' %>
+      </div>
+    </div>
+    <div class="multi-field-wrapper">
+      <div class="multi-fields">
+        <div class="multi-field">
+          <div class="row">
+            <div class="form-group col-xs-3 col-sm-5 col-md-3">
+              <%= select_tag "class_gym[instructor_ids][]", options_from_collection_for_select(Employee.where(type_employee_id: TypeEmployee::TEACHER), :id, :name), {prompt: '-- Selecione o professor --', class: 'form-control' } %>
+            </div>
+            <div class="form-group col-xs-6">
               <button id="remove-field" type="button" class="btn btn-default">Remover</button>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-xs-3">
           <button type="button" class="btn btn-default" id="add-field">Adicionar mais</button>
         </div>
       </div>
     </div>
     
-    
-    
-
-
     <br />
     
     <% if !@class_gym.id.nil? %>
       <h3>Alunos matriculados</h3>
     <% end %>
     
-    <br>
     <br>
     <div>
       <% if @class_gym.id.nil? %>
