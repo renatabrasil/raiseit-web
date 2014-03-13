@@ -1,0 +1,57 @@
+<% title " - Turmas" %>
+<div class="header">
+	Turmas
+	<hr class="hr-header">
+	<div class="subheader">
+	</div>
+</div>
+
+<%= link_to 'Nova Turma', new_gym_class_path %><br/>
+<div class="table-responsive">
+	<table class="table table-bordered table-striped table-hover hover-dark table-condensed text-center">
+	  <thead>
+	    <tr>
+	      <th>Modalidade</th>
+	      <th>Data de Início</th>
+	      <th>Horário</th>
+	      <th>Professor(es)</th>
+	      <th>Alunos Matriculados</th>
+	      <th>Capacidade</th>
+	      <th>Status</th>
+	      <th></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% if !@gym_classes.empty? %>
+	      <% @gym_classes.each do |gym_class| %>
+	        <tr>
+	          <td><%= gym_class.modality.name%> </td>
+	          <td><%= gym_class.start_date.blank? ? "-" : l(gym_class.start_date, :format => :date) %></td>
+	          <td><%= gym_class.schedule %></td>
+	          <td>
+	            <% gym_class.instructors.each do |instructor| %>
+	               <%= instructor.blank? ? "Não informado" : instructor.name %> <br>
+	            <% end %>
+            </td>
+	          <td><%= gym_class.students.size %></td>
+	          <td><%= gym_class.capacity %></td>
+	          <td><%= gym_class.open? ? "ABERTA" : "FECHADA" %></td>
+	          <td>
+	            <%= link_to(gym_class_path(gym_class), :class => "link-icon", :title => "Detalhar", :alt => "Detalhar") do %>
+	                 Detalhar
+	            <% end %> |
+	            <%= link_to(edit_gym_class_path(gym_class), :class => "link-icon", :title => "Editar") do %>
+	               Editar
+	              <% end %> |
+	            <%= link_to(gym_class_path(gym_class), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro?")}", :class => "link-icon", :title => "Remover" ) do %>
+	              Remover
+	            <% end %>
+	          </td>
+	        </tr>
+	      <% end %>
+	    <% else %>
+	      <tr>Não há turmas cadastradas até esta data.</tr>
+	    <% end %>   
+	  </tbody>
+	</table>
+</div>

@@ -10,35 +10,35 @@
   <tbody>
     <tr>
       <td><strong>Modalidade:</strong></td>
-      <td><%= @class_gym.modality.name %></td>
+      <td><%= @gym_class.modality.name %></td>
     </tr>
     <tr>
       <td><strong>Horário:</strong></td>
-      <td><%= @class_gym.schedule %></td>
+      <td><%= @gym_class.schedule %></td>
     </tr>
     <tr>
       <td><strong>Professor:</strong></td>
       <td>
-        <% @class_gym.instructors.each do |instructor| %>
+        <% @gym_class.instructors.each do |instructor| %>
            <%= instructor.blank? ? "Não informado" : instructor.name %> <br>
         <% end %>
     </tr>
     <tr>
       <td><strong>Alunos matriculados:</strong></td>
-      <td class="text-left"><%= @class_gym.students.size %></td>
+      <td class="text-left"><%= @gym_class.students.size %></td>
     </tr>
     <tr>
       <td><strong>Capacidade:</strong></td>
-      <td><%= @class_gym.capacity %></td>
+      <td><%= @gym_class.capacity %></td>
     </tr>
   </tbody>
 </table>
 
 <br>
 <div>
-  <%= link_to "Voltar", class_gyms_path, :class => 'btn btn-default'  %>
-  <%= link_to "Alterar", edit_class_gym_path(@class_gym), :class => 'btn btn-info' %>
-  <%= link_to "Remover", class_gym_path(@class_gym), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro ?")}", :class => 'btn btn-danger' %>
+  <%= link_to "Voltar", gym_classes_path, :class => 'btn btn-default'  %>
+  <%= link_to "Alterar", edit_gym_class_path(@gym_class), :class => 'btn btn-info' %>
+  <%= link_to "Remover", gym_class_path(@gym_class), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro ?")}", :class => 'btn btn-danger' %>
 </div>
 
 <br>
@@ -46,7 +46,7 @@
   <tr>
     <td>
       <strong>
-        - <%= link_to "Frequência", student_attendance_class_gym_path if !@class_gym.students.empty? %> <%= @class_gym.students.empty? ? "Frequência" : "" %> 
+        - <%= link_to "Frequência", student_attendance_gym_class_path if !@gym_class.students.empty? %> <%= @gym_class.students.empty? ? "Frequência" : "" %> 
       </strong>
     </td>
   </tr>

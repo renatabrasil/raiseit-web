@@ -1,7 +1,7 @@
 <h1>Editar Ficha de Treino</h1>
 <br>
 Número de treinos cadastrados para esta ficha: <%= @workout_sheet.trainings.size %>
-<%= form_for [@workout_sheet], :url => workout_sheet_path(@workout_sheet), :html => { :class => :form, :id => "edit_class_gym" } do |f| -%>
+<%= form_for [@workout_sheet], :url => workout_sheet_path(@workout_sheet), :html => { :class => :form, :id => "edit_gym_class" } do |f| -%>
   <input name="_method" type="hidden" value="put" />
   <%= render :partial => "form", :locals => {:f => f} %>
 <% end -%>

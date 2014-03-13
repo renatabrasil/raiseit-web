@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ClassGymsControllerTest < ActionController::TestCase
+class GymClassTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

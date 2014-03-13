@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140310180557) do
+ActiveRecord::Schema.define(version: 20140313190933) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -46,20 +46,6 @@ ActiveRecord::Schema.define(version: 20140310180557) do
     t.datetime "updated_at"
   end
 
-  create_table "class_gyms", force: true do |t|
-    t.integer  "capacity"
-    t.string   "code",        limit: 8
-    t.datetime "start_date"
-    t.string   "schedule",    limit: 200
-    t.boolean  "open",                    default: true, null: false
-    t.boolean  "active",                  default: true, null: false
-    t.integer  "modality_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["modality_id"], :name => "fk__class_gyms_modality_id"
-    t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_modality_id"
-  end
-
   create_table "type_employees", force: true do |t|
     t.string   "name",       limit: 60
     t.datetime "created_at"
@@ -83,24 +69,6 @@ ActiveRecord::Schema.define(version: 20140310180557) do
     t.string   "code",                           null: false
     t.index ["type_employee_id"], :name => "fk__people_type_employee_id"
     t.foreign_key ["type_employee_id"], "type_employees", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_people_type_employee_id"
-  end
-
-  create_table "class_gyms_instructors", id: false, force: true do |t|
-    t.integer "class_gym_id"
-    t.integer "instructor_id"
-    t.index ["class_gym_id"], :name => "fk__class_gyms_instructors_class_gym_id"
-    t.index ["instructor_id"], :name => "fk__class_gyms_instructors_instructor_id"
-    t.foreign_key ["class_gym_id"], "class_gyms", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_instructors_class_gym_id"
-    t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_instructors_instructor_id"
-  end
-
-  create_table "class_gyms_people", id: false, force: true do |t|
-    t.integer "class_gym_id"
-    t.integer "student_id"
-    t.index ["class_gym_id"], :name => "fk__class_gyms_people_class_gym_id"
-    t.index ["student_id"], :name => "fk__class_gyms_people_student_id"
-    t.foreign_key ["class_gym_id"], "class_gyms", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_people_class_gym_id"
-    t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_class_gyms_people_student_id"
   end
 
   create_table "periodicities", force: true do |t|
@@ -157,6 +125,38 @@ ActiveRecord::Schema.define(version: 20140310180557) do
     t.index ["status_equipment_id"], :name => "fk__equipment_status_equipment_id"
     t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_equipment_modality_id"
     t.foreign_key ["status_equipment_id"], "status_equipments", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_equipment_status_equipment_id"
+  end
+
+  create_table "gym_classes", force: true do |t|
+    t.integer  "capacity"
+    t.string   "code",        limit: 8
+    t.datetime "start_date"
+    t.string   "schedule",    limit: 200
+    t.boolean  "open",                    default: true, null: false
+    t.boolean  "active",                  default: true, null: false
+    t.integer  "modality_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["modality_id"], :name => "fk__gym_classes_modality_id"
+    t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_gym_classes_modality_id"
+  end
+
+  create_table "gym_classes_instructors", id: false, force: true do |t|
+    t.integer "gym_class_id"
+    t.integer "instructor_id"
+    t.index ["gym_class_id"], :name => "fk__gym_classes_instructors_class_gym_id"
+    t.index ["instructor_id"], :name => "fk__gym_classes_instructors_instructor_id"
+    t.foreign_key ["gym_class_id"], "gym_classes", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_gym_classes_instructors_class_gym_id"
+    t.foreign_key ["instructor_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_gym_classes_instructors_instructor_id"
+  end
+
+  create_table "gym_classes_students", id: false, force: true do |t|
+    t.integer "gym_class_id"
+    t.integer "student_id"
+    t.index ["gym_class_id"], :name => "fk__gym_classes_students_class_gym_id"
+    t.index ["student_id"], :name => "fk__gym_classes_students_student_id"
+    t.foreign_key ["gym_class_id"], "gym_classes", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_gym_classes_students_class_gym_id"
+    t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_gym_classes_students_student_id"
   end
 
   create_table "localities", force: true do |t|

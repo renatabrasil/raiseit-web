@@ -66,15 +66,18 @@ class EnrollmentsController < ApplicationController
   
   def confirm_registration
     @enrollment = Enrollment.find(params[:id])
-    # @class_gyms = ClassGym.distinct.joins(:students).where("class_gyms_people.student_id <> ? AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id] )
-    @class_gyms = ClassGym.distinct.joins("LEFT JOIN class_gyms_people ON class_gyms.id = class_gyms_people.class_gym_id").where("(class_gyms_people.student_id <> ? OR class_gyms_people.student_id IS NULL ) AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id])
+    # @gym_classes = GymClass.distinct.joins(:students).where("gym_classes_students.student_id <> ? AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id] )
+    @gym_classes = GymClass.distinct.joins("LEFT JOIN gym_classes_students ON " +
+      "gym_classes.id = gym_classes_students.gym_class_id").
+      where("(gym_classes_students.student_id <> ? OR gym_classes_students.student_id IS NULL )" + 
+      "  AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id])
     
   end
   
   def add_student
-    @class_gym = ClassGym.find(params[:class_gym_id])
+    @gym_class = GymClass.find(params[:gym_class_id])
     @enrollment = Enrollment.find(params[:id])
-    @enrollment.student.class_gyms << @class_gym
+    @enrollment.student.gym_classes << @gym_class
     
     redirect_to enrollments_path
   end
@@ -82,10 +85,10 @@ class EnrollmentsController < ApplicationController
   def destroy
     @enrollment = Enrollment.find(params[:id])
     
-    # @testes = ClassGym.joins(:students).joins("LEFT JOIN enrollments ON enrollments.student_id = class_gyms_people.student_id").where("
+    # @testes = GymClass.joins(:students).joins("LEFT JOIN enrollments ON enrollments.student_id = gym_classes_students.student_id").where("
       # enrolments.id = ?", @enrollment.id)
     
-    @enrollment.student.class_gyms.delete(:all)
+    @enrollment.student.gym_classes.delete(:all)
     @enrollment.destroy
 
     respond_to do |format|

@@ -1,24 +1,35 @@
 <script>
   $('.multi-field-wrapper').each(function() {
       var $wrapper = $('.multi-fields', this);
+      var $wrapper_inner = $('.multi-fields', this);
       $("#add-field", $(this)).click(function(e) {
           $('.multi-field:first-child', $wrapper).clone(true).appendTo($wrapper).find('input').val('').focus();
       });
-      $('.multi-field #remove-field', $wrapper).click(function() {
-          if ($('.multi-field', $wrapper).length > 1)
-              $(this).parent('.multi-field').remove();
+      //Remove button
+      $('.multi-field .row #div-remove-btn #remove-field', $wrapper).click(function() {
+          if ($('.multi-field .row #div-remove-btn', $wrapper).length > 1){
+            $(this).parent('.multi-field .row').remove();
+            $(this).parent('.multi-field .row #div-remove-btn').remove();
+          }
+              
+              
       });
+      
+      // $('.multi-field #remove-field', $wrapper).click(function() {
+          // if ($('.multi-field', $wrapper).length > 1)
+              // $(this).parent('.multi-field').remove();
+      // });
   });
 </script>
 <br>
 
 <fieldset>
-  <%= form_for([@class_gym], :html => { :class => :form }) do |f| -%>
+  <%= form_for([@gym_class], :html => { :class => :form }) do |f| -%>
     
     <div class="row">
       <div class="form-group col-xs-4 col-sm-5 col-md-3">
         <%= f.label 'Modalidade'%>
-        <%= select("class_gym", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}, {:class => "form-control"}) %>
+        <%= select("gym_class", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}, {:class => "form-control"}) %>
       </div>
     </div>
     
@@ -52,10 +63,10 @@
       <div class="multi-fields">
         <div class="multi-field">
           <div class="row">
-            <div class="form-group col-xs-3 col-sm-5 col-md-3">
-              <%= select_tag "class_gym[instructor_ids][]", options_from_collection_for_select(Employee.where(type_employee_id: TypeEmployee::TEACHER), :id, :name), {prompt: '-- Selecione o professor --', class: 'form-control' } %>
+            <div class="form-group col-xs-3 col-sm-5 col-md-3" id="div-element-remove">
+              <%= select_tag "gym_class[instructor_ids][]", options_from_collection_for_select(Employee.where(type_employee_id: TypeEmployee::TEACHER), :id, :name), {prompt: '-- Selecione o professor --', class: 'form-control' } %>
             </div>
-            <div class="form-group col-xs-6">
+            <div class="form-group col-xs-6" id="div-remove-btn">
               <button id="remove-field" type="button" class="btn btn-default">Remover</button>
             </div>
           </div>
@@ -70,18 +81,18 @@
     
     <br />
     
-    <% if !@class_gym.id.nil? %>
+    <% if !@gym_class.id.nil? %>
       <h3>Alunos matriculados</h3>
     <% end %>
     
     <br>
     <div>
-      <% if @class_gym.id.nil? %>
+      <% if @gym_class.id.nil? %>
       <button class="btn btn-primary" type="submit">Cadastrar</button>
       <% else %>
       <button class="btn btn-info" type="submit">Alterar</button>
       <% end %>
-      <%= link_to "Cancelar", class_gyms_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos.", :class => 'btn btn-default' %>
+      <%= link_to "Cancelar", gym_classes_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos.", :class => 'btn btn-default' %>
     </div>
     
   <% end %>
