@@ -1,9 +1,12 @@
-<h1>Matrícula</h1>
-
-
-
-<br />
-<table>
+<% title " - Matrículas" %>
+<div class="header">
+  Matrículas
+  <hr class="hr-header">
+  <div class="subheader">
+    Detalhar
+  </div>
+</div>
+<table class="table table-40 table-bordered table-condensed table-striped ">
   <tbody>
     <tr>
       <td><strong>Aluno:</strong> <%= @enrollment.student.code + " - " + @enrollment.student.name %></td>
@@ -15,7 +18,7 @@
       <td><strong>Dia do vencimento:</strong> <%= @enrollment.expiration_day %></td>
     </tr>
     <tr>
-      <td><strong>Modalidade:</strong> <%= @enrollment.modality.name %></td>
+      <td><strong>Modalidade:</strong> <%= @enrollment.gym_class.modality.name %></td>
     </tr>
     <tr>
       <td><strong>Valor:</strong> <%= @enrollment.value.blank? ? " - " : "R$ " + @enrollment.value.to_s %></td>

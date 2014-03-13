@@ -46,7 +46,7 @@ class EnrollmentsController < ApplicationController
     
     respond_to do |format|
       if @enrollment.save
-        format.html { redirect_to confirm_registration_enrollment_path(@enrollment, :modality_id => @enrollment.modality.id), notice: 'A matrícula foi efetuada com sucesso.' }
+        format.html { redirect_to confirm_registration_enrollment_path(@enrollment, :modality_id => params[:modality_id]), notice: 'A matrícula foi efetuada com sucesso.' }
         format.json { render json: @enrollment, status: :created, location: @enrollment }
       else
         format.html { render action: "new" }
@@ -75,11 +75,19 @@ class EnrollmentsController < ApplicationController
   end
   
   def add_student
-    @gym_class = GymClass.find(params[:gym_class_id])
     @enrollment = Enrollment.find(params[:id])
-    @enrollment.student.gym_classes << @gym_class
+    @enrollment.gym_class = GymClass.find(params[:gym_class_id])
+    @enrollment.student.gym_classes << @enrollment.gym_class
     
-    redirect_to enrollments_path
+    respond_to do |format|
+      if @enrollment.update_attributes(params[:enrollment])
+        format.html { redirect_to enrollments_path, :notice => 'A matrícula foi cadastrada com sucesso.' }
+        format.json { head :ok }
+      else
+        format.html { render :action => "add_student" }
+        format.json { render :json => @enrollment.errors, :status => :unprocessable_entity }
+      end
+    end
   end
   
   def destroy

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140313190933) do
+ActiveRecord::Schema.define(version: 20140313201732) do
 
   create_table "countries", force: true do |t|
     t.string   "name",       limit: 100
@@ -44,6 +44,20 @@ ActiveRecord::Schema.define(version: 20140313190933) do
     t.string   "name",       limit: 200
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "gym_classes", force: true do |t|
+    t.integer  "capacity"
+    t.string   "code",        limit: 8
+    t.datetime "start_date"
+    t.string   "schedule",    limit: 200
+    t.boolean  "open",                    default: true, null: false
+    t.boolean  "active",                  default: true, null: false
+    t.integer  "modality_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["modality_id"], :name => "fk__gym_classes_modality_id"
+    t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_gym_classes_modality_id"
   end
 
   create_table "type_employees", force: true do |t|
@@ -85,15 +99,15 @@ ActiveRecord::Schema.define(version: 20140313190933) do
     t.decimal  "registration_fee",             precision: 6, scale: 2
     t.decimal  "discount",                     precision: 6, scale: 2
     t.boolean  "active",                                               default: true, null: false
-    t.integer  "modality_id"
     t.integer  "periodicity_id"
     t.integer  "student_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["modality_id"], :name => "fk__enrollments_modality_id"
+    t.integer  "gym_class_id"
+    t.index ["gym_class_id"], :name => "fk__enrollments_gym_class_id"
     t.index ["periodicity_id"], :name => "fk__enrollments_periodicity_id"
     t.index ["student_id"], :name => "fk__enrollments_student_id"
-    t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_enrollments_modality_id"
+    t.foreign_key ["gym_class_id"], "gym_classes", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_enrollments_gym_class_id"
     t.foreign_key ["periodicity_id"], "periodicities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_enrollments_periodicity_id"
     t.foreign_key ["student_id"], "people", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_enrollments_student_id"
   end
@@ -125,20 +139,6 @@ ActiveRecord::Schema.define(version: 20140313190933) do
     t.index ["status_equipment_id"], :name => "fk__equipment_status_equipment_id"
     t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_equipment_modality_id"
     t.foreign_key ["status_equipment_id"], "status_equipments", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_equipment_status_equipment_id"
-  end
-
-  create_table "gym_classes", force: true do |t|
-    t.integer  "capacity"
-    t.string   "code",        limit: 8
-    t.datetime "start_date"
-    t.string   "schedule",    limit: 200
-    t.boolean  "open",                    default: true, null: false
-    t.boolean  "active",                  default: true, null: false
-    t.integer  "modality_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["modality_id"], :name => "fk__gym_classes_modality_id"
-    t.foreign_key ["modality_id"], "modalities", ["id"], :on_update => :no_action, :on_delete => :no_action, :name => "fk_gym_classes_modality_id"
   end
 
   create_table "gym_classes_instructors", id: false, force: true do |t|

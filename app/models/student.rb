@@ -4,6 +4,7 @@ class Student < Individual
   has_and_belongs_to_many :gym_classes, :foreign_key => 'student_id', 
     :join_table => 'gym_classes_students' 
   has_many :enrollments, dependent: :destroy
+  has_many :workout_sheets, dependent: :destroy
   
   # has_one :user, as: :user_account, dependent: :destroy
   

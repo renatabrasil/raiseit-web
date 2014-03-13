@@ -1,32 +1,43 @@
-<h1>Matrículas</h1>
+<% title " - Matrículas" %>
+<div class="header">
+  Matrículas
+  <hr class="hr-header">
+  <div class="subheader">
+  </div>
+</div>
 
-<%= search_form_for @search do |f| %>
-  <%= f.label "Matrícula:" %>
-  <%= f.text_field :student_code_cont %>
-  <%= f.label "Modalidade:" %>
-  <%= f.text_field :modality_name_cont %>
-  <%= f.label "Alunos Ativos:" %>
- 
-  <%=  f.select :active_eq, options_for_select([false, true]), 
-  include_blank: true %>
-  <%= f.submit %>
+<%= search_form_for([@search], :html => { :class => "form-inline"}) do |f| %>
+  <div class="form-group">
+    <%= f.label "Matrícula:", :for => 'student' %>
+    <%= f.text_field :student_code_cont, :class => 'form-control input-busca', :id => 'student' %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Modalidade:", :for => 'modality' %>
+    <%= f.text_field :gym_class_modality_name_cont, :class => 'form-control input-busca', :id => 'modality' %>
+  </div>
+  <div class="form-group">
+    <%= f.label "Alunos Ativos:", :class => 'control-label', :for => 'students_active_eq' %>
+    <%=  f.select :active_eq, options_for_select([["Todos"],["Ativos",true],["Inativos", false]], :selected => params[:students_active]), {}, { :class => 'form-control input-busca' } %>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-primary" type="submit">
+      Filtrar
+    </button>
+  </div>
+  
 <% end %>
 
 
 <br />
 <%= link_to 'Fazer matrícula', new_enrollment_path %>
-<table width="100%">
+<table class="table table-bordered table-striped table-hover hover-dark table-condensed text-center">
 	<thead>
 		<tr>
 		  <th style="text-align: right">Matrícula</th>
 		  <th style="text-align: left">Nome </th>
-			<th style="text-align: center">Data de Início</th>
-			<th style="text-align: center">Dia do Vencimento</th>
 			<th style="text-align: right">Valor</th>
 			<th style="text-align: right">Taxa de Inscrição</th>
 			<th style="text-align: right">Desconto</th>
-			<th style="text-align: center">Modalidade</th>
-			<th style="text-align: center">Periodicidade</th>
       <th style="text-align: center">Ativo</th>
 			<th style="text-align: left">Situação</th>
 			<th></th>
@@ -38,15 +49,11 @@
 				<tr>
 				  <td style="text-align: right" rowspan="2"><%= link_to enrollment.student.code, enrollment_path(enrollment) %></td>
 				  <td style="text-align: left"><%= enrollment.student.name %></td>
-					<td style="text-align: center"><%= enrollment.start_date.blank? ? "-" : l(enrollment.start_date, :format => :date) %></td>
-					<td style="text-align: center"><%= enrollment.expiration_day %></td>
 					<td style="text-align: right"><%= enrollment.value %></td>
 					<td style="text-align: right"><%= enrollment.registration_fee.blank? ? "-" : enrollment.registration_fee %></td>
 					<td style="text-align: right"><%= enrollment.discount.blank? ? "-" : enrollment.discount %></td>
-					<td style="text-align: center"><%= enrollment.modality.name %></td>
-					<td style="text-align: center"><%= enrollment.periodicity.description if !enrollment.periodicity.nil? %></td>
 					<td style="text-align: center"> <%= enrollment.active? ? "SIM" : "NÃO" %> </td>
-					<td>
+					<td style="text-align: left">
 					  <% payment = enrollment.expired? %>
 					  <%= link_to "Ok", payment_path(payment) if !payment.blank? %>
 					  <% if payment.blank? %>
@@ -61,11 +68,19 @@
 					</td>
 					<td>
 					<%= link_to(enrollment_path(enrollment), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro?")}", :class => "link-icon", :title => "Remover" ) do %>
-              			Apagar
-            		<% end %>
+        			Remover
+      		<% end %>
 					</td>	
 				</tr>
-				<tr><td colspan="9"><strong>Observação: </strong><%= enrollment.note.blank? ? "Não informado." : enrollment.note %></td></tr>
+				<tr>
+				  <td colspan='7' style="text-align: left">
+				    <strong>Data de Cadastro: </strong><%= enrollment.start_date.blank? ? "-" : l(enrollment.start_date, :format => :date) %><br>
+				    <strong>Dia do Vencimento: </strong><%= enrollment.expiration_day %><br>
+				    <strong>Modalidade: </strong><%= enrollment.gym_class.modality.name %><br>
+				    <strong>Periodicidade: </strong><%= enrollment.periodicity.description if !enrollment.periodicity.nil? %><br>
+				    <strong>Observação: </strong><%= enrollment.note.blank? ? "Não informado." : enrollment.note %><br>
+				  </td>
+			  </tr>
 			<% end %>
 		<% else %>
 			<tr>Não há vencimentos até esta data.</tr>

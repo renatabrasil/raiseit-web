@@ -2,9 +2,9 @@
 class Enrollment < ActiveRecord::Base
   belongs_to :student, :class_name => 'Student', :foreign_key => 'student_id'
   belongs_to :periodicity
-  belongs_to :modality
+  belongs_to :gym_class
   
-  validates :student, :modality, :start_date, :registration_fee, :periodicity, 
+  validates :student, :start_date, :registration_fee, :periodicity, 
             :value,  presence: true
   
   validates :note, :length => {:maximum => 500, 
