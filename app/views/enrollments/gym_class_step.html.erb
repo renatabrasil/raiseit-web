@@ -1,0 +1,49 @@
+<%= render layout: "form" do |f| %>
+<div class="header">
+  Matrículas
+  <hr class="hr-header">
+  <div class="subheader">
+    Cadastrar > Selecionar turma
+  </div>
+</div>
+
+  <% if @gym_classes.empty? %>
+    <%= link_to 'Cadastrar Turma', new_gym_class_path %><br />
+    <%= link_to 'Matrículas', enrollments_path %>
+  <% else %>
+  
+    <table class="table table-60 table-bordered table-condensed">
+      <thead>
+        <tr>
+          <th></th>
+          <th style="text-align: left">Turma</th>
+          <th style="text-align: left">Professor</th>
+          <th style="text-align: center" nowrap="">Alunos matriculados</th>
+          <th style="text-align: center" nowrap="">Capacidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @gym_classes.each do |gym_class| %>
+          <tr>
+            <td style="text-align: center">
+              <%= radio_button_tag "gym_class_id", gym_class.id, class: 'form-control' %>
+              <%#= check_box_tag("[gym_class_ids]", gym_class.id, false) %>
+            </td>
+            <td style="text-align: left"><strong><%= gym_class.schedule %></strong></td>
+            <td>
+              <% gym_class.instructors.each do |instructor| %>
+                 - <%= instructor.blank? ? "Não informado" : instructor.name %> <br>
+              <% end %>
+            <td style="text-align: center"><%= gym_class.students.size %></td>
+            <td style="text-align: center"><%= gym_class.capacity %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br>
+    <%= link_to "<< Voltar", edit_enrollment_path(@enrollment), :class => 'btn btn-default' %>
+    <button class="btn btn-primary" type="submit" name="botao_excluir">Selecionar turma</button>
+    <%= link_to "Cancelar", enrollments_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos.", :class => 'btn btn-default' %>  
+  <% end %>
+
+<% end %>

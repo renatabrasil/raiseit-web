@@ -33,23 +33,31 @@ class EnrollmentsController < ApplicationController
     @enrollment = Enrollment.new
     @enrollment.periodicity = Periodicity.find(Periodicity::MENSAL)
     
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @enrollment }
-    end
+    render "enrollment_step"
+    
+    # respond_to do |format|
+      # format.html # new.html.erb
+      # format.json { render json: @enrollment }
+    # end
   end
   
   def create
     @enrollment = Enrollment.new(params[:enrollment])
     # Atualmente a periodicidade está mensal para efeitos de teste
     @enrollment.periodicity = Periodicity.find(Periodicity::MENSAL)
+    @gym_classes = GymClass.distinct.joins("LEFT JOIN gym_classes_students ON " +
+      "gym_classes.id = gym_classes_students.gym_class_id").
+      where("(gym_classes_students.student_id <> ? OR gym_classes_students.student_id IS NULL )" + 
+      "  AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id])
     
     respond_to do |format|
       if @enrollment.save
-        format.html { redirect_to confirm_registration_enrollment_path(@enrollment, :modality_id => params[:modality_id]), notice: 'A matrícula foi efetuada com sucesso.' }
+        # format.html { redirect_to confirm_registration_enrollment_path(@enrollment, :modality_id => params[:modality_id]), notice: 'A matrícula foi efetuada com sucesso.' }        format.json { render json: @enrollment, status: :created, location: @enrollment }
+        # format.html { redirect_to choose_gym_class_enrollment_path(@enrollment, :modality_id => params[:modality_id]), notice: 'A matrícula foi efetuada com sucesso.' }                format.json { render json: @enrollment, status: :created, location: @enrollment }
+        format.html { render "gym_class_step", notice: 'A matrícula foi cadastrada com sucesso.' }
         format.json { render json: @enrollment, status: :created, location: @enrollment }
       else
-        format.html { render action: "new" }
+        format.html { render action: "enrollment_step" }
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }
       end
     end
@@ -72,6 +80,15 @@ class EnrollmentsController < ApplicationController
       where("(gym_classes_students.student_id <> ? OR gym_classes_students.student_id IS NULL )" + 
       "  AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id])
     
+  end
+  
+  def choose_gym_class
+    @enrollment = Enrollment.find(params[:id])
+    # @gym_classes = GymClass.distinct.joins(:students).where("gym_classes_students.student_id <> ? AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id] )
+    @gym_classes = GymClass.distinct.joins("LEFT JOIN gym_classes_students ON " +
+      "gym_classes.id = gym_classes_students.gym_class_id").
+      where("(gym_classes_students.student_id <> ? OR gym_classes_students.student_id IS NULL )" + 
+      "  AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id])
   end
   
   def add_student

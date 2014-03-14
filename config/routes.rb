@@ -6,7 +6,6 @@ SystemGym::Application.routes.draw do
     end
   end
   
-
   resources :physical_categories
 
   devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, 
@@ -14,7 +13,6 @@ SystemGym::Application.routes.draw do
 
   resources :employees
   resources :students
-  # resources :instructors
   resources :entry_records
   
   resources :gym_classes do
@@ -54,6 +52,7 @@ SystemGym::Application.routes.draw do
     member do
       get 'confirm_registration'
       patch 'add_student'
+      get 'choose_gym_class'
     end
   end
   resources :payments#, only: [:index, :show]
