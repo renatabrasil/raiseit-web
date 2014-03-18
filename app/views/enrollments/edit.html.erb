@@ -1,4 +1,11 @@
-<h1>Editar Matrícula</h1>
+<% title " - Matrículas" %>
+<div class="header">
+  Matrículas
+  <hr class="hr-header">
+  <div class="subheader">
+    Editar
+  </div>
+</div>
 
 <%= form_for [@enrollment], :url => enrollment_path(@enrollment), :html => { :class => :form, :id => "edit_gym_class" } do |f| -%>
   <input name="_method" type="hidden" value="put" />

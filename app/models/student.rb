@@ -65,5 +65,4 @@ class Student < Individual
     end
     return false
   end
-  
 end

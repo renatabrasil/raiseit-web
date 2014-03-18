@@ -16,7 +16,6 @@ SystemGym::Application.routes.draw do
     end
   end
   
-
   resources :physical_categories
 
   devise_for :users, :path_names => {:sign_in => "login", :sign_out => "logout"}, 
@@ -24,13 +23,13 @@ SystemGym::Application.routes.draw do
 
   resources :employees
   resources :students
-  # resources :instructors
   resources :entry_records
   
   resources :gym_classes do
     member do
       get 'student_attendance'
     end
+    # match "/form_partial/:id" => "gym_classes#form_partial" , via: :get
   end
 
   resources :equipments
@@ -53,19 +52,18 @@ SystemGym::Application.routes.draw do
     end
   end
   
-  resources :modalities
+  resources :modalities do
+    member do
+      get 'form_partial'  
+    end
+  end
   
   # In routes.rb
   get '/employee/:type_employee' => 'employees#new', as: 'login'
 
   # resources :enrollments#, only: [:index, :new, :create]
   
-  resources :enrollments do
-    member do
-      get 'confirm_registration'
-      patch 'add_student'
-    end
-  end
+  resources :enrollments
   resources :payments#, only: [:index, :show]
 
   #  devise_for :users

@@ -2,9 +2,9 @@
 class Enrollment < ActiveRecord::Base
   belongs_to :student, :class_name => 'Student', :foreign_key => 'student_id'
   belongs_to :periodicity
-  belongs_to :modality
+  belongs_to :gym_class
   
-  validates :student, :modality, :start_date, :registration_fee, :periodicity, 
+  validates :student, :start_date, :registration_fee, :periodicity, :gym_class, 
             :value,  presence: true
   
   validates :note, :length => {:maximum => 500, 
@@ -15,7 +15,7 @@ class Enrollment < ActiveRecord::Base
 
   attr_accessible :start_date, :note, :value, :registration_fee, :discount, 
                   :student_id, :modality_id, :periodicity_id, :expiration_day, 
-                  :active
+                  :active, :gym_class, :gym_class_id
   
   def expired?
     today = Date.today
