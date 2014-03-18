@@ -17,6 +17,45 @@ class Student < Individual
             "entry_records.individual_id = ? AND class_gyms.id = ?", self.id, class_gym_id).count
   end
   
+  def was_i_present?(date_time, class_gym)
+      TODO     
+  end
+  
+  def month_attendance(year, month)
+    beginning_month = Time.new(year, month, 1)
+    end_month = beginning_month.end_of_month
+    
+    self.entry_records.select("DATE(entry_time)").distinct
+      .where(entry_time: beginning_month..end_month).count
+  end
+  
+  def graph_year_attendance(year)
+    students = Array.new
+    
+    for month in 1..12      
+      students.push(
+        :x => Date::MONTHNAMES[month], 
+        :y => month_attendance(year, month)
+      )
+    end
+ 
+    students
+  end
+  
+  def month_class_attendance(year, month, class_gym)
+    beginning_month = Time.new(year, month, 1)
+    end_month = beginning_month.end_of_month
+    count = 0
+    
+    if beginning_month > class_gym.start_date
+      self.entry_records.select("DATE(entry_time)").distinct
+      .where(entry_time: beginning_month..end_month).each do |entry_records|
+        
+      end        
+    end
+    
+  end
+  
   def enrollment_in_bodybuilding?
     self.enrollments.each do |enrollment|
       if enrollment.modality.id == Modality::WORK_OUT

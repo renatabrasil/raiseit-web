@@ -4,6 +4,9 @@ class StudentController < ApplicationController
   
   def home
     @student = Student.find(params[:id])
+    @how_many_students = EntryRecord.how_many_students?(Time.now)
+    @how_many_female_students = EntryRecord.how_many_female_students?(Time.now)
+    @how_many_male_students = EntryRecord.how_many_male_students?(Time.now)
   end
 
   def edit
@@ -31,6 +34,7 @@ class StudentController < ApplicationController
 
   def classes
     @student = Student.find(params[:id])
+    @graph_year_attendance = @student.graph_year_attendance(Date.today.year)
     @class_gyms = @student.class_gyms
   end
 

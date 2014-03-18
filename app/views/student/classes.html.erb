@@ -1,4 +1,4 @@
-<h2>Turmas de <%=@student.name%> </h2>
+<h1>Turmas de <%=@student.name%> </h1>
 
 <div class="table-responsive">
   <table class="table table-bordered table-striped table-hover dark table-condensed text-center">
@@ -17,7 +17,11 @@
           <tr>
             <td><%= class_gym.modality.name%> </td>
             <td><%= class_gym.start_date.blank? ? "-" : l(class_gym.start_date, :format => :date) %></td>
-            <td><%= class_gym.schedule %></td>
+            <td>
+                <% class_gym.schedules. each do |schedule| %>
+                  <%= Date::DAYNAMES[schedule.week_day][0] %> &nbsp; 
+                <% end %>
+            </td>
             <td><%= class_gym.instructor.blank? ? "Não informado" : class_gym.instructor.name %></td>
             <td><%= @student.attendance(class_gym) %></td>
           </tr>
@@ -29,7 +33,9 @@
   </table>
 </div>
 
-<div id="annual"></div>
+<h2> Frequência total <%= Date.today.year %> </h2>
+
+<%= content_tag :div, "", id: "geral", data: {records: @graph_year_attendance  }  %>
 
 <div>
   <%= link_to "Voltar", student_home_path(@student), :class => 'btn btn-default'  %>

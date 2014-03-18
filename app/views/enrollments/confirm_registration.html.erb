@@ -22,7 +22,11 @@
             <%= radio_button_tag "class_gym_id", class_gym.id %>
             <%#= check_box_tag("[class_gym_ids]", class_gym.id, false) %>
             </td>
-            <td style="text-align: left"><%= class_gym.schedule %></td>
+            <td style="text-align: left">
+              <% class_gym.schedules.each do |schedule| %>
+                <%= Date::DAYNAMES[schedule.week_day][0] %> &nbsp; 
+              <%end%>   
+            </td>
             <td><%= class_gym.instructor.name unless class_gym.instructor.nil? %></td>
             <td style="text-align: center"><%= class_gym.students.size %></td>
             <td style="text-align: center"><%= class_gym.capacity %></td>

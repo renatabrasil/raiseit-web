@@ -3,20 +3,12 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = ->
-   Morris.Line
-    element: 'annual'
-    data: [
-      {y: '2012', a: 100}
-      {y: '2011', a: 75}
-      {y: '2010', a: 50}
-      {y: '2009', a: 75}
-      {y: '2008', a: 50}
-      {y: '2007', a: 75}
-      {y: '2006', a: 100}
-    ]
-    xkey: 'y'
-    ykeys: ['a']
-    labels: ['Series a']
+   Morris.Bar
+    element: 'geral'
+    data: $('#geral').data('records')
+    xkey: 'x'
+    ykeys: ['y']
+    labels: ['Presenças']
       
 $(document).ready(ready)
 $(document).on('page:load', ready)
