@@ -27,7 +27,11 @@
 	        <tr>
 	          <td><%= gym_class.modality.name%> </td>
 	          <td><%= gym_class.start_date.blank? ? "-" : l(gym_class.start_date, :format => :date) %></td>
-	          <td><%= gym_class.schedule %></td>
+	          <td>
+	              <% gym_class.schedules. each do |schedule| %>
+                  <%= Date::DAYNAMES[schedule.week_day][0] %> &nbsp; 
+                <% end %>
+	          </td>
 	          <td>
 	            <% gym_class.instructors.each do |instructor| %>
 	               <%= instructor.blank? ? "Não informado" : instructor.name %> <br>

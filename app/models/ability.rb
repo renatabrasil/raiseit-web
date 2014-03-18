@@ -13,9 +13,10 @@ class Ability
         can :manage, TrainingGoal
         can :read, Person
         can :read, ModelWorkoutSheet
-        can :manage, ClassGym, :instructor_id => user.user_account.id
+        can :manage, ClassGym, instructor_id: user.user_account.id
         cannot :create, ClassGym
         can :read, EntryRecord
+        can :index, :home
       elsif user.role? :manager
         can :manage, Payment
         can :manage, Enrollment
@@ -26,6 +27,11 @@ class Ability
         can :manage, Student
         can :manage, Instructor
         can :read, Person
+        can :index, :home
+      elsif user.role? :student
+        alias_action :home, :edit, :update, :payments, :classes, :workout_sheet, 
+          :to => :profile
+        can :profile, Student, id: user.user_account.id
       end
        # if user_signed_in?
         # can :manage, :all

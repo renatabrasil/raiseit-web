@@ -1,0 +1,56 @@
+<h1>Ficha de Treino</h1>
+
+<% if @student.workout_sheets.empty? %>
+  <p> Não há ficha cadastrada </p>
+<% else%>
+<br />
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Aluno:</strong> <%= @workout_sheet.student.code + " - " + @workout_sheet.student.name %></td>
+    </tr>
+    <tr>
+      <td><strong>Data de vencimento:</strong> <%= @workout_sheet.expiration_date.blank? ? "" : l(@workout_sheet.expiration_date, :format => :sample) %></td>
+    </tr>
+    <tr>
+      <td><strong>Instrutor:</strong> <%= @workout_sheet.instructor.name %></td>
+    </tr>
+    <tr>
+      <td><strong>Objetivo:</strong> <%= @workout_sheet.training_goal.blank? ? "Não especificado" : @workout_sheet.training_goal.denomination %></td>
+    </tr>
+    
+  </tbody>
+</table>
+<br />
+<% if !@workout_sheet.trainings.empty? %>
+  <% @workout_sheet.trainings.each do |training| %>
+  <table class="table-bordered">
+    <caption><b> Ficha <%= training.training_type %> </b> </caption>
+    <tr>
+      <th></th>
+      <th>Séries</th>
+      <th>Repetições</th>
+      <th>Duração</th>
+      <th>Carga</th>
+    </tr>
+    <% training.training_workouts.each do |training_workout| %>
+    <tr>
+      <td> <%= training_workout.workout.description %> </td>
+      <td><%= training_workout.series.blank? ? "-" : training_workout.series %></td>
+      <td><%= training_workout.repetitions.blank? ? "-" : training_workout.repetitions %></td>
+      <td><%= training_workout.duration.blank? ? "-" : training_workout.duration %></td>
+      <td><%= training_workout.load.blank? ? "-" : training_workout.load %></td>
+    </tr>
+    <% end %>
+  </table>
+  <br />
+  <% end %>
+<% else %>
+  Sem treinos cadastrados.
+<% end %>
+
+<% end %>
+
+<div>
+  <%= link_to "Voltar", student_home_path(@student), :class => 'btn btn-default'  %>
+</div>

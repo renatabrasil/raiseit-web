@@ -41,12 +41,10 @@
 	</div>
 	<div class="row">
 		<div class="form-group col-xs-8 col-sm-10 col-md-6">
-			<%= f.fields_for :registration_code do |fa| %>
-			<%= fa.label 'Código de Registro'%>
-			<%= fa.text_field :code, :class => "form-control", :maxlength => "20" %>
+			<%= f.label 'Código de Registro'%>
+			<%= f.text_field :code, :class => "form-control", :maxlength => "20" %>
 		</div>
 	</div>
-<% end %>
 
 <%= f.fields_for :user do |fb| %>
 

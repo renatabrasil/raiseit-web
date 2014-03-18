@@ -1,6 +1,10 @@
 # encoding: utf-8
 class GymClass < ActiveRecord::Base
   belongs_to :modality
+  belongs_to :instructor, :class_name => 'Instructor', :foreign_key => 'instructor_id'
+  
+  has_many :schedules, dependent: :destroy
+  accepts_nested_attributes_for :schedules, reject_if: proc { |attributes| attributes['week_day'].blank? } 
   
   has_and_belongs_to_many :students, :class_name => 'Student', 
     :association_foreign_key => 'student_id', 
@@ -13,7 +17,8 @@ class GymClass < ActiveRecord::Base
   validates :instructors, :modality, presence: true
     
   attr_accessible :schedule, :capacity, :modality_id, :instructor_ids, :instructors, 
-    :student_ids, :open, :start_date, :instructors_attributes
+    :student_ids, :open, :start_date, :instructors_attributes, :schedules_attributes
+
   
   accepts_nested_attributes_for :students, :allow_destroy => true
   accepts_nested_attributes_for :instructors, :allow_destroy => true

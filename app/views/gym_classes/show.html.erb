@@ -13,8 +13,23 @@
       <td><%= @gym_class.modality.name %></td>
     </tr>
     <tr>
-      <td><strong>Horário:</strong></td>
-      <td><%= @gym_class.schedule %></td>
+      <td><strong>Dias:</strong></td>
+      <td>
+      <% if !@gym_class.schedules.blank? %>
+        <% @gym_class.schedules.each do |schedule| %>
+          <%= Date::DAYNAMES[schedule.week_day] %> &nbsp; 
+        <%end%>
+      <%end%>                    
+      </td>
+    </tr>
+    <tr>
+      <td><strong> Horário: </strong></td>
+      <td>
+        <% if !@gym_class.schedules.blank? %>
+          <%= @gym_class.schedules.first.start_time.strftime("%R") %> -          
+          <%= @gym_class.schedules.first.end_time.strftime("%R") %>
+        <% end %> 
+      </td>
     </tr>
     <tr>
       <td><strong>Professor:</strong></td>

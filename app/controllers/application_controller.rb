@@ -4,11 +4,26 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :authenticate_user!
   
+  def after_sign_in_path_for(resource)
+    if current_user.role? :student
+      student_home_path(current_user.user_account.id)
+    else
+      root_path 
+    end
+    
+  end
+  
+  
   def has_role?(current_user, role)
     return !!current_user.roles.find_by_name(role.to_s.upcase)
   end
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    if current_user.role? :student
+      redirect_to student_home_path(current_user.user_account.id), alert: exception.message
+    else
+      redirect_to root_url, alert: exception.message
+    end
+    
   end
 end
