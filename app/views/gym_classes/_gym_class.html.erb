@@ -1,7 +1,7 @@
 <div class="row">
   <div class="form-group col-xs-3 col-sm-8 col-md-3">
     <div class="radio">
-      <%= 'Turma: '+gym_class.schedule %>
+      <%= 'Turma: ' %>
       <%= radio_button_tag "enrollment[gym_class_id]", gym_class.id, @enrollment.nil? ? false : (@enrollment.gym_class.id==gym_class.id ? true : false) %>
     </div>
   </div>
