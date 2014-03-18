@@ -41,7 +41,7 @@
   
   $(document).ready(function() {
     $('#modalities_select').change(function() {
-      $.ajax({ url: '/modalities/'+ this.value + '/form_partial', 
+      $.ajax({ url: '/modalities/'+ this.value + '/form_partial'
         //success : function(text) {
         //      alert('success')
         //   } 
@@ -87,7 +87,6 @@
     <div class="form-group col-xs-4 col-sm-5 col-md-3">
       <%= f.label 'Modalidade'%>
       <%= select_tag 'modality_id', options_for_select(Modality.all.collect {|p| [ p.name, p.id ] }, disabled: ""), {prompt: "-- Selecione a modalidade --", class: 'form-control', id: "modalities_select", remote: true }%>
-      <%#= select("enrollment", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}, {class: "form-control", id:"idModality"}) %>
     </div>
   </div>
   
