@@ -2,10 +2,6 @@
 class EnrollmentsController < ApplicationController
   load_and_authorize_resource
   
-  def form_partial
-    @gym_classes = GymClass.where(modality_id: params[:id])
-  end
-  
   def index
     @search = Enrollment.joins(:student).search(params[:q])
     @enrollments = @search.result(distinct: true, :order => 'created_at DESC')
@@ -17,21 +13,21 @@ class EnrollmentsController < ApplicationController
   
   def edit
     @enrollment = Enrollment.find(params[:id])
-    render 'enrollment_step'
+    @gym_classes = GymClass.where(modality_id: @enrollment.gym_class.modality.id)
   end
   
   def update
     @enrollment = Enrollment.find(params[:id])
     
-    # Action from second registration's step: gym_class_step
-    if !params[:action_button].nil?
-      @enrollment.gym_class = GymClass.find(params[:gym_class_id])
-      @enrollment.student.gym_classes << @enrollment.gym_class
-    end
+    previous_gym_class = @enrollment.gym_class
     
     respond_to do |format|
       if @enrollment.update_attributes(params[:enrollment])
-        # format.html { redirect_to confirm_registration_enrollment_path(@enrollment, :modality_id => @enrollment.modality.id), :notice => 'A matrícula foi atualizada com sucesso.' }
+        @enrollment.student.gym_classes << @enrollment.gym_class
+        # Refresh student's gym_classes
+        if(previous_gym_class.id != @enrollment.gym_class.id)
+          @enrollment.student.gym_classes.delete(previous_gym_class)
+         end
         format.html { redirect_to enrollment_path(@enrollment), :notice => 'A matrícula foi atualizada com sucesso.' }
         format.json { head :ok }
       else
@@ -44,14 +40,11 @@ class EnrollmentsController < ApplicationController
   def new
     @enrollment = Enrollment.new
     @enrollment.periodicity = Periodicity.find(Periodicity::MENSAL)
-    # @gym_classes = GymClass.all
     
-    render "enrollment_step"
-    
-    # respond_to do |format|
-      # format.html # new.html.erb
-      # format.json { render json: @enrollment }
-    # end
+     respond_to do |format|
+       format.html # new.html.erb
+       format.json { render json: @enrollment }
+     end
   end
   
   def create
@@ -61,14 +54,11 @@ class EnrollmentsController < ApplicationController
     
     respond_to do |format|
       if @enrollment.save
-        @modality = Modality.find(params[:modality_id])
-        @gym_classes = load_gym_classes(@enrollment.student.id, @modality.id)
-        # format.html { redirect_to confirm_registration_enrollment_path(@enrollment, :modality_id => params[:modality_id]), notice: 'A matrícula foi efetuada com sucesso.' }        format.json { render json: @enrollment, status: :created, location: @enrollment }
-        # format.html { redirect_to choose_gym_class_enrollment_path(@enrollment, :modality_id => params[:modality_id]), notice: 'A matrícula foi efetuada com sucesso.' }                format.json { render json: @enrollment, status: :created, location: @enrollment }
-        format.html { render "gym_class_step", notice: 'A matrícula foi cadastrada com sucesso.' }
+        @enrollment.student.gym_classes << @enrollment.gym_class
+        format.html { redirect_to enrollment_path(@enrollment), notice: 'A matrícula foi cadastrada com sucesso.' }
         format.json { render json: @enrollment, status: :created, location: @enrollment }
       else
-        format.html { render action: "enrollment_step" }
+        format.html { render action: "new" }
         format.json { render json: @enrollment.errors, status: :unprocessable_entity }
       end
     end
@@ -81,41 +71,6 @@ class EnrollmentsController < ApplicationController
       format.html # show.html.erb
       format.json { render :json => @enrollment }
     end  
-  end
-  
-  def confirm_registration
-    @enrollment = Enrollment.find(params[:id])
-    # @gym_classes = GymClass.distinct.joins(:students).where("gym_classes_students.student_id <> ? AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id] )
-    @gym_classes = GymClass.distinct.joins("LEFT JOIN gym_classes_students ON " +
-      "gym_classes.id = gym_classes_students.gym_class_id").
-      where("(gym_classes_students.student_id <> ? OR gym_classes_students.student_id IS NULL )" + 
-      "  AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id])
-    
-  end
-  
-  def choose_gym_class
-    @enrollment = Enrollment.find(params[:id])
-    # @gym_classes = GymClass.distinct.joins(:students).where("gym_classes_students.student_id <> ? AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id] )
-    @gym_classes = GymClass.distinct.joins("LEFT JOIN gym_classes_students ON " +
-      "gym_classes.id = gym_classes_students.gym_class_id").
-      where("(gym_classes_students.student_id <> ? OR gym_classes_students.student_id IS NULL )" + 
-      "  AND open = true AND modality_id = ?", @enrollment.student.id, params[:modality_id])
-  end
-  
-  def add_student
-    @enrollment = Enrollment.find(params[:id])
-    @enrollment.gym_class = GymClass.find(params[:gym_class_id])
-    @enrollment.student.gym_classes << @enrollment.gym_class
-    
-    respond_to do |format|
-      if @enrollment.update_attributes(params[:enrollment])
-        format.html { redirect_to enrollments_path, :notice => 'A matrícula foi cadastrada com sucesso.' }
-        format.json { head :ok }
-      else
-        format.html { render :action => "add_student" }
-        format.json { render :json => @enrollment.errors, :status => :unprocessable_entity }
-      end
-    end
   end
   
   def destroy
@@ -131,15 +86,6 @@ class EnrollmentsController < ApplicationController
         format.html { redirect_to enrollments_url, notice: 'Matrícula removida com sucesso.'  }
         format.json { head :no_content }
     end  
-  end
-  
-  private
-  
-  def load_gym_classes(student_id, modality_id)
-    return GymClass.distinct.joins("LEFT JOIN gym_classes_students ON " +
-          "gym_classes.id = gym_classes_students.gym_class_id").
-          where("(gym_classes_students.student_id <> ? OR gym_classes_students.student_id IS NULL )" + 
-          "  AND open = true AND modality_id = ?", student_id, modality_id)
   end
   
 end

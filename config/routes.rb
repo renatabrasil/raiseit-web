@@ -48,20 +48,12 @@ SystemGym::Application.routes.draw do
     end
   end
   
-  # match "/modalities/:id/form_partial" => "modalities#form_partial" , via: :get
-  
   # In routes.rb
   get '/employee/:type_employee' => 'employees#new', as: 'login'
 
   # resources :enrollments#, only: [:index, :new, :create]
   
-  resources :enrollments do
-    member do
-      get 'confirm_registration'
-      patch 'add_student'
-      get 'choose_gym_class'
-    end
-  end
+  resources :enrollments
   resources :payments#, only: [:index, :show]
 
   #  devise_for :users

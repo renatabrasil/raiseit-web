@@ -33,19 +33,7 @@
       <td><strong>Observação:</strong> <%= @enrollment.note %></td>
     </tr>
     <tr>
-      <td>
-        <% if !@enrollment.student.gym_classes.empty? %>
-        <table>
-          <tr><td><strong>Turmas:</strong></td></tr>
-          <% @enrollment.student.gym_classes.each do |gym_class| %>
-            <tr>
-              <td>- <%= gym_class.schedule %></td>
-            </tr>
-          <% end %>          
-        </table>
-        <% else %>
-          <strong>Turmas: </strong>Não está matriculado em nenhuma turma. Escolha uma clicando em 'Alterar'.
-        <% end %>
+      <td><strong>Turmas:</strong> <%= @enrollment.gym_class.schedule %></td>
     </tr>
   </tbody>
 </table>

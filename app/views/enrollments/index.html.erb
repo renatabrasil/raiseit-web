@@ -76,7 +76,7 @@
 				  <td colspan='7' style="text-align: left">
 				    <strong>Data de Cadastro: </strong><%= enrollment.start_date.blank? ? "-" : l(enrollment.start_date, :format => :date) %><br>
 				    <strong>Dia do Vencimento: </strong><%= enrollment.expiration_day %><br>
-				    <strong>Modalidade: </strong><%= enrollment.gym_class %><br>
+				    <strong>Modalidade: </strong><%= enrollment.gym_class.modality.name %><br>
 				    <strong>Periodicidade: </strong><%= enrollment.periodicity.description if !enrollment.periodicity.nil? %><br>
 				    <strong>Observação: </strong><%= enrollment.note.blank? ? "Não informado." : enrollment.note %><br>
 				  </td>
