@@ -31,6 +31,24 @@
                 .appendTo( ul );
         };
     });
+    
+    
+  function refreshField(field, field2, event){
+    changedValue = field2.value;
+    document.getElementById(field).value = changedValue;
+    // var changedValue = document.getElementById('value').value
+  }
+  
+  $(document).ready(function() {
+    $('#modalities_select').change(function() {
+      $.ajax({ url: '/modalities/'+ this.value + '/form_partial', 
+        //success : function(text) {
+        //      alert('success')
+        //   } 
+       });
+    });
+  });
+  
 </script>
 
 <%= render layout: "form" do |f| %>
@@ -61,13 +79,21 @@
       <!-- end of notes -->
     </div>
   </div>
-  
   <div class="row">
     <div class="form-group col-xs-4 col-sm-5 col-md-3">
       <%= f.label 'Modalidade'%>
-      <%= select_tag 'modality_id', options_for_select(Modality.all.collect {|p| [ p.name, p.id ] }, disabled: ""), {class: 'form-control'}%>
+      <%= select_tag 'modality_id', options_for_select(Modality.all.collect {|p| [ p.name, p.id ] }, disabled: ""), {prompt: "-- Selecione a modalidade --", class: 'form-control', id: "modalities_select", remote: true }%>
       <%#= select("enrollment", "modality_id", Modality.all.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione a modalidade --'}, {class: "form-control", id:"idModality"}) %>
     </div>
+  </div>
+  
+  <div id="gym_classes">
+    <% unless @gym_classes.blank? %>
+      <% @gym_classes.each do |gym_class| %>
+        <%= render gym_class %>
+      <% end %>
+    <% end %>
+    
   </div>
   
   <div class="row">
@@ -117,7 +143,7 @@
       <%= f.label 'Observação'%>
       <%= f.text_area :note, :rows => "5", :cols => "45", :class => "form-control"   %>
     </div>
-  </div>  
+  </div>
   
   <br><!-- criar classe e acrescentar margem pra substituir o <br> -->
 

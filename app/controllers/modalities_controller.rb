@@ -1,6 +1,19 @@
 class ModalitiesController < ApplicationController
   load_and_authorize_resource
   
+  def form_partial
+    @gym_classes = GymClass.where(modality_id: params[:id])
+    puts "modality_id: "+params[:id].to_s
+    @gym_classes.each do |gym_class|
+      puts "gym_class_id:"+gym_class.id.to_s
+    end
+    
+    respond_to do |format|
+     # format.html #responds with default html file
+     format.js #this will be the javascript file we respond with
+    end
+  end
+  
   def index
     @modalities = Modality.all.order("name ASC")
   end

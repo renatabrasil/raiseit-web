@@ -1,6 +1,14 @@
 class GymClassesController < ApplicationController
   load_and_authorize_resource
   
+  def form_partial
+    @gym_classes = GymClass.where(modality_id: params[:modality_id])
+    puts "modality_id: "+params[:modality_id].to_s
+    @gym_classes.each do |gym_class|
+      puts "gym_class_id:"+gym_class.id.to_s
+    end
+  end
+  
   def show
     @gym_class = GymClass.find(params[:id])
   

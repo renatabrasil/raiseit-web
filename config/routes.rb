@@ -19,6 +19,7 @@ SystemGym::Application.routes.draw do
     member do
       get 'student_attendance'
     end
+    # match "/form_partial/:id" => "gym_classes#form_partial" , via: :get
   end
 
   resources :equipments
@@ -41,7 +42,13 @@ SystemGym::Application.routes.draw do
     end
   end
   
-  resources :modalities
+  resources :modalities do
+    member do
+      get 'form_partial'  
+    end
+  end
+  
+  # match "/modalities/:id/form_partial" => "modalities#form_partial" , via: :get
   
   # In routes.rb
   get '/employee/:type_employee' => 'employees#new', as: 'login'

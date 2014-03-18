@@ -1,0 +1,17 @@
+<div class="row">
+      <div class="form-group col-xs-3 col-sm-8 col-md-3">
+        <div class="radio">
+          <%= 'Turma: '+gym_class.schedule %>
+          <%= radio_button_tag "gym_class_id", gym_class.id, class: 'form-control' %> oi
+        </div>
+      </div>
+      <div class="form-group col-xs-3 col-sm-8 col-md-3">
+        'Professor(es)'<br>
+          <% gym_class.instructors.each do |instructor| %>
+             - <%= instructor.blank? ? "Não informado" : instructor.name %> <br>
+          <% end %>
+      </div>
+      <div class="form-group col-xs-3 col-sm-8 col-md-2">
+          Alunos matriculados: <%= gym_class.students.size %>/<%= gym_class.capacity %>
+      </div>
+    </div>

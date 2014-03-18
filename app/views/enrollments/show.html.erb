@@ -18,7 +18,7 @@
       <td><strong>Dia do vencimento:</strong> <%= @enrollment.expiration_day %></td>
     </tr>
     <tr>
-      <td><strong>Modalidade:</strong> <%= @enrollment.gym_class.modality.name %></td>
+      <td><strong>Modalidade:</strong> <%= @enrollment.gym_class.blank? ? 'Não escolheu ainda' : @enrollment.gym_class.modality.name %></td>
     </tr>
     <tr>
       <td><strong>Valor:</strong> <%= @enrollment.value.blank? ? " - " : "R$ " + @enrollment.value.to_s %></td>
