@@ -5,8 +5,8 @@ class StudentController < ApplicationController
   def home
     @student = Student.find(params[:id])
     @how_many_students = EntryRecord.how_many_students?(Time.now)
-    @how_many_female_students = EntryRecord.how_many_female_students?(Time.now)
-    @how_many_male_students = EntryRecord.how_many_male_students?(Time.now)
+    @percentual_female_students = EntryRecord.percentual_female_students(Time.now)
+    @percentual_male_students = EntryRecord.percentual_male_students(Time.now)
   end
 
   def edit

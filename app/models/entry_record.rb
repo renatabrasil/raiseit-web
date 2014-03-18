@@ -8,8 +8,10 @@ class EntryRecord < ActiveRecord::Base
   def self.new_by_code_and_password(code, password)
     entry_record = EntryRecord.new
     password_valid = false
-    person = Individual.find_by code: code
-
+    person = Person.find_by code: code
+    
+    puts person.name
+    
     if !person.nil?
       # person = Person.find(person.individual_id)
       password_valid = person.user.valid_password?(password)      
@@ -60,5 +62,17 @@ class EntryRecord < ActiveRecord::Base
       .joins(:individual).where('people.gender' => 'M').count
   end
   
+  def self.percentual_female_students(time)
+    total = self.where(entry_time: time.beginning_of_day..time, exit_time: nil)
+      .count.to_f
+    
+    (how_many_female_students?(time) / (total.nonzero? || 1.0) ) * 100.0
+  end
   
+  def self.percentual_male_students(time)
+     total = self.where(entry_time: time.beginning_of_day..time, exit_time: nil)
+      .count.to_f
+    
+    (how_many_male_students?(time) / (total.nonzero? || 1.0) ) * 100.0    
+  end
 end
