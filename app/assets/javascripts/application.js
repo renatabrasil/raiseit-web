@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery_nested_form
+//= require raphael
+//= require morris
 //= require_tree .
 
 /**  

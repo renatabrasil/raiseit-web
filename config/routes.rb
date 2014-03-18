@@ -1,5 +1,15 @@
 SystemGym::Application.routes.draw do
   
+  scope '/student/:id' do
+    get '', to: 'student#home', as: 'student_home'
+    patch '', to: 'student#update'
+    put '', to: 'student#update'
+    get 'edit', to: 'student#edit', as: 'student_edit'
+    get 'payments', to: 'student#payments', as: 'student_payments'
+    get 'classes', to: 'student#classes', as: 'student_classes'
+    get 'workout_sheet', to: 'student#workout_sheet', as: 'student_workout_sheet'
+  end
+  
   resources :model_workout_sheets do
     collection do
       match 'new_copy', to: 'model_workout_sheets#new_copy', via: [:get, :post]

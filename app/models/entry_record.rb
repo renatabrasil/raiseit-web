@@ -46,4 +46,19 @@ class EntryRecord < ActiveRecord::Base
     end
   end
   
+  def self.how_many_students?(time)
+    self.where(entry_time: time.beginning_of_day..time, exit_time: nil).count
+  end
+  
+  def self.how_many_female_students?(time)
+    self.where(entry_time: time.beginning_of_day..time, exit_time: nil)
+      .joins(:individual).where('people.gender' => 'F').count
+  end
+  
+  def self.how_many_male_students?(time)
+    self.where(entry_time: time.beginning_of_day..time, exit_time: nil)
+      .joins(:individual).where('people.gender' => 'M').count
+  end
+  
+  
 end

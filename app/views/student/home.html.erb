@@ -1,0 +1,11 @@
+<h1> <%= @student.name %> </h1>
+
+<p> <%=link_to "Turmas", student_classes_path(@student)%></p>
+<p> <%=link_to "Editar Perfil", student_edit_path(@student)%></p>
+<p> <%=link_to "Pagamentos", student_payments_path(@student)%></p>
+<p> <%=link_to "Ficha de treino", student_workout_sheet_path(@student)%></p>
+
+<p> Existem <b> <%= @how_many_students %> </b> pessoas treinando no momento. </p>
+<p> A academia está <b> 30% </b> lotada. </p>
+<p> Media de homens treinando: <b> 30% </b> - <%= @how_many_male_students %> </p>
+<p> Media de mulheres treinando: <b> 70% </b> - <%= @how_many_female_students %> </p>

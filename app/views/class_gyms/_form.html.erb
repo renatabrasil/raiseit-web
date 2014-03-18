@@ -13,7 +13,7 @@
 <br>
 
 <fieldset>
-  <%= form_for([@class_gym], :html => { :class => :form }) do |f| -%>
+  <%= nested_form_for([@class_gym], :html => { :class => :form }) do |f| -%>
     
     <div class="row">
       <div class="form-group col-xs-4 col-sm-5 col-md-3">
@@ -29,13 +29,24 @@
       </div>
     </div>
     
-    <div class="row">
-      <div class="form-group col-xs-4 col-sm-5 col-md-3">
-        <%= f.label 'Horário'%>
-        <%= f.text_field :schedule, :class => "form-control", :onkeyup => "toUppercase(this);", :maxlength => "100" %>
-      </div>
-    </div>
+    <% week_array = [] 
+    Date::DAYNAMES.each_with_index { |day, i| week_array << [day, i] } %>
+    <%= f.fields_for :schedules do |fs| %>
+      <%= fs.select(:week_day, week_array, {include_blank: '---'})%>
+      <%= fs.label "De:" %>
+      <%= fs.time_field :start_time%>
+      <%= fs.label "Até:" %>
+      <%= fs.time_field :end_time%>
+      <%= fs.link_to_remove "Remover esse dia" %>
+    <% end %>
+    <p><%= f.link_to_add "Adicionar um dia", :schedules %></p>
+    <%= f.label "Todos os dias:"%> 
+    <%= label_tag "De:" %>
+    <%= time_field_tag :start_time%>
+    <%= label_tag "Até:" %>
+    <%= time_field_tag :end_time%>
     
+
     <div class="row">
       <div class="form-group col-xs-4 col-sm-5 col-md-3">
         <%= f.label 'Capacidade'%>
@@ -81,7 +92,7 @@
       <% else %>
       <button class="btn btn-info" type="submit">Alterar</button>
       <% end %>
-      <%= link_to "Cancelar", class_gyms_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos.", :class => 'btn btn-default' %>
+      <%= link_to "Cancelar", class_gyms_path, data: {confirm: "Deseja cancelar a operação? Todos os dados serão perdidos.", class: 'btn btn-default'} %>
     </div>
     
   <% end %>

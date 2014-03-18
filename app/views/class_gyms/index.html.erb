@@ -25,9 +25,13 @@
 	    <% if !@class_gyms.empty? %>
 	      <% @class_gyms.each do |class_gym| %>
 	        <tr>
-	          <td><%= class_gym.modality.name%> </td>
+	          <td><%= class_gym.modality.name if !class_gym.modality.nil? %> </td>
 	          <td><%= class_gym.start_date.blank? ? "-" : l(class_gym.start_date, :format => :date) %></td>
-	          <td><%= class_gym.schedule %></td>
+	          <td>
+	              <% class_gym.schedules. each do |schedule| %>
+                  <%= Date::DAYNAMES[schedule.week_day][0] %> &nbsp; 
+                <% end %>
+	          </td>
 	          <td>
 	            <% class_gym.instructors.each do |instructor| %>
 	               <%= instructor.blank? ? "Não informado" : instructor.name %> <br>
