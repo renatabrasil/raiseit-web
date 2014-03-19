@@ -52,7 +52,7 @@
 	          <td ><%= student.email %></td>
 	          <td>
 	              <% student.enrollments.each do |enrollment| %> 
-	               <%= enrollment.modality.name %> - Turma 1
+	               <%= enrollment.gym_class.modality.name %> - Turma 1
 	               <!-- Nome da Turma (Musculaçao tem Turma ùnica) -->
 	               <br />  
 	              <% end %>

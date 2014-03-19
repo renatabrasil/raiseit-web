@@ -1,36 +1,50 @@
-<br>
-<fiedset>
-  <% if @payment.errors.any? %>
-    <div class="alert alert-error">
-      <button type="button" class="close" data-dismiss="alert">×</button>
-        <ul>
-          <% @payment.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
-    </div>
-  
-  <% end %>
+<% if @payment.errors.any? %>
+  <div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+      <ul>
+        <% @payment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+  </div>
+
+<% end %>
   
 <%= nested_form_for(@payment, :html => { :class => :form }) do |f| -%>
-  
-  <%= f.label :pay_day, t("activerecord.attributes.payment.pay_day", :date => "Data do Pagamento"), :class => 'control-label' %>
-  <%= f.text_field :pay_day, :class => 'text_field', :onkeyup => "maskIt(this,event,'##/##/####')", :value => l(Date.today, :format => :date), :maxlength => "10" %>
-  
-  <br>
-  Feito por: <%= select("payment", "individual_id", Individual.collection.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione uma pessoa --'}, {class: "span4", onchange: "atualizaForm()", id:"idInstructor"}) %>
-  <br>
-  
-<br>  
-  <div class="form-actions-white">
-    <!-- <%= f.submit %> -->
-    <% if @payment.id.nil? %>
-    <button class="btn btn-primary" type="submit">Cadastrar</button>
-    <% else %>
-    <button class="btn btn-info" type="submit">Alterar</button>
-    <% end %>
-     
-    <%= link_to "Cancelar", payments_path, :confirm => "Deseja cancelar a operação? Todos os dados serão perdidos." %>
+
+  <div class="row">
+    <div class="form-group col-xs-8 col-sm-10 col-md-6">
+      <%= f.label 'Data do pagamento:'%>
+      <%= f.text_field :pay_day, :class => 'form-control input-medium', :onkeyup => "maskIt(this,event,'##/##/####')", :value => l(Date.today, :format => :date), :maxlength => "10" %>
+    </div>
   </div>
+  <div class="row">
+    <div class="form-group col-xs-8 col-sm-10 col-md-6">
+      <%= f.label 'Valor:'%>
+      <%= f.text_field :value, :class => 'form-control input-medium', :maxlength => "10" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-xs-8 col-sm-10 col-md-6">
+      <%= f.label 'Responsável:'%>
+      <%= select("payment", "individual_id", Individual.collection.collect {|p| [ p.name, p.id ] }, {include_blank: '-- Selecione uma pessoa --'}, {class: 'form-control input-xlarge', id:"idIndividual"}) %>
+    </div>
+  </div>
+  
+<br><!-- criar classe e acrescentar margem pra substituir o <br> -->
+
+<div class="form-buttons">
+  <% if @payment.id.nil? %>
+  <button class="btn btn-primary" type="submit">
+    Cadastrar
+  </button>
+  <% else %>
+  <button class="btn btn-info" type="submit">
+    Salvar
+  </button>
+  <% end %>
+  <%= link_to "Cancelar", payments_path, {confirm: "Deseja cancelar a operação? Todos os dados serão perdidos.", class: 'btn btn-default'} %>
+</div>
 <% end %>
-</fiedset>
+
+

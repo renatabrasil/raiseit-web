@@ -1,44 +1,48 @@
-<h2>Pagamentos cadastrados</h2>
+<% title " - Pagamentos" %>
+<div class="header">
+  Pagamentos
+  <hr class="hr-header">
+  <div class="subheader">
+  </div>
+</div>
 
-
+<br>
 <%= link_to 'Novo Pagamento', new_payment_path %>
-
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Dia do Pagamento</th>
-      <th>Responsável</th>
-      <th></th>
-    </tr>    
-  </thead>
-  <tbody>
-    <% if !@payments.empty? %>
-      <% @payments.each_with_index do |payment, i| %>
-        <tr>
-          <td style="text-align: center; width: 4%"><%= i+1 %></td>
-          <td><%= l(payment.pay_day, :format => :date) %></td>
-          <td><%= payment.individual.name %></td>
-          <td style="text-align: center; width: 20%">
-            <%= link_to(payment_path(payment), :class => "link-icon", :title => "Detalhar", :alt => "Detalhar") do %>
-               Detalhar
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover hover-dark table-condensed text-center">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Dia do Pagamento</th>
+        <th style="text-align: left">Responsável</th>
+        <th></th>
+      </tr>    
+    </thead>
+    <tbody>
+      <% if !@payments.empty? %>
+        <% @payments.each_with_index do |payment, i| %>
+          <tr>
+            <td style="text-align: center; width: 4%"><%= i+1 %></td>
+            <td><%= l(payment.pay_day, :format => :date) %></td>
+            <td style="text-align: left"><%= payment.individual.name %></td>
+            <td style="text-align: center; width: 20%">
+              <%= link_to(payment_path(payment), :title => "Detalhar", :alt => "Detalhar") do %>
+                 Detalhar
+                <% end %> |
+              <%= link_to(edit_payment_path(payment), :title => "Editar") do %>
+                 Editar
               <% end %> |
-            <%= link_to(edit_payment_path(payment), :class => "link-icon", :title => "Alterar") do %>
-               Editar
-            <% end %> |
-            <%= link_to(payment_path(payment), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro?")}", :class => "link-icon", :title => "Remover" ) do %>
-               Remover
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <% else %>
-    <tr>
-        <td colspan="4" style="text-align: center">
-          <font class="text-error" >Não há alunos cadastrados.</font>
-        </td>
+              <%= link_to(payment_path(payment), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro?")}", :title => "Remover" ) do %>
+                 Remover
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+      <tr>
+        <td colspan="4" style="text-align: center">Não há pagamentos cadastrados.</td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+      <% end %>
+    </tbody>
+  </table>
+</div>

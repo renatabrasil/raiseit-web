@@ -1,12 +1,30 @@
-<h1>Pagamento</h1>
+<% title " - Pagamentos" %>
+<div class="header">
+  Pagamentos
+  <hr class="hr-header">
+  <div class="subheader">
+    Detalhar
+  </div>
+</div>
 
-<table>
+<table class="table table-40 table-bordered table-condensed table-striped">
   <tbody>
     <tr>
       <td><strong>Dia do pagamento:</strong> <%= l(@payment.pay_day, :format => :date) %></td>
     </tr>
     <tr>
-      <td><strong>Código:</strong> <%= @payment.individual.code + " - " + @payment.individual.name %></td>
+      <td><strong>Valor:</strong> <%= @payment.value %></td>
+    </tr>
+    <tr>
+      <td><strong>Responsável:</strong> <%= @payment.individual.code + " - " + @payment.individual.name %></td>
     </tr>
   </tbody>
 </table>
+<br />
+
+<div>
+  <%= link_to "Voltar", payments_path, :class => 'btn btn-default'  %>
+  <%= link_to "Alterar", edit_payment_path(@payment), :class => 'btn btn-info' %>
+  <%= link_to "Remover", payment_path(@payment), :method => "delete", :confirm => "#{t("web-app-theme.confirm", :default => "Tem certeza que deseja remover este registro?")}", :class => 'btn btn-danger' %>
+</div>
+
