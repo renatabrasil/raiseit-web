@@ -1,3 +1,8 @@
+
+html, body, #wrapper {
+	height: 100%;
+}
+
 //redefine o icones de seta no menu lateral
 .active > a > .fa.arrowMenu:before {
     content: "\f13a";
@@ -7,7 +12,7 @@
 #page-wrapper {
 	background-color: #FDFDFD;
 	padding-bottom: 30px;
-	min-height: 0;
+	min-height: 100%;
 }
 
 
@@ -53,4 +58,11 @@ h2 {
 
 label{
 	font-weight: normal;
+}
+.teste{
+	overflow: hidden;
+	
+}
+
+#nav-wrapper, #page-wrapper{
 }
