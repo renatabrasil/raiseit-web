@@ -33,11 +33,13 @@
       <td><strong>Observação:</strong> <%= @enrollment.note %></td>
     </tr>
     <tr>
-      <td><strong>Turmas:</strong>
+      <td><strong>Turma:</strong>
       <% if !@enrollment.gym_class.schedules.blank? %>
-        <% @enrollment.gym_class.schedules. each do |schedule| %>
-          <%= Date::DAYNAMES[schedule.week_day][0] %> &nbsp; 
+        <% @enrollment.gym_class.schedules.each do |schedule| %>
+          <%= Date::DAYNAMES[schedule.week_day][0] %> &nbsp;
         <% end %>
+          (<%= @enrollment.gym_class.schedules.first.start_time.strftime("%R") %> -           
+          <%= @enrollment.gym_class.schedules.first.end_time.strftime("%R") %>)
       <% end %>
       
     </tr>

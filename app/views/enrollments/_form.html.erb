@@ -31,23 +31,6 @@
                 .appendTo( ul );
         };
     });
-    
-    
-  function refreshField(field, field2, event){
-    changedValue = field2.value;
-    document.getElementById(field).value = changedValue;
-    // var changedValue = document.getElementById('value').value
-  }
-  
-  $(document).ready(function() {
-    $('#modalities_select').change(function() {
-      $.ajax({ url: '/modalities/'+ this.value + '/form_partial'
-        //success : function(text) {
-        //      alert('success')
-        //   } 
-       });
-    });
-  });
   
 </script>
 
